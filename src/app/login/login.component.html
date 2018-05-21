@@ -1,0 +1,83 @@
+<div class="row justify-content-md-center marginlogin">
+  <div class="col-md-6">
+    <tabset [justified]="true">
+        <tab heading="Sign in" id="tab1"> <!-- LOGIN -->
+          <div class="card text-center">
+            <div class="card-body">
+
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="userid">
+                    <i class="fas fa-address-card"></i>
+                  </span>
+                </div>
+                <input [(ngModel)]="oUser.username" type="text" class="form-control" placeholder="User" aria-label="userid" aria-describedby="userid">
+              </div>
+
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="passwordid">
+                    <i class="fas fa-key"></i>
+                  </span>
+                </div>
+                <input [(ngModel)]="oUser.password" type="text" class="form-control" placeholder="Password" aria-label="passwordid" aria-describedby="passwordid">
+              </div>
+              <a (click)="this.authService.login(oUser)" class="btn btn-primary">Sing up</a>
+            </div>
+            <div class="card-footer text-muted">
+              Sign in to enjoy EasyAlert
+            </div>
+          </div>
+        </tab>
+        <tab heading="Sign up"> <!-- REGISTRARSE -->
+          <div class="card text-center">
+              <div class="card-body">
+
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="r.userid">
+                      <i class="fas fa-address-card"></i>
+                    </span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="Username" aria-label="r.userid" aria-describedby="r.userid">
+                </div>
+
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="r.passwordid">
+                      <i class="fas fa-key"></i>
+                    </span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="Password" aria-label="r.passwordid" aria-describedby="r.passwordid">
+                </div>
+
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="r.password2id">
+                      <i class="fas fa-key"></i>
+                    </span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="Password" aria-label="r.password2id" aria-describedby="r.password2id">
+                </div>
+
+                <a class="btn btn-primary">Create an account</a>
+              </div>
+              <div class="card-footer text-muted">
+                Create an account to enjoy EasyAlert
+              </div>
+            </div>
+        </tab>
+    </tabset>
+      <!--<div class="card-header">
+        Featured
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+      <div class="card-footer text-muted">
+        2 days ago
+      </div>-->
+  </div>
+</div>

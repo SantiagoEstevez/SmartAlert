@@ -1,1 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+.menuitem {
+    margin-left: 1em;
+}
+
+.marginlogin {
+    margin-top: 5em;
+}
+
+nav {
+   background-color: #4527a0; 
+}
