@@ -32,6 +32,7 @@ import { AuthInterceptor } from './_interceptors/auth-interceptor';
 
 //Guardian
 import { AuthGuard } from './auth.guard';
+import { NodeDetailsComponent } from './node-details/node-details.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { AuthGuard } from './auth.guard';
     DashboardComponent,
     MapComponent,
     NavbarComponent,
-    ProfileComponent
+    ProfileComponent,
+    NodeDetailsComponent
   ],
   imports: [
     BrowserModule,

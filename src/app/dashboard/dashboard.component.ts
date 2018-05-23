@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Chart } from 'chart.js';
 import { AuthService } from '../_services/auth.service'
 import { GraphService } from '../_services/graph.service'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-dashboard',
@@ -16,7 +17,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private graphService: GraphService
+    private graphService: GraphService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -37,12 +39,12 @@ export class DashboardComponent implements OnInit {
           data: {
             labels: weatherDates,
             datasets: [
-              { 
+              {
                 data: temp_max,
                 borderColor: "#3cba9f",
                 fill: false
               },
-              { 
+              {
                 data: temp_min,
                 borderColor: "#ffcc00",
                 fill: false
@@ -65,14 +67,26 @@ export class DashboardComponent implements OnInit {
         });
       });*/
 
-   this.DoughnutChart = new Chart('doughnutChart', {
+
+
+
+
+
+
+
+
+
+
+
+
+    this.DoughnutChart = new Chart('doughnutChart', {
         type: 'doughnut',
         data: {
             datasets: [{
                 backgroundColor: ['rgb(255, 99, 132)', 'rgb(255, 99, 0)', 'rgb(255, 0, 132)'],
                 data: [10, 20, 30]
             }],
-        
+
             // These labels appear in the legend and in the tooltips when hovering different arcs
             labels: [
                 'Red',
@@ -91,7 +105,7 @@ export class DashboardComponent implements OnInit {
           },
           elements: {
             pointStyle: 'circle'
-          } 
+          }
         }
     });
 
@@ -103,7 +117,7 @@ export class DashboardComponent implements OnInit {
                   backgroundColor: ['rgb(255, 99, 132)', 'rgb(255, 99, 0)'],
                   data: [res.body.memoriaEnUso, res.body.memoriaLibre]
               }],
-          
+
               // These labels appear in the legend and in the tooltips when hovering different arcs
               labels: [
                   'Memoria en uso',
@@ -121,9 +135,14 @@ export class DashboardComponent implements OnInit {
             },
             elements: {
               pointStyle: 'circle'
-            } 
+            }
           }
       });
     });
+  }
+
+  openDetails(){
+    alert("show details");
+    this.router.navigate(['./node-details'])
   }
 }
