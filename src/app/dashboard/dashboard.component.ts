@@ -100,12 +100,13 @@ export class DashboardComponent implements OnInit {
           type: 'pie',
           data: {
               datasets: [{
-                  backgroundColor: ['rgb(255, 99, 132)'],
-                  data: [res]
+                  backgroundColor: ['rgb(255, 99, 132)', 'rgb(255, 99, 0)'],
+                  data: [res.body.memoriaEnUso, res.body.memoriaLibre]
               }],
           
               // These labels appear in the legend and in the tooltips when hovering different arcs
               labels: [
+                  'Memoria en uso',
                   'Memoria libre'
               ]
           },

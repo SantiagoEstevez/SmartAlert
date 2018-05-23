@@ -23,18 +23,20 @@ export class AuthService {
   login(oUser: User): any {
     let userData64: string = `${oUser.username}:${oUser.password}`;
     this.headers = this.headers.set("Authorization", "Basic " + btoa(userData64));
-    //const url = `${environment.api_urlbase}rest/seguridad/token`;
-    const url = `${environment.api_urlbase}values/token`;
+    const url = `${environment.api_urlbase}rest/seguridad/token`;
+    //const url = `${environment.api_urlbase}values/token`;
 
     this.http.get(url, {observe: 'response', headers : this.headers})
       .subscribe(
         res => {
-          this.cookieService.set('@easyaler::token', res.headers.get('SecurityToken'));
+          this.cookieService.set('@easyaler::token', res.body['securityToken']);
           this.cookieService.set('@easyaler::user', "user model");
           this.router.navigate(['dashboard']);
           return true;
         },
         err => {
+          console.log("error");
+          console.log(err);
           return false;
         }
       );

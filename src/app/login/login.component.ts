@@ -10,7 +10,7 @@ import { User } from '../_models/user'
 export class LoginComponent implements OnInit {
 
   constructor(
-    private authService: AuthService
+    public authService: AuthService
   ) { }
 
   oUser: User;
