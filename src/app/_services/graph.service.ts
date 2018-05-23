@@ -16,6 +16,7 @@ export class GraphService {
   getMemory() {
     const url = `${environment.api_urlbase}rest/info/free/node3`;
     //const url = `${environment.api_urlbase}values/5`;
+    // hola
     
     return this.http.get<Memory>(url, {observe: 'response'}).pipe(res => res);  
   }
