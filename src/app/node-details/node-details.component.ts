@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ListNodes } from '../_services/listNodes.service';
 import { MemoryComponent } from '../memory/memory.component';
+import { HardDiskComponent } from '../hard-disk/hard-disk.component'
 
 @Component({
   selector: 'app-node-details',

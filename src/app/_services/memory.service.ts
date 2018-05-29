@@ -6,7 +6,7 @@ import { Memory } from '../_models/memory';
 @Injectable()
 export class MemoryService {
 
-  private totalMemory = { "memoriaLibre":2821, "memoriaTotal":2948, "memoriaEnUso":126}
+  private totalMemory = { memoriaLibre:2821, memoriaTotal:2948, memoriaEnUso:126}
   private _nodeName:string;
 
   constructor( private http: HttpClient ) { }

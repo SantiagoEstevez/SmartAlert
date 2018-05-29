@@ -1,4 +1,13 @@
 <h4>Memoria del nodo</h4>
-<p>{{ memoryNode.memoriaLibre }}</p>
-<p>{{ memoryNode.memoriaTotal }}</p>
-<p>{{ memoryNode.memoriaEnUso }}</p>
+<hr>
+<div>
+  <p>Memoria en uso:  {{ memoryNode.memoriaEnUso }}</p>
+  <p>Memoria Libre: {{ memoryNode.memoriaLibre }}</p>
+  <p>Memoria Total:  {{ memoryNode.memoriaTotal }}</p>
+</div>
+<div class="card text-center">
+    <div class="card-body">
+        <h5 class="card-title">Lag</h5>
+        <canvas id="pieChart"> PieCahrt </canvas>
+    </div>
+</div>
