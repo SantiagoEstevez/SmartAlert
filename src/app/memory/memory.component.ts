@@ -22,10 +22,10 @@ export class MemoryComponent implements OnInit {
 
 
       this.PieChart = new Chart('pieChart', {
-          type: 'pie',
+          type: 'bar',
           data: {
               datasets: [{
-                  backgroundColor: ['rgb(255, 99, 132)', 'rgb(255, 99, 0)'],
+                  backgroundColor: ['rgb(255, 99, 132)', 'rgb(255, 99, 0)', 'rgb(55, 199, 40)'],
                   data: [this.memoryNode.memoriaEnUso, this.memoryNode.memoriaLibre, this.memoryNode.memoriaTotal]
               }],
 
@@ -37,21 +37,12 @@ export class MemoryComponent implements OnInit {
               ]
           },
           options: {
-            legend: {
-                display: true,
-                position: 'bottom',
-                labels: {
-                    fontColor: 'rgb(255, 99, 132)',
-                    usePointStyle: true
-                }
+
             },
             elements: {
               pointStyle: 'circle'
             }
           }
-      });
-    };
-
-  }
-
+      );
+    }
 }

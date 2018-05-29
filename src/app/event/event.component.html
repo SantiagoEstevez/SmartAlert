@@ -6,10 +6,11 @@
       </a>
   </div>
 </div>
-<h1>Gestion de eventos</h1>
-<hr>
+
 <div class="col-20">
-  <form>
+  <form class="container align-items-center">
+    <h1>Gestion de eventos</h1>
+    <hr>
     <div class="row-12">
       Nombre: <input name="nombre" type="textbox">
     </div>
@@ -17,5 +18,28 @@
     <div class="row-12">
       Descripcion: <input name="descripcion" type="text">
     </div>
+    <hr>
+    <div class="row-12">
+      <button name="boton" class="btn btn-outline-primary" type="button" >Crear Evento</button>
+    </div>
   </form>
 </div>
+
+<hr>
+
+<table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nombre Evento</th>
+      <th scope="col">Activo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let event of events">
+      <th scope="row">1</th>
+      <td>{{ event.nombreEvento }}</td>
+      <td> {{ event.activo }}</td>
+    </tr>
+  </tbody>
+</table>
