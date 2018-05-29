@@ -25,14 +25,17 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ProfileComponent } from './profile/profile.component';
 
 //Servicios
-//import { AuthService } from './_services/auth.service'; 
-//import { GraphService } from './_services/graph.service';
+import { AuthService } from './_services/auth.service';
+import { GraphService } from './_services/graph.service';
 import { CookieService } from 'ngx-cookie-service';
-import { AuthInterceptor } from './_interceptors/auth-interceptor'; 
+import { AuthInterceptor } from './_interceptors/auth-interceptor';
+import { ListNodes } from './_services/listNodes.service';
+import { MemoryService } from './_services/memory.service'
 
 //Guardian
 import { AuthGuard } from './auth.guard';
 import { NodeDetailsComponent } from './node-details/node-details.component';
+import { MemoryComponent } from './memory/memory.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +48,8 @@ import { NodeDetailsComponent } from './node-details/node-details.component';
     MapComponent,
     NavbarComponent,
     ProfileComponent,
-    NodeDetailsComponent
+    NodeDetailsComponent,
+    MemoryComponent
   ],
   imports: [
     BrowserModule,
@@ -60,6 +64,8 @@ import { NodeDetailsComponent } from './node-details/node-details.component';
     FormsModule
   ],
   providers: [
+    ListNodes,
+    MemoryService,
     CookieService,
     {
       provide: HTTP_INTERCEPTORS,

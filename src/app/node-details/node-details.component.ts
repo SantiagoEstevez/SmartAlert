@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ListNodes } from '../_services/listNodes.service';
+import { MemoryComponent } from '../memory/memory.component';
 
 @Component({
   selector: 'app-node-details',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NodeDetailsComponent implements OnInit {
 
-  constructor() { }
+  constructor( private _listNodesService:ListNodes ) {
+
+  }
 
   ngOnInit() {
+
   }
 
 }

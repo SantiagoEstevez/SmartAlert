@@ -1,42 +1,39 @@
-<div class="row">
-  <div class="col-12">
-      <div class="card-columns">
-          <!--<div class="card text-center">
-              <div class="card-body">
-                  <h5 class="card-title">Lag</h5>
-                  <canvas id="canvas"> chart </canvas>
-              </div>
-              <div class="card-footer text-muted">
-                  2 days ago
-              </div>
-          </div>-->
-
-          <div name="Nodo1" class="card text-center" (click)="openDetails()">
-            <h1>Nodo1</h1>
-            <p>Memoria: 100</p>
-            <p>CPU: 41</p>
-          </div>
-
-
-          <div class="card text-center">
-              <div class="card-body">
-                  <h5 class="card-title">Lag</h5>
-                  <canvas id="doughnutChart"> DoughnutChart </canvas>
-              </div>
-              <div class="card-footer text-muted">
-                  2 days ago
-              </div>
-          </div>
-
-          <div class="card text-center">
-              <div class="card-body">
-                  <h5 class="card-title">Lag</h5>
-                  <canvas id="pieChart"> PieCahrt </canvas>
-              </div>
-              <div class="card-footer text-muted">
-                  2 days ago h
-              </div>
-          </div>
+<h1>Nodos operativos</h1>
+<hr>
+<div class="card-columns">
+  <div *ngFor="let node of nodeList, let index = index">
+    <div class="card">
+      <div class="card-block" [routerLink]="['node-detail']">
+        <h4 class="card-title">{{ node.name }}</h4>
+        <p class="card-text">Sistema Operativo: {{ node.distro }}</p>
+        <p class="card-text">IP interna: {{ node.ipAddress }}</p>
+        <p class="card-text">IP publica: {{ node.ipPublica }}</p>
+        <p class="card-text">Procesadores: {{ node.cantCpus }}</p>
+        <p class="card-text">Ram: {{ node.totalRAM }}</p>
       </div>
+    </div>
   </div>
 </div>
+
+<div class="card-block" [routerLink]="['node-detail']">
+  <h4 class="card-title">asd</h4>
+</div>
+    <!-- <div class="card text-center">
+        <div class="card-body">
+            <h5 class="card-title">Lag</h5>
+            <canvas id="doughnutChart"> DoughnutChart </canvas>
+        </div>
+        <div class="card-footer text-muted">
+            2 days ago
+        </div>
+    </div>
+
+    <div class="card text-center">
+        <div class="card-body">
+            <h5 class="card-title">Lag</h5>
+            <canvas id="pieChart"> PieCahrt </canvas>
+        </div>
+        <div class="card-footer text-muted">
+            2 days ago h
+        </div>
+    </div> -->

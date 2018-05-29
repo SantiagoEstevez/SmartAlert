@@ -3,6 +3,9 @@ import { Chart } from 'chart.js';
 import { AuthService } from '../_services/auth.service'
 import { GraphService } from '../_services/graph.service'
 import { Router } from '@angular/router'
+import { NodeDetailsComponent } from '../node-details/node-details.component'
+import { ListNodes } from '../_services/listNodes.service';
+import { NodeDetails } from '../_models/node-details';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,6 +14,7 @@ import { Router } from '@angular/router'
 })
 export class DashboardComponent implements OnInit {
 
+  private nodeList:NodeDetails[];
   chart = [];
   DoughnutChart: any;
   PieChart: any;
@@ -18,10 +22,15 @@ export class DashboardComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private graphService: GraphService,
-    private router: Router
+    private router: Router,
+    private _listNodesService:ListNodes
   ) { }
 
   ngOnInit() {
+
+    this.nodeList = this._listNodesService.getNodes("nodo");
+
+
     /*this._weather.dailyForecast()
       .subscribe(res => {
         let temp_max = res['list'].map(res => res.main.temp_max);
@@ -78,7 +87,7 @@ export class DashboardComponent implements OnInit {
 
 
 
-
+/*
     this.DoughnutChart = new Chart('doughnutChart', {
         type: 'doughnut',
         data: {
@@ -139,10 +148,6 @@ export class DashboardComponent implements OnInit {
           }
       });
     });
-  }
-
-  openDetails(){
-    alert("show details");
-    this.router.navigate(['./node-details'])
+*/
   }
 }

@@ -1,6 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bootstrap/dist/css/bootstrap.min.css';
 
+body{
+  padding-bottom: 50px;
+}
+
 .menuitem {
     margin-left: 1em;
 }
@@ -10,5 +14,5 @@
 }
 
 nav {
-   background-color: #4527a0; 
+   background-color: #4527a0;
 }

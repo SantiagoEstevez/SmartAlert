@@ -1,5 +1,5 @@
 export class Memory {
-    memoriaLibre: number;
+  memoriaLibre: number;
 	memoriaTotal: number;
 	memoriaEnUso: number;
 }
