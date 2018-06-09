@@ -12,10 +12,11 @@ export class MemoryService {
   constructor( private http: HttpClient ) { }
 
   getMemory( node:string ){
+
     const url = `${environment.api_urlbase}/rest/info/free/` + node;
 
-    //return this.http.get<Memory>(url, {observe: 'response'}).pipe(res => res);
+    return this.http.get<Memory>(url, {observe: 'response'}).pipe(res => res);
 
-    return this.totalMemory;
+    //return this.totalMemory;
   }
 }

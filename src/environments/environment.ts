@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  api_urlbase: "http://172.16.104.83:8080/Proyecto2018/"
+  api_urlbase: "http://localhost:8080/Proyecto2018/"
 };
 
 /*

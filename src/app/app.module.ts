@@ -38,6 +38,7 @@ import { AuthGuard } from './auth.guard';
 import { NodeDetailsComponent } from './node-details/node-details.component';
 import { MemoryComponent } from './memory/memory.component';
 import { HardDiskComponent } from './hard-disk/hard-disk.component';
+import { LogRealTimeComponent } from './log-real-time/log-real-time.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { HardDiskComponent } from './hard-disk/hard-disk.component';
     ProfileComponent,
     NodeDetailsComponent,
     MemoryComponent,
-    HardDiskComponent
+    HardDiskComponent,
+    LogRealTimeComponent
   ],
   imports: [
     BrowserModule,
