@@ -15,7 +15,7 @@ export class ListNodes {
 
   getNodesNames(){
 
-    const url = `${environment.api_urlbase}rest/infraTest/listarNodos`;
+    const url = `${environment.api_urlbase}rest/infra/listarNodos`;
 
       return this.http.get(url);
 /*
@@ -41,7 +41,7 @@ export class ListNodes {
 
   getNodesDetails(name:string){
 
-    const url = `${environment.api_urlbase}rest/infoTest/cabezal/` + name;
+    const url = `${environment.api_urlbase}rest/info/cabezal/` + name;
 
     return this.http.get(url);
 /*
