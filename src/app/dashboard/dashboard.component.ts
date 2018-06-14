@@ -14,8 +14,8 @@ import { NodeDetails } from '../_models/node-details';
 })
 export class DashboardComponent implements OnInit {
 
-  private nodeList:NodeDetails[];
-  private nodesNames:string[];
+  private nodeList:NodeDetails[] = [];
+  private nodesNames:Array<any> = [];
   chart = [];
   DoughnutChart: any;
   PieChart: any;
@@ -29,10 +29,38 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
 
-    this.nodesNames = this._listNodesService.getNodesNames();
+    let nodos = this._listNodesService.getNodesNames().subscribe( data => {
+      for(let node in data){
+        if(data[node] != undefined && data[node] != "syslog"){
+          this._listNodesService.getNodesDetails(data[node]).subscribe( res => {
+            let newNode = new NodeDetails();
+            newNode.cantCpus = res["cantCpus"];
+            newNode.distro = res["distro"];
+            newNode.ipAddress = res["ipAddress"];
+            newNode.ipPublica = res["ipPublica"];
+            newNode.name = data[node];
+            newNode.totalRAM = res["totalRAM"];
+            this.nodeList.push(newNode);
+          })
+        }
+      }
+    });
 
-    console.log('dash 1 ' + this._listNodesService.getNodesNames());
+    //console.log('dash 1 ' + JSON.stringify(nodos));
+    //console.log('nodesnames ' + this.nodesNames);
+
+/*
+    this.http.get(url).subscribe( data => {
+      for(let node in data){
+        this.nodesNames.push(data[node]);
+      }
+    });
+*/
+    //console.log(this.nodesNames);
 
 
+    //this.nodesNames.forEach((x) => {
+      //this.nodeList.push(this._listNodesService.getNodesDetails(x));
+    //});
   }
 }

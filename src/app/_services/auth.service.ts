@@ -29,6 +29,7 @@ export class AuthService {
     this.http.get(url, {observe: 'response', headers : this.headers})
       .subscribe(
         res => {
+          console.log('1');
           this.cookieService.set('@easyaler::token', res.body['securityToken']);
           this.cookieService.set('@easyaler::user', "user model");
           this.router.navigate(['dashboard']);

@@ -15,10 +15,12 @@ export class HardDiskService {
 
   getDiskInformation( nodo:string ){
 
-    const url = `${environment.api_urlbase}/rest/info/infoDisco/` + nodo;
+    const url = `${environment.api_urlbase}rest/infotest/infoDisco/` + nodo;
 
     //return this.http.get<HardDiskInfo>(url, {observe: 'response'}).pipe(res => res);
 
-    return this.hdi;
+    return this.http.get<HardDiskInfo>(url);
+
+    //return this.hdi;
   }
 }

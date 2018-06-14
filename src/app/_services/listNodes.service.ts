@@ -6,19 +6,28 @@ import { NodeDetails } from '../_models/node-details';
 @Injectable()
 export class ListNodes {
 
-  private nodesNames:string[];
+  private nodesNames:any[];
   private nodesList:NodeDetails[]; //= [ { name:"Node 1", distro:"Linux", ipPublica:"128.168.3.2", cantCpus:3, totalRAM:1024}, { name:"Node 2", distro:"Windows"}];
 
-  constructor( private http: HttpClient ) { }
+  constructor( private http: HttpClient) {
+
+  }
 
   getNodesNames(){
+
     const url = `${environment.api_urlbase}rest/infratest/listarNodos`;
 
+      return this.http.get(url);
+/*
     this.http.get(url, {observe: 'response'}).subscribe(
         res => {
+          res.body.map()
+          console.log('body: ' + res.body);
+          JSON.parse(res.body).forEach(x => {
 
-          this.nodesNames = JSON.stringify(res.body).replace("[","").replace("]","").replace(',',"").split("\"\"");
-          console.log(this.nodesNames);
+          })
+          console.log()
+          //this.nodesNames = JSON.stringify(res.body).replace("[","").replace("]","").replace(',',"").split("\"\"");
         },
         err => {
           console.log("error");
@@ -27,33 +36,28 @@ export class ListNodes {
       );
 
       return this.nodesNames;
+      */
   }
 
-  getNodes(){
+  getNodesDetails(name:string){
 
-    console.log('1 ' + JSON.stringify(this.nodesNames));
-    this.nodesNames.forEach(x => {
+    const url = `${environment.api_urlbase}rest/infotest/cabezal/` + name;
 
-      const url = `${environment.api_urlbase}/rest/infotest/cabezal/` + x;
+    return this.http.get(url);
+/*
+    this.http.get(url, {observe: 'response'}).subscribe(
+        res => {
+          console.log(JSON.stringify(res));
+          return true;
+        },
+        err => {
+          console.log("error");
+          console.log(err);
+          return false;
+        }
+      );
 
-      this.http.get(url, {observe: 'response'}).subscribe(
-          res => {
-
-            console.log(JSON.stringify(res));
-            return true;
-          },
-          err => {
-            console.log("error");
-            console.log(err);
-            return false;
-          }
-        );
-
-    })
-
-
-
-    return this.nodesList;
-
+    return new NodeDetails();
+*/
   }
 }
