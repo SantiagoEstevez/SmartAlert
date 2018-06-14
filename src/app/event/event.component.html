@@ -1,32 +1,36 @@
 <div class="row text-right">
   <div class="col-12">
-      <a class="nav-link btn-block" [routerLink]="['event/new']">
+      <a (click)="mostrarAdd()" class="nav-link btn-block" [routerLink]="">
           new
           <i class="fas fa-plus"></i>
       </a>
   </div>
 </div>
-
-<div class="col-20">
-  <form class="container align-items-center">
-    <h1>Gestion de eventos</h1>
-    <hr>
-    <div class="row-12">
-      Nombre: <input name="nombre" type="textbox">
-    </div>
-    <hr>
-    <div class="row-12">
-      Descripcion: <input name="descripcion" type="text">
-    </div>
-    <hr>
-    <div class="row-12">
-      <button name="boton" class="btn btn-outline-primary" type="button" >Crear Evento</button>
-    </div>
-  </form>
+<div class="row">
+  <div *ngIf="verAdd" class="col-12">
+    <form>
+      <div class="form-group">
+        <label for="eventName">Nombre evento</label>
+        <input #eventNam type="text" class="form-control" id="eventName" aria-describedby="emailHelp" placeholder="nombre">
+      </div>
+      <div class="form-group">
+        <label for="eventDetail">Descripcion</label>
+        <input #eventDet type="text" class="form-control" id="eventDetail" placeholder="descripcion">
+      </div>
+      <label>Configuracion</label>
+      <div class="form-group">
+        <select #eventType *ngFor="let type of types" class="form-control" id="exampleFormControlSelect1">
+            <option value="{{type.id_tipo}}">{{type.nombre_tipo}}</option>
+          </select>
+      </div>
+      <div class="form-group">
+        <input #eventAlert type="text" class="form-control" id="eventConfigAlert" placeholder="alerta">
+      </div>
+      <button (click)="addEvent(eventNam.value, eventDet.value, eventType.value, eventAlert.value)" type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
 </div>
-
 <hr>
-
 <table class="table table-dark">
   <thead>
     <tr>

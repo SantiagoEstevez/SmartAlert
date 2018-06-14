@@ -15,7 +15,7 @@ export class HardDiskService {
 
   getDiskInformation( nodo:string ){
 
-    const url = `${environment.api_urlbase}rest/infotest/infoDisco/` + nodo;
+    const url = `${environment.api_urlbase}rest/infoTest/infoDisco/` + nodo;
 
     //return this.http.get<HardDiskInfo>(url, {observe: 'response'}).pipe(res => res);
 

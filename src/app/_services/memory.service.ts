@@ -13,7 +13,7 @@ export class MemoryService {
 
   getMemory( node:string ){
 
-    const url = `${environment.api_urlbase}rest/infotest/free/` + node;
+    const url = `${environment.api_urlbase}rest/infoTest/free/` + node;
 
     //return this.http.get<Memory>(url, {observe: 'response'}).pipe(res => res);
 
