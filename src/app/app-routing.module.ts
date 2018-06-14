@@ -12,6 +12,7 @@ import { AlertComponent }   from './alert/alert.component';
 import { ProfileComponent }   from './profile/profile.component';
 import { MapComponent }   from './map/map.component';
 import { NodeDetailsComponent } from './node-details/node-details.component';
+import { AgentComponent } from './agent/agent.component';
 
 //Guerdian
 import { AuthGuard } from './auth.guard';
@@ -25,7 +26,8 @@ const routes: Routes = [
   { path: 'map', component: MapComponent},
   { path: 'dashboard/node-detail/:name', component: NodeDetailsComponent},
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-  { path: '**', component: ErrorComponent }
+  { path: '**', component: ErrorComponent },
+  { path: 'agent', component: AgentComponent }
   //{ path: 'detail/:id', component: NavbarComponent }, esto lo dejo como muestra de q puedo pasar un parametro. por la url
 ];
 
