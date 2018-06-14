@@ -25,8 +25,8 @@ export class EventComponent implements OnInit {
       this.events = res.body;
     });
 
-    this.eventService.getTypes().subscribe(res => {
-      this.eventTypes = res.body;
+    this.eventService.getTypes().subscribe(resType => {
+      this.eventTypes = resType.body;
     });
   }
 

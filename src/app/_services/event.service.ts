@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { EventConfiguration } from '../_models/eventConf';
 import { Event } from '../_models/event';
+import { EventType } from '../_models/EventType';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class EventService {
 
   getTypes() {
     const url = `${environment.api_urlbase}rest/eventos/getTiposEventos`;
-    return this.http.get<Event[]>(url, {observe: 'response'}).pipe(res => res);
+    return this.http.get<EventType[]>(url, {observe: 'response'}).pipe(res => res);
   }
 
   addEvent(eventName: string, eventDetail: string, listConfig: EventConfiguration[]) : void {
