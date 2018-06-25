@@ -1,5 +1,5 @@
 <!--*ngIf="authService.getLoginStatus()"-->
-<nav *ngIf="authService.getLoginStatus()" class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+<nav *ngIf="authService.getLoginStatus()" class="navbar navbar-expand-lg navbar-light mb-4">
   <a class="navbar-brand" [routerLink]="">
     <i class="fas fa-eye" style="font-size: 1.5em"></i>
   </a>
@@ -10,20 +10,20 @@
   <div [collapse]=!isCollapsed class="collapse navbar-collapse" id="navbarSupportedContent" aria-expanded="false">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active menuitem">
-        <a class="nav-link" [routerLink]="['dashboard']">
+        <a class="nav-link white" [routerLink]="['dashboard']">
           <i class="fas fa-chart-line"></i>
           Dashboard
           <span class="sr-only">(current)</span>
         </a>
       </li>
       <li class="nav-item menuitem">
-        <a class="nav-link" [routerLink]="['events']">
+        <a class="nav-link white" [routerLink]="['events']">
           <i class="fas fa-bell"></i>
           Events
         </a>
       </li>
       <li class="nav-item menuitem">
-        <a class="nav-link" [routerLink]="['agent']">
+        <a class="nav-link white" [routerLink]="['agent']">
           <i class="fas fa-exclamation"></i>
           Ingresos
         </a>
@@ -35,7 +35,7 @@
             <i class="fas fa-user-circle" style="font-size: 1.5em"></i>
           </a>
           <div *dropdownMenu class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" [routerLink]="['profile']">Nombre usuario</a>
+            <a class="dropdown-item white" [routerLink]="['profile']">Nombre usuario</a>
             <div class="dropdown-divider"></div>
             <a (click)="authService.logout()" class="dropdown-item" [routerLink]="">Logout</a>
           </div>

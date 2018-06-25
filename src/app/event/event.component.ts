@@ -100,4 +100,28 @@ export class EventComponent implements OnInit {
   decline(): void {
     this.modalRef.hide();
   }
+  
+  swichStatus(swich: boolean, idEvent: number): void {
+    if (swich) {
+      this.eventService.activeEvent(idEvent).subscribe(res => {
+        this.init();
+      });
+    } else {
+      this.eventService.disableEvent(idEvent).subscribe(res => {
+        this.init();
+      });
+    }
+  }
+
+  swichSuscribe(swich: boolean, idEvent: number): void {
+    if (swich) {
+      this.eventService.suscribeEvent(idEvent).subscribe(res => {
+        this.init();
+      });
+    } else {
+      this.eventService.unsuscribeEvent(idEvent).subscribe(res => {
+        this.init();
+      });
+    }
+  }
 }

@@ -38,8 +38,27 @@ export class EventService {
   addConfigs(nombre: String, listConfig: EventConfiguration[]) {
     for(let i in listConfig){
       const urlConfig = `${environment.api_urlbase}rest/eventos/confEventoG/${nombre}/${listConfig[i].tipo}/${listConfig[i].nivel}/${listConfig[i].alerta}`;
-      this.http.post(urlConfig, "");
+      this.http.put(urlConfig, "");
     }
   }
-  
+
+  activeEvent(idEvent: number) {
+    const urlHead = `${environment.api_urlbase}rest/eventos/activarEG/${idEvent}`;
+    return this.http.put(urlHead, "").pipe(res => res);
+  }
+
+  disableEvent(idEvent: number) {
+    const urlHead = `${environment.api_urlbase}rest/eventos/desactivarEG/${idEvent}`;
+    return this.http.put(urlHead, "").pipe(res => res);
+  }
+
+  suscribeEvent(idEvent: number) {
+    const urlHead = `${environment.api_urlbase}rest/eventos/sus_eg/${idEvent}`;
+    return this.http.post(urlHead, "").pipe(res => res);
+  }
+
+  unsuscribeEvent(idEvent: number) {
+    const urlHead = `${environment.api_urlbase}rest/eventos/cancela_sus_evento_global/${idEvent}`;
+    return this.http.put(urlHead, "").pipe(res => res);
+  }
 }

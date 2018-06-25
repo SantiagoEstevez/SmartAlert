@@ -14,5 +14,11 @@ body{
 }
 
 nav {
-   background-color: #4527a0;
+   background-color: #3949ab;
 }
+
+li > .nav-link {
+    color: white !important;
+ }
+
+

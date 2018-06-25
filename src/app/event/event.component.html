@@ -69,22 +69,41 @@
   </div>
 </div>
 <hr>
-<table class="table table-dark">
+
+<!-- Lista de eventos -->
+<table class="table table-hover">
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Nombre Evento</th>
       <th scope="col">Activo</th>
+      <th scope="col">Nombre Evento</th>
+      <th scope="col" style="width: 300px;"></th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let event of events">
-      <th scope="row">1</th>
-      <td>{{ event.nombreEvento }}</td>
-      <td> {{ event.activo }}</td>
+      <th scope="row">{{event.idEvento}}</th>
+
+      <!-- Activo o desactivo -->
+      <td *ngIf="!event.activo"><button type="button" class="btn btn-success" disabled></button></td>
+      <td *ngIf="event.activo"><button type="button" class="btn btn-danger" disabled></button></td>
+
+      <td>{{event.nombreEvento}}</td>
+
+      <td >
+        <!-- Activar o desactivar -->
+        <button *ngIf="!event.activo" (click)="swichStatus(true, event.idEvento)" type="button" class="btn btn-outline-success">Activar</button>
+        <button *ngIf="event.activo" (click)="swichStatus(false, event.idEvento)" type="button" class="btn btn-outline-danger">Desactivar</button>
+
+        <!-- Suscribirme o desuscribirme -->
+        <button *ngIf="!event.activo" (click)="swichSuscribe(true, event.idEvento)" type="button" class="btn btn-outline-success ml-1">Suscribirme</button>
+        <button *ngIf="event.activo" (click)="swichSuscribe(false, event.idEvento)" type="button" class="btn btn-outline-warning ml-1">Desuscribirme</button>
+      </td>
     </tr>
   </tbody>
 </table>
+
+<!-- Modal -->
 <ng-template #template>
   <div class="modal-body text-center">
     <p>Do you want to confirm?</p>
