@@ -18,13 +18,13 @@ import { AgentComponent } from './agent/agent.component';
 import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent},
-  { path: 'events', component: EventComponent},
-  { path: 'alerts', component: AlertComponent},
-  { path: 'profile', component: ProfileComponent},
-  { path: 'map', component: MapComponent},
-  { path: 'dashboard/node-detail/:name', component: NodeDetailsComponent},
+  { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
+  { path: 'events', component: EventComponent, canActivate: [AuthGuard]},
+  { path: 'alerts', component: AlertComponent, canActivate: [AuthGuard]},
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
+  { path: 'map', component: MapComponent, canActivate: [AuthGuard]},
+  { path: 'dashboard/node-detail/:name', component: NodeDetailsComponent, canActivate: [AuthGuard]},
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: '**', component: ErrorComponent },
   { path: 'agent', component: AgentComponent }

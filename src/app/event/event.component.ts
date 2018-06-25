@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Renderer2, TemplateRef } from '@angular/core';
 import { Event } from '../_models/event';
 import { EventService } from '../_services/event.service';
 import { EventConfiguration } from '../_models/eventConf';
 import { EventType } from '../_models/EventType';
+import { AlertType } from '../_models/alert-type';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-event',
@@ -10,38 +12,92 @@ import { EventType } from '../_models/EventType';
   styleUrls: ['./event.component.css']
 })
 export class EventComponent implements OnInit {
-
+  modalRef: BsModalRef;
   verAdd: boolean = false;
-  events: Event[] = [];
+
   eventTypes: EventType[] = [];
+  alertsTypes: AlertType[] = [];
+
+  nombreEvento: string;
+  events: Event[] = [];
   eventConfigs: EventConfiguration[] = [];
+  id: number = 0;
 
   constructor(
     private eventService: EventService,
+    private modalService: BsModalService
   ) { }
 
   ngOnInit() {
+    this.init();
+
+    this.eventService.getTypes().subscribe(res => {
+      this.eventTypes = res.body;
+    });
+
+    this.eventService.getAlerts().subscribe(res => {
+      this.alertsTypes = res.body;
+    });
+  }
+
+  init() {
+    this.nombreEvento = "";
+    this.eventConfigs = [];
+
+    this.getEvents();
+    this.cofigAdd();
+  }
+
+  getEvents(): void {
     this.eventService.getListEvents().subscribe(res => {
       this.events = res.body;
     });
-
-    this.eventService.getTypes().subscribe(resType => {
-      this.eventTypes = resType.body;
-    });
   }
 
-  mostrarAdd(){
+  mostrarAdd(): void {
     this.verAdd = !this.verAdd;
   }
 
-  addEvent(eventName: string, eventDetail: string, eventTipe: string, eventAlert: string) {
-    this.eventConfigs = [];
+  cofigAdd(): void {
+    this.id ++;
 
-    let config: EventConfiguration;
-    config.tipo = +eventTipe;
-    config.alerta = eventAlert;
+    let config: EventConfiguration = new EventConfiguration();
+    config.operador = ">";
+    config.alerta = "";
+    config.nivel = 0;
+    config.tipo = 1;
     this.eventConfigs.push(config);
+  }
 
-    this.eventService.addEvent(eventName, eventDetail, this.eventConfigs);    
+  removeConfig(config: EventConfiguration) {
+    var index = this.eventConfigs.indexOf(config, 0);
+    if (index > -1) {
+      this.eventConfigs.splice(index, 1);
+    }
+  }
+
+  addEvent(template: TemplateRef<any>) {
+    this.eventConfigs.forEach((item, index) => {
+      if(item.alerta == "") {
+        this.eventConfigs.splice(index,1);
+      } else {
+        item.alerta = item.operador + item.alerta;
+      }
+    }); 
+
+    this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
+  }
+
+  confirm(): void {
+    this.modalRef.hide();
+    this.eventService.addEvent(this.nombreEvento).subscribe(res => {
+      this.eventService.addConfigs(this.nombreEvento, this.eventConfigs);
+      this.init();
+      this.mostrarAdd();
+    });
+  }
+ 
+  decline(): void {
+    this.modalRef.hide();
   }
 }

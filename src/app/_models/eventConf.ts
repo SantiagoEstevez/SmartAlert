@@ -4,4 +4,5 @@ export class EventConfiguration {
   nivel: number;
   alerta: string;
   fechaMod: string;
+  operador: string;
 }

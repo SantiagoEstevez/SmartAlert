@@ -23,23 +23,18 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { MapComponent } from './map/map.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ProfileComponent } from './profile/profile.component';
-
-//Servicios
-import { AuthService } from './_services/auth.service';
-import { GraphService } from './_services/graph.service';
-import { CookieService } from 'ngx-cookie-service';
-import { AuthInterceptor } from './_interceptors/auth-interceptor';
-import { ListNodes } from './_services/listNodes.service';
-import { MemoryService } from './_services/memory.service'
-import { HardDiskService } from './_services/hardDisc.service';
-
-//Guardian
-import { AuthGuard } from './auth.guard';
 import { NodeDetailsComponent } from './node-details/node-details.component';
 import { MemoryComponent } from './memory/memory.component';
 import { HardDiskComponent } from './hard-disk/hard-disk.component';
 import { LogRealTimeComponent } from './log-real-time/log-real-time.component';
 import { AgentComponent } from './agent/agent.component';
+
+//Servicios
+import { CookieService } from 'ngx-cookie-service';
+import { AuthInterceptor } from './_interceptors/auth-interceptor';
+import { ListNodes } from './_services/listNodes.service';
+import { MemoryService } from './_services/memory.service'
+import { HardDiskService } from './_services/hardDisc.service';
 
 @NgModule({
   declarations: [

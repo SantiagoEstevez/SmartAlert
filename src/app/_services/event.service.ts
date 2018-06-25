@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import { EventConfiguration } from '../_models/eventConf';
 import { Event } from '../_models/event';
 import { EventType } from '../_models/EventType';
+import { AlertType } from '../_models/alert-type';
 
 @Injectable({
   providedIn: 'root'
@@ -24,15 +25,21 @@ export class EventService {
     return this.http.get<EventType[]>(url, {observe: 'response'}).pipe(res => res);
   }
 
-  addEvent(eventName: string, eventDetail: string, listConfig: EventConfiguration[]) : void {
-    const urlHead = `${environment.api_urlbase}rest/eventos/crearEG/${eventName}/${eventDetail}`;
-    this.http.post(urlHead, "").subscribe(res => {
+  getAlerts() {
+    const url = `${environment.api_urlbase}rest/eventos/getNivelesAlertasEG`;
+    return this.http.get<AlertType[]>(url, {observe: 'response'}).pipe(res => res);
+  }
 
-      for(let i in listConfig){
-        const urlConfig = `${environment.api_urlbase}rest/eventos/confEventoG/${eventName}/${listConfig[i].tipo}/1/${listConfig[i].alerta}`;
-        this.http.post(urlHead, "");
-      }
-    });
+  addEvent(nombre: String) {
+    const urlHead = `${environment.api_urlbase}rest/eventos/crearEG/${nombre}`;
+    return this.http.post(urlHead, "").pipe(res => res);
   };
+
+  addConfigs(nombre: String, listConfig: EventConfiguration[]) {
+    for(let i in listConfig){
+      const urlConfig = `${environment.api_urlbase}rest/eventos/confEventoG/${nombre}/${listConfig[i].tipo}/${listConfig[i].nivel}/${listConfig[i].alerta}`;
+      this.http.post(urlConfig, "");
+    }
+  }
   
 }

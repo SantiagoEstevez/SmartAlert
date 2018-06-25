@@ -21,6 +21,8 @@ export class AuthService {
   ) { }
 
   login(oUser: User): any {
+    console.log("Me voy a loguear con: " + oUser.username);
+    
     let userData64: string = `${oUser.username}:${oUser.password}`;
     this.headers = this.headers.set("Authorization", "Basic " + btoa(userData64));
     const url = `${environment.api_urlbase}rest/seguridad/token`;

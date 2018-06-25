@@ -1,4 +1,4 @@
 export class EventType {
-    id_tipo: string;
+    id_tipo: number;
     nombre_tipo: string;
 }

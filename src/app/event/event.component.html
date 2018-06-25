@@ -7,26 +7,64 @@
   </div>
 </div>
 <div class="row">
-  <div *ngIf="verAdd" class="col-12">
+  <div #event *ngIf="verAdd" class="col-12">
     <form>
       <div class="form-group">
         <label for="eventName">Nombre evento</label>
-        <input #eventNam type="text" class="form-control" id="eventName" aria-describedby="emailHelp" placeholder="nombre">
+        <input [(ngModel)]="nombreEvento" name="nombre" type="text" class="form-control" id="eventName" aria-describedby="emailHelp" placeholder="nombre">
       </div>
-      <div class="form-group">
-        <label for="eventDetail">Descripcion</label>
-        <input #eventDet type="text" class="form-control" id="eventDetail" placeholder="descripcion">
+
+      <div class="form-row">
+        <div class="col">
+          <label for="eventName">Configuracion <i (click)="cofigAdd()" class="fas fa-plus"></i></label>
+        </div>
       </div>
-      <label>Configuracion</label>
-      <div class="form-group">
-        <select #eventType *ngFor="let type of types" class="form-control" id="exampleFormControlSelect1">
-            <option value="{{type.id_tipo}}">{{type.nombre_tipo}}</option>
-          </select>
+
+      <div #configs *ngFor="let config of eventConfigs">
+        <div #configRow class="form-row">
+
+          <!-- Tipos de configuraciones -->
+          <div class="col">
+            <div class="form-group">
+              <select [(ngModel)]="config.tipo" class="form-control" name="tipo{{id}}">
+                  <option *ngFor="let type of eventTypes" value="{{type.id_tipo}}">{{type.nombre_tipo}}</option>
+                </select>
+            </div>
+          </div>
+  
+          <!-- Tipos de alerta -->
+          <div class="col">
+            <div class="form-group">
+              <select [(ngModel)]="config.nivel" class="form-control" name="nivel{{id}}">
+                  <option *ngFor="let alert of alertsTypes" value="{{alert.id_nivel}}">{{alert.nombre}}</option>
+                </select>
+            </div>
+          </div>
+  
+          <!-- Operadores -->
+          <div class="col-1">
+            <div class="form-group">
+              <select [(ngModel)]="config.operador" name="operador{{id}}" class="form-control">
+                <option value=">">></option>
+                <option value="<"><</option>
+                <option value="=">=</option>
+              </select>
+            </div>
+          </div>
+  
+          <!-- Valor a controlar -->
+          <div class="col">
+            <div class="form-group form-inline">
+              <input [(ngModel)]="config.alerta" name="alerta{{id}}" type="text" class="form-control" id="eventConfigAlert" placeholder="Valor">
+              <button (click)="removeConfig(config)" type="button" class="close" aria-label="Close" style="margin-left: 10px">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="form-group">
-        <input #eventAlert type="text" class="form-control" id="eventConfigAlert" placeholder="alerta">
-      </div>
-      <button (click)="addEvent(eventNam.value, eventDet.value, eventType.value, eventAlert.value)" type="submit" class="btn btn-primary">Submit</button>
+
+      <button (click)="addEvent(template)" type="submit" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Save</button>
     </form>
   </div>
 </div>
@@ -47,3 +85,10 @@
     </tr>
   </tbody>
 </table>
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Do you want to confirm?</p>
+    <button type="button" class="btn btn-primary" (click)="confirm()" >Yes</button> 
+    <button type="button" class="btn btn-default" (click)="decline()" >No</button>
+  </div>
+</ng-template>
