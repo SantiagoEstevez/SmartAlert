@@ -6,8 +6,8 @@
       </a>
   </div>
 </div>
-<div class="row">
-  <div #event *ngIf="verAdd" class="col-12">
+<div *ngIf="verAdd" class="row">
+  <div #event class="mx-auto col-10 shadow p-5 mb-5 bg-white rounded">
     <form>
       <div class="form-group">
         <label for="eventName">Nombre evento</label>
@@ -68,16 +68,16 @@
     </form>
   </div>
 </div>
-<hr>
 
 <!-- Lista de eventos -->
-<table class="table table-hover">
+<table class="table table-hover table-sm">
   <thead>
     <tr>
       <th scope="col">#</th>
       <th scope="col">Activo</th>
       <th scope="col">Nombre Evento</th>
-      <th scope="col" style="width: 300px;"></th>
+      <th scope="col" style="width: 10%;">Detalle</th>
+      <th scope="col" style="width: 20%;"></th>
     </tr>
   </thead>
   <tbody>
@@ -85,19 +85,20 @@
       <th scope="row">{{event.idEvento}}</th>
 
       <!-- Activo o desactivo -->
-      <td *ngIf="!event.activo"><button type="button" class="btn btn-success" disabled></button></td>
-      <td *ngIf="event.activo"><button type="button" class="btn btn-danger" disabled></button></td>
+      <td *ngIf="event.activo"><button type="button" class="btn btn-success" disabled></button></td>
+      <td *ngIf="!event.activo"><button type="button" class="btn btn-danger" disabled></button></td>
 
       <td>{{event.nombreEvento}}</td>
+      <td><button (click)="detail(this.event)" type="button" class="btn btn-outline-info">Detalle</button></td>
 
       <td >
         <!-- Activar o desactivar -->
-        <button *ngIf="!event.activo" (click)="swichStatus(true, event.idEvento)" type="button" class="btn btn-outline-success">Activar</button>
-        <button *ngIf="event.activo" (click)="swichStatus(false, event.idEvento)" type="button" class="btn btn-outline-danger">Desactivar</button>
+        <button *ngIf="!event.activo && event.soyCreador" (click)="swichStatus(true, event.idEvento)" type="button" class="btn btn-outline-success">Activar</button>
+        <button *ngIf="event.activo && event.soyCreador" (click)="swichStatus(false, event.idEvento)" type="button" class="btn btn-outline-danger">Desactivar</button>
 
         <!-- Suscribirme o desuscribirme -->
-        <button *ngIf="!event.activo" (click)="swichSuscribe(true, event.idEvento)" type="button" class="btn btn-outline-success ml-1">Suscribirme</button>
-        <button *ngIf="event.activo" (click)="swichSuscribe(false, event.idEvento)" type="button" class="btn btn-outline-warning ml-1">Desuscribirme</button>
+        <button *ngIf="!event.estoySuscripto" (click)="swichSuscribe(true, event.idEvento)" type="button" class="btn btn-outline-success ml-1">Suscribirme</button>
+        <button *ngIf="event.estoySuscripto" (click)="swichSuscribe(false, event.idEvento)" type="button" class="btn btn-outline-warning ml-1">Desuscribirme</button>
       </td>
     </tr>
   </tbody>

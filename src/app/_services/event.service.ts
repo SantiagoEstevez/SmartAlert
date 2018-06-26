@@ -5,6 +5,7 @@ import { EventConfiguration } from '../_models/eventConf';
 import { Event } from '../_models/event';
 import { EventType } from '../_models/EventType';
 import { AlertType } from '../_models/alert-type';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,12 +13,18 @@ import { AlertType } from '../_models/alert-type';
 export class EventService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private cookieService: CookieService
   ) { }
 
   getListEvents() {
     const url = `${environment.api_urlbase}rest/eventos/getListaEventosG`;
     return this.http.get<Event[]>(url, {observe: 'response'}).pipe(res => res);
+  };
+
+  getListConfigsByEvent(idEvent: number) {
+    const url = `${environment.api_urlbase}rest/eventos/getConfEG/${idEvent}`;
+    return this.http.get<EventConfiguration[]>(url, {observe: 'response'}).pipe(res => res);
   };
 
   getTypes() {
@@ -42,6 +49,13 @@ export class EventService {
     }
   }
 
+  editConfigs(idEvent: number, listConfig: EventConfiguration[]) {
+    for(let i in listConfig){
+      const urlConfig = `${environment.api_urlbase}rest/eventos/modificarConfEG/${idEvent}/${listConfig[i].tipo}/${listConfig[i].nivel}/${listConfig[i].alerta}`;
+      this.http.put(urlConfig, "");
+    }
+  }
+
   activeEvent(idEvent: number) {
     const urlHead = `${environment.api_urlbase}rest/eventos/activarEG/${idEvent}`;
     return this.http.put(urlHead, "").pipe(res => res);
@@ -60,5 +74,13 @@ export class EventService {
   unsuscribeEvent(idEvent: number) {
     const urlHead = `${environment.api_urlbase}rest/eventos/cancela_sus_evento_global/${idEvent}`;
     return this.http.put(urlHead, "").pipe(res => res);
+  }
+
+  setEventCookie(event: Event) {
+    this.cookieService.set('@easyaler::event', JSON.stringify(event));
+  }
+
+  getEventCookie() : Event {
+    return <Event>JSON.parse(this.cookieService.get('@easyaler::event'));
   }
 }

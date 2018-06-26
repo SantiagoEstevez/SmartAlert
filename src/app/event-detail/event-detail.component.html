@@ -1,0 +1,67 @@
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Activo</th>
+        <th scope="col">Nombre Evento</th>
+        <th scope="col" style="width: 30%;"></th>
+      </tr>
+      <tr>
+        <td scope="row">{{event.idEvento}}</td>
+
+        <!-- Activo o desactivo -->
+        <td *ngIf="!event.activo"><button type="button" class="btn btn-success" disabled></button></td>
+        <td *ngIf="event.activo"><button type="button" class="btn btn-danger" disabled></button></td>
+  
+        <td>{{event.nombreEvento}}</td>
+        
+        <td >
+          <!-- Activar o desactivar -->
+          <button *ngIf="!event.activo" (click)="swichStatus(true, event.idEvento)" type="button" class="btn btn-outline-success">Activar</button>
+          <button *ngIf="event.activo" (click)="swichStatus(false, event.idEvento)" type="button" class="btn btn-outline-danger">Desactivar</button>
+  
+          <!-- Suscribirme o desuscribirme -->
+          <button *ngIf="!event.activo" (click)="swichSuscribe(true, event.idEvento)" type="button" class="btn btn-outline-success ml-1">Suscribirme</button>
+          <button *ngIf="event.activo" (click)="swichSuscribe(false, event.idEvento)" type="button" class="btn btn-outline-warning ml-1">Desuscribirme</button>
+
+          <!-- Guardar -->
+          <button (click)="saveDetails()" type="button" class="btn btn-outline-success ml-1">Guardar</button>
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let config of eventConfigs">
+
+        <!-- Tipos de configuraciones -->
+        <td>
+          <div class="col">
+            <div class="form-group">
+              <select [(ngModel)]="config.tipo" class="form-control" name="tipo" disabled>
+                  <option *ngFor="let type of eventTypes" value="{{type.id_tipo}}">{{type.nombre_tipo}}</option>
+                </select>
+            </div>
+          </div>
+        </td>
+        
+        <!-- Tipos de alerta -->
+        <td>
+          <div class="col">
+            <div class="form-group">
+              <select [(ngModel)]="config.nivel" class="form-control" name="nivel">
+                  <option *ngFor="let alert of alertsTypes" value="{{alert.id_nivel}}">{{alert.nombre}}</option>
+                </select>
+            </div>
+          </div>
+        </td>
+          
+        <!-- Valor a controlar -->
+        <td colspan="2">
+          <div class="col">
+            <div class="form-group form-inline">
+              <input [(ngModel)]="config.alerta" name="alerta" type="text" class="form-control" id="eventConfigAlert" placeholder="Valor">
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>

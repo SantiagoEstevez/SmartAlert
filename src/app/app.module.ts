@@ -35,6 +35,7 @@ import { AuthInterceptor } from './_interceptors/auth-interceptor';
 import { ListNodes } from './_services/listNodes.service';
 import { MemoryService } from './_services/memory.service'
 import { HardDiskService } from './_services/hardDisc.service';
+import { EventDetailComponent } from './event-detail/event-detail.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { HardDiskService } from './_services/hardDisc.service';
     MemoryComponent,
     HardDiskComponent,
     LogRealTimeComponent,
-    AgentComponent
+    AgentComponent,
+    EventDetailComponent
   ],
   imports: [
     BrowserModule,

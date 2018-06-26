@@ -5,6 +5,7 @@ import { EventConfiguration } from '../_models/eventConf';
 import { EventType } from '../_models/EventType';
 import { AlertType } from '../_models/alert-type';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-event',
@@ -25,7 +26,8 @@ export class EventComponent implements OnInit {
 
   constructor(
     private eventService: EventService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -123,5 +125,11 @@ export class EventComponent implements OnInit {
         this.init();
       });
     }
+  }
+
+  detail(event: Event) {
+    console.log(event);
+    this.eventService.setEventCookie(event);
+    this.router.navigate(['events/detail']);
   }
 }

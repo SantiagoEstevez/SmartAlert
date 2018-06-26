@@ -22,16 +22,16 @@ export class AuthService {
 
   login(oUser: User): any {
     console.log("Me voy a loguear con: " + oUser.username);
-    
+
     let userData64: string = `${oUser.username}:${oUser.password}`;
     this.headers = this.headers.set("Authorization", "Basic " + btoa(userData64));
+
     const url = `${environment.api_urlbase}rest/seguridad/token`;
     //const url = `${environment.api_urlbase}values/token`;
 
     this.http.get(url, {observe: 'response', headers : this.headers})
       .subscribe(
         res => {
-          console.log('1');
           this.cookieService.set('@easyaler::token', res.body['securityToken']);
           this.cookieService.set('@easyaler::user', "user model");
           this.router.navigate(['dashboard']);
@@ -45,8 +45,8 @@ export class AuthService {
       );
   }
 
-  logout(): void {
-    this.cookieService.deleteAll();
+  async logout() {
+    await this.cookieService.deleteAll();
     this.router.navigate(['login']);
   }
 
