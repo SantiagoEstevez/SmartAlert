@@ -29,6 +29,7 @@ const routes: Routes = [
   { path: 'map', component: MapComponent, canActivate: [AuthGuard]},
   { path: 'dashboard/node-detail/:name', component: NodeDetailsComponent, canActivate: [AuthGuard]},
   { path: 'socket', component: LogRealTimeComponent},
+  { path: 'agent', component: AgentComponent },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: '**', component: ErrorComponent }
   //{ path: 'detail/:id', component: NavbarComponent }, esto lo dejo como muestra de q puedo pasar un parametro. por la url

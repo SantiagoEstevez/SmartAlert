@@ -39,11 +39,8 @@ import { AuthInterceptor } from './_interceptors/auth-interceptor';
 import { ListNodes } from './_services/listNodes.service';
 import { MemoryService } from './_services/memory.service'
 import { HardDiskService } from './_services/hardDisc.service';
-<<<<<<< HEAD
 import { EventDetailComponent } from './event-detail/event-detail.component';
-=======
 import { AgentService } from './_services/agent.service';
->>>>>>> a92a9591b0c0c7a11d77d1efa0c8a76d3d5419d7
 
 @NgModule({
   declarations: [

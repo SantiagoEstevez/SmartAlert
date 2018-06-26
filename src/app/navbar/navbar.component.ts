@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services/auth.service'
 import { ToastrService } from 'ngx-toastr';
 import { WebSocketService } from '../_services/web-socket.service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-navbar',
@@ -19,7 +20,7 @@ export class NavbarComponent{
     private toastr: ToastrService,
     private wsService: WebSocketService
   ) {
-    this.wsService.createObservableSocket('ws://localhost:8080/Proyecto2018/alert')
+    this.wsService.createObservableSocket(`${environment.ws_urlbase}alert`)
       .subscribe(data => {
         this.toastr.info(data, 'Notification');
       })
