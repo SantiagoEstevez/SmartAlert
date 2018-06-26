@@ -14,6 +14,7 @@ import { ProfileComponent }   from './profile/profile.component';
 import { MapComponent }   from './map/map.component';
 import { NodeDetailsComponent } from './node-details/node-details.component';
 import { AgentComponent } from './agent/agent.component';
+import { LogRealTimeComponent } from './log-real-time/log-real-time.component';
 
 //Guerdian
 import { AuthGuard } from './auth.guard';
@@ -27,9 +28,9 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   { path: 'map', component: MapComponent, canActivate: [AuthGuard]},
   { path: 'dashboard/node-detail/:name', component: NodeDetailsComponent, canActivate: [AuthGuard]},
+  { path: 'socket', component: LogRealTimeComponent},
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-  { path: '**', component: ErrorComponent },
-  { path: 'agent', component: AgentComponent }
+  { path: '**', component: ErrorComponent }
   //{ path: 'detail/:id', component: NavbarComponent }, esto lo dejo como muestra de q puedo pasar un parametro. por la url
 ];
 

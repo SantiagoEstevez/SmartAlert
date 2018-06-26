@@ -1,10 +1,26 @@
-<p>
-  <select>
-    <option value="localhost">Localhost</option>
-    <option value="node1">Node1</option>
-    <option value="node2">Node2</option>
-    <option value="node3">Node3</option>
-  </select>
-  <button>Submit</button>
-
-</p>
+Fecha: <input id="date" type="date" [(ngModel)]='a'>
+Nodo: <input id="node" type="text" [(ngModel)]='b'>
+<button (click)="searchLogs()"> Search </button>
+<table class="table table-dark">
+  <thead>
+    <tr class="header">
+      <th scope="col">#</th>
+      <th scope="col">Nombre Host</th>
+      <th scope="col">IP Host</th>
+      <th scope="col">Fecha</th>
+      <th scope="col">Programa</th>
+      <th scope="col">Severidad</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let agent of listLogs | paginate: { itemsPerPage:10, currentPage: p}">
+      <th scope="row">{{ index }}</th>
+      <td>{{ agent.fromHost }}</td>
+      <td> {{ agent.fromHostIp }}</td>
+      <td> {{ agent.timeReported.split('T')[0] }}</td>
+      <td> {{ agent.programName }}</td>
+      <td> {{ agent.sysLogSeverityText }}</td>
+    </tr>
+  </tbody>
+</table>
+<pagination-controls (pageChange)="p =$event"></pagination-controls>
