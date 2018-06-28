@@ -1,0 +1,10 @@
+<div>
+  <div *ngFor="let notif of notifs" class="w-50 float-left p-1">
+    <div class="alert alert-primary" role="alert">
+      <h4 class="alert-heading">{{notif.name_evento_global}}</h4>
+      <p>Se dispara evento {{notif.name_evento_global}} en dia {{notif.fecha_dispara}}</p>
+      <hr>
+      <p class="mb-0">Motivo del evento: {{notif.name_tipo}}{{notif.condicion_dispara}}</p>
+    </div>
+  </div>
+</div>

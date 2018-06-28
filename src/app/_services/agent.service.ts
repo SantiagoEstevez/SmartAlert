@@ -9,7 +9,7 @@ export class AgentService {
   constructor( private http: HttpClient ) { }
 
   getAgentLogs(node:String, date:String){
-    const url = `${environment.api_urlbase}rest/infotest/infoAgente/` + node + '/' + date;
+    const url = `${environment.api_urlbase}rest/info/infoAgente/` + node + '/' + date;
 
     return this.http.get<Agent[]>(url, {observe: 'response'}).pipe(res => res);
   }

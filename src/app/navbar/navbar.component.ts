@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services/auth.service'
 import { ToastrService } from 'ngx-toastr';
 import { WebSocketService } from '../_services/web-socket.service';
+import { environment } from '../../environments/environment';
+import { User } from '../_models/user';
 
 @Component({
   selector: 'app-navbar',
@@ -11,6 +13,7 @@ import { WebSocketService } from '../_services/web-socket.service';
 })
 export class NavbarComponent{
 
+  user: User = new User();
   messageFromServer: string;
   ws: WebSocket;
 
@@ -25,8 +28,10 @@ export class NavbarComponent{
           this.toastr.info(data, 'Notification');
         }
 
-        this.wsService.sendMessage("GiveMeMoreMessagesPls<3");  
+        this.wsService.sendMessage("GiveMeMoreMessagesPls<3");
 
       })
+
+      this.user = this.authService.getUserCookie();
     };
 }

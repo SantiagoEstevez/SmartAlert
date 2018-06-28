@@ -20,20 +20,26 @@ export class AuthService {
     private cookieService: CookieService
   ) { }
 
-  login(oUser: User): any {
+  async login(oUser: User) {
     console.log("Me voy a loguear con: " + oUser.username);
-    
+
     let userData64: string = `${oUser.username}:${oUser.password}`;
     this.headers = this.headers.set("Authorization", "Basic " + btoa(userData64));
+
     const url = `${environment.api_urlbase}rest/seguridad/token`;
     //const url = `${environment.api_urlbase}values/token`;
 
     this.http.get(url, {observe: 'response', headers : this.headers})
       .subscribe(
         res => {
-          console.log('1');
           this.cookieService.set('@easyaler::token', res.body['securityToken']);
-          this.cookieService.set('@easyaler::user', "user model");
+
+          let user: User;
+          this.getUser().subscribe(res => {
+            user = res.body;
+            this.setUserCookie(user);
+          });
+
           this.router.navigate(['dashboard']);
           return true;
         },
@@ -45,8 +51,23 @@ export class AuthService {
       );
   }
 
-  logout(): void {
-    this.cookieService.deleteAll();
+  getUser() {
+    const url = `${environment.api_urlbase}rest/usuario/getDatosUsuario`;
+    return this.http.get<User>(url, {observe: 'response'}).pipe(res => res);
+  }
+
+  setUserCookie(user: User) {
+    this.cookieService.delete('@easyaler::user');
+    this.cookieService.set('@easyaler::user', JSON.stringify(user));
+  }
+
+  getUserCookie() : User {
+    return <User>JSON.parse(this.cookieService.get('@easyaler::user'));
+  }
+
+  async logout() {
+    this.cookieService.delete("@easyaler::token");
+    await this.cookieService.deleteAll();
     this.router.navigate(['login']);
   }
 

@@ -1,7 +1,7 @@
 <!--*ngIf="authService.getLoginStatus()"-->
 <nav *ngIf="authService.getLoginStatus()" class="navbar navbar-expand-lg navbar-light mb-4">
-  <a class="navbar-brand" [routerLink]="">
-    <i class="fas fa-eye" style="font-size: 1.5em"></i>
+  <a class="navbar-brand white" [routerLink]="">
+    SmartAlert
   </a>
   <button (click)="isCollapsed = !isCollapsed" class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -11,21 +11,32 @@
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active menuitem">
         <a class="nav-link white" [routerLink]="['dashboard']">
-          <i class="fas fa-chart-line"></i>
+          <i class="far fa-chart-bar"></i>
           Dashboard
-          <span class="sr-only">(current)</span>
         </a>
       </li>
       <li class="nav-item menuitem">
         <a class="nav-link white" [routerLink]="['events']">
-          <i class="fas fa-bell"></i>
+          <i class="far fa-calendar-alt"></i>
           Events
         </a>
       </li>
       <li class="nav-item menuitem">
+          <a class="nav-link white" [routerLink]="['map']">
+            <i class="far fa-map"></i>
+            Mapa logs
+          </a>
+        </li>
+      <li class="nav-item menuitem">
+        <a class="nav-link white" [routerLink]="['notifications']">
+          <i class="far fa-bell"></i>
+          Notificaciones
+        </a>
+      </li>
+      <li class="nav-item menuitem">
         <a class="nav-link white" [routerLink]="['agent']">
-          <i class="fas fa-exclamation"></i>
-          Ingresos
+          <i class="far fa-paper-plane"></i>
+          Logs App
         </a>
       </li>
     </ul>
@@ -35,7 +46,9 @@
             <i class="fas fa-user-circle" style="font-size: 1.5em"></i>
           </a>
           <div *dropdownMenu class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item white" [routerLink]="['profile']">Nombre usuario</a>
+            <a class="dropdown-item white">{{user.username}} | {{user.nivel_acceso}}</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item white">{{user.mail}}</a>
             <div class="dropdown-divider"></div>
             <a (click)="authService.logout()" class="dropdown-item" [routerLink]="">Logout</a>
           </div>

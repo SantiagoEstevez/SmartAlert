@@ -4,7 +4,11 @@
 
 export const environment = {
   production: false,
-  api_urlbase: "http://localhost:8080/Proyecto2018/"
+  api_urlbase: "http://localhost:8080/Proyecto2018/",
+  ws_urlbase: "ws://localhost:8080/Proyecto2018/"
+  
+  //api_urlbase: "http://172.16.104.76:8080/Proyecto2018/",
+  //ws_urlbase: "ws://172.16.104.76:8080/Proyecto2018/"
 };
 
 /*

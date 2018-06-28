@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { WebSocketService } from '../_services/web-socket.service';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-log-real-time',
@@ -12,7 +13,7 @@ export class LogRealTimeComponent {
   messageFromServer: string;
   ws: WebSocket;
   constructor(private wsService: WebSocketService, private http: HttpClient){
-    this.wsService.createObservableSocket('ws://localhost:8080/Proyecto2018/alert')
+    this.wsService.createObservableSocket(`${environment.ws_urlbase}alert`)
       .subscribe(data => {
         this.messageFromServer = data;
       }
