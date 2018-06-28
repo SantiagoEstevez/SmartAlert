@@ -22,8 +22,14 @@ export class NavbarComponent{
     private toastr: ToastrService,
     private wsService: WebSocketService
   ) {
-      this.wsService.createObservableSocket(`${environment.ws_urlbase}alert`).subscribe(data => {
-        this.toastr.info(data, 'Notification');
+    this.wsService.createObservableSocket('ws://localhost:8080/Proyecto2018/alert')
+      .subscribe(data => {
+        if(data != ""){
+          this.toastr.info(data, 'Notification');
+        }
+
+        this.wsService.sendMessage("GiveMeMoreMessagesPls<3");
+
       })
 
       //this.user = this.authService.getUserCookie();

@@ -16,8 +16,7 @@ export class LogRealTimeComponent {
     this.wsService.createObservableSocket(`${environment.ws_urlbase}alert`)
       .subscribe(data => {
         this.messageFromServer = data;
-        console.log("web sokets");
-        console.log(data);
-      });
+      }
+    );
   }
 }

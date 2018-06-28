@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { EventConfiguration } from '../_models/eventConf';
 import { Event } from '../_models/event';
-import { EventType } from '../_models/EventType';
+import { EventType } from '../_models/eventType';
 import { AlertType } from '../_models/alert-type';
 import { CookieService } from 'ngx-cookie-service';
 
