@@ -13,4 +13,9 @@ export class AgentService {
 
     return this.http.get<Agent[]>(url, {observe: 'response'}).pipe(res => res);
   }
+
+  getDataIp(ip: string){
+    const url = `http://ipinfo.io/${ip}`
+    return this.http.get<Agent[]>(url, {observe: 'response'}).pipe(res => res);
+  }
 }
