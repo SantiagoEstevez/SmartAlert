@@ -3,55 +3,72 @@ import { HardDiskInfo } from '../_models/hardDisk';
 import { HardDiskService } from '../_services/hardDisc.service';
 import { Chart } from 'chart.js';
 import { GraphService } from '../_services/graph.service';
+import { WebSocketService } from '../_services/web-socket.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-hard-disk',
   templateUrl: './hard-disk.component.html',
+  providers: [ WebSocketService ],
   styleUrls: ['./hard-disk.component.css']
 })
 export class HardDiskComponent implements OnInit {
 
-  hardDiskInfo:HardDiskInfo;
+  hardDiskInfo:HardDiskInfo = new HardDiskInfo();
   DoughnutChart: any;
 
   @Input()
   nodeName: string;
 
-  constructor( private _hardDiskService:HardDiskService, private graphService: GraphService ) { }
+  constructor( private _hardDiskService:HardDiskService,
+    private graphService: GraphService,
+    private wsService:WebSocketService,
+    private route:ActivatedRoute ) {
+
+      this.wsService.createObservableSocket('ws://localhost:8080/Proyecto2018/realtime/hhd')
+        .subscribe(data => {
+
+          this.hardDiskInfo.espacioDisponible = +data.split(';')[0];
+          this.hardDiskInfo.espacioTotal = +data.split(';')[1];
+          this.hardDiskInfo.mount = data.split(';')[2];
+
+          this.DoughnutChart.data.datasets[0].data[0] = (+data.split(';')[1]) - (+data.split(',')[0]);
+          this.DoughnutChart.data.datasets[0].data[1] = +data.split(';')[1];
+          this.DoughnutChart.update(2000);
+
+          this.wsService.sendMessage(this.nodeName);
+        })
+    }
 
   ngOnInit() {
 
-    this._hardDiskService.getDiskInformation(this.nodeName).subscribe(data => {
+    this.DoughnutChart = new Chart('doughnutChart', {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                backgroundColor: ['rgb(255, 99, 132)', 'rgb(255, 99, 0)', 'rgb(255, 0, 132)'],
+                data: [0, 0]
+            }],
 
-      this.hardDiskInfo = data;
-      this.DoughnutChart = new Chart('doughnutChart', {
-          type: 'doughnut',
-          data: {
-              datasets: [{
-                  backgroundColor: ['rgb(255, 99, 132)', 'rgb(255, 99, 0)', 'rgb(255, 0, 132)'],
-                  data: [(data["espacioTotal"] - data["espacioDisponible"]), data["espacioDisponible"]]
-              }],
-
-              // These labels appear in the legend and in the tooltips when hovering different arcs
-              labels: [
-                  'Ocupado',
-                  'Disponible',
-              ]
+            // These labels appear in the legend and in the tooltips when hovering different arcs
+            labels: [
+                'Ocupado',
+                'Disponible',
+            ]
+        },
+        options: {
+          legend: {
+              display: true,
+              position: 'bottom',
+              labels: {
+                  fontColor: 'rgb(0, 0, 0)',
+                  usePointStyle: true
+              }
           },
-          options: {
-            legend: {
-                display: true,
-                position: 'bottom',
-                labels: {
-                    fontColor: 'rgb(0, 0, 0)',
-                    usePointStyle: true
-                }
-            },
-            elements: {
-              pointStyle: 'circle'
-            }
+          elements: {
+            pointStyle: 'circle'
           }
-      });
+        }
     });
   }
 }

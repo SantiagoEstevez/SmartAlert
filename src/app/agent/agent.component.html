@@ -1,6 +1,12 @@
-Fecha: <input id="date" type="date" [(ngModel)]='a'>
-Nodo: <input id="node" type="text" [(ngModel)]='b'>
+Fecha Desde: <input id="date1" type="date" [(ngModel)]='a'>
+Fecha Hasta: <input id="date2" type="date" [(ngModel)]='c'>
+Nodo: <select id="Id" #Id="ngModel" [(ngModel)]="node" name="Id">
+     <option [ngValue]="k" *ngFor="let k of nodesNames">
+         {{k}}
+  </option>
+</select>
 <button (click)="searchLogs()"> Search </button>
+<hr>
 <table class="table table-dark">
   <thead>
     <tr class="header">
@@ -10,6 +16,7 @@ Nodo: <input id="node" type="text" [(ngModel)]='b'>
       <th scope="col">Fecha</th>
       <th scope="col">Programa</th>
       <th scope="col">Severidad</th>
+      <th scope="col">Crudo</th>
     </tr>
   </thead>
   <tbody>
@@ -20,6 +27,7 @@ Nodo: <input id="node" type="text" [(ngModel)]='b'>
       <td> {{ agent.timeReported.split('T')[0] }}</td>
       <td> {{ agent.programName }}</td>
       <td> {{ agent.sysLogSeverityText }}</td>
+      <td> {{ agent.rawMessage }}</td>
     </tr>
   </tbody>
 </table>
