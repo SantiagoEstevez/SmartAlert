@@ -6,18 +6,33 @@ import { Router } from '@angular/router'
 import { NodeDetailsComponent } from '../node-details/node-details.component'
 import { ListNodes } from '../_services/listNodes.service';
 import { NodeDetails } from '../_models/node-details';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
+  animations: [
+    trigger('flyInOut', [
+      state('in', style({transform: 'translateX(0)'})),
+      transition('inactive => active', animate('100ms ease-in')),
+      transition('active => inactive', animate('100ms ease-out')),
+      transition('void => *', [
+        style({transform: 'translateX(-100%)'}),
+        animate(100)
+      ]),
+      transition('* => void', [
+        animate(100, style({transform: 'translateX(100%)'}))
+      ])
+    ])
+  ]
 })
 export class DashboardComponent implements OnInit {
 
   private nodeList:NodeDetails[] = [];
   private nodesNames:Array<any> = [];
   chart = [];
-  DoughnutChart: any;
+  LineChart: any;
   PieChart: any;
 
   constructor(
@@ -46,35 +61,26 @@ export class DashboardComponent implements OnInit {
       }
     });
 
+    let today = new Date().getDate();
 
-    /*this.DoughnutChart = new Chart('doughnutChart', {
-      type: 'doughnut',
+    this.LineChart = new Chart('lineChart', {
+      type: 'line',
       data: {
-          datasets: [{
-              backgroundColor: ['rgb(255, 99, 132)', 'rgb(255, 99, 0)', 'rgb(255, 0, 132)'],
-              data: [(data["espacioTotal"] - data["espacioDisponible"]), data["espacioDisponible"]]
-          }],
-
-          // These labels appear in the legend and in the tooltips when hovering different arcs
-          labels: [
-              'Ocupado',
-              'Disponible',
-          ]
-      },
-      options: {
-        legend: {
-            display: true,
-            position: 'bottom',
-            labels: {
-                fontColor: 'rgb(0, 0, 0)',
-                usePointStyle: true
-            }
-        },
-        elements: {
-          pointStyle: 'circle'
-        }
+        labels: [today -4, today- 3 , today -2, today -1, today],
+        datasets: [
+          { 
+            data: [100, 50, 40, 80, 10],
+            borderColor: "#3cba9f",
+            fill: false
+          },
+          { 
+            data: [44, 66, 40, 80, 100],
+            borderColor: "#ffcc00",
+            fill: false
+          },
+        ]
       }
-  });*/
+  });
 
     //console.log('dash 1 ' + JSON.stringify(nodos));
     //console.log('nodesnames ' + this.nodesNames);

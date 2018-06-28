@@ -26,6 +26,6 @@ export class NavbarComponent{
         this.toastr.info(data, 'Notification');
       })
 
-      this.user = this.authService.getUserCookie();
+      //this.user = this.authService.getUserCookie();
     };
 }
