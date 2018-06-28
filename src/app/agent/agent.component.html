@@ -5,6 +5,9 @@ Nodo: <select id="Id" #Id="ngModel" [(ngModel)]="node" name="Id">
          {{k}}
   </option>
 </select>
+<nav class="navbar">
+  <input class="form-control" type="text" name="search" [(ngModel)]="filter">
+</nav>
 <button (click)="searchLogs()"> Search </button>
 <hr>
 <table class="table table-dark">
@@ -20,7 +23,7 @@ Nodo: <select id="Id" #Id="ngModel" [(ngModel)]="node" name="Id">
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let agent of listLogs | paginate: { itemsPerPage:10, currentPage: p}">
+    <tr *ngFor="let agent of listLogs | filter:filter | paginate: { itemsPerPage:10, currentPage: p}">
       <th scope="row">{{ index }}</th>
       <td>{{ agent.fromHost }}</td>
       <td> {{ agent.fromHostIp }}</td>

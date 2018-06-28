@@ -32,6 +32,7 @@ import { AgentComponent } from './agent/agent.component';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { Ng2SearchPipeModule } from 'ng2-search-filter'; //importing the module
 
 //Servicios
 import { CookieService } from 'ngx-cookie-service';
@@ -77,6 +78,8 @@ import { NotificationComponent } from './notification/notification.component';
     CommonModule,
   BrowserAnimationsModule, // required animations module
   ToastrModule.forRoot(), // ToastrModule added
+  Ng2SearchPipeModule //including into imports
+
   ],
   providers: [
     ListNodes,
