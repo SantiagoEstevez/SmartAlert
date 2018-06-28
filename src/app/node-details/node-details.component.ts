@@ -3,6 +3,11 @@ import { ListNodes } from '../_services/listNodes.service';
 import { MemoryComponent } from '../memory/memory.component';
 import { HardDiskComponent } from '../hard-disk/hard-disk.component'
 import {ActivatedRoute} from '@angular/router';
+import { NodeDetails } from '../_models/node-details';
+import { Memory } from '../_models/memory';
+import { MemoryService } from '../_services/memory.service';
+import { GraphService } from '../_services/graph.service';
+import { HardDiskInfo } from '../_models/hardDisk';
 
 @Component({
   selector: 'app-node-details',
@@ -12,14 +17,32 @@ import {ActivatedRoute} from '@angular/router';
 export class NodeDetailsComponent implements OnInit {
 
   nodeName:string;
-
-  constructor(private _listNodesService:ListNodes,
-              private route:ActivatedRoute) {
-
+  node: NodeDetails = new NodeDetails();
+  memoryHistory: Memory[] = [];
+  driveHistory: HardDiskInfo[] = [];
+  
+  constructor(
+    private _listNodesService:ListNodes,
+    private route: ActivatedRoute,
+    private graphService: GraphService
+  ) {
   }
 
   ngOnInit() {
     this.nodeName = this.route.snapshot.params['name'];
-  }
+    this.node.name = this.nodeName;
+    this.node.distro = this.route.snapshot.params['distro'];
+    this.node.ipAddress = this.route.snapshot.params['address'];
+    this.node.ipPublica = this.route.snapshot.params['public'];
+    this.node.cantCpus = this.route.snapshot.params['cpu'];
+    this.node.totalRAM = this.route.snapshot.params['ram'];
 
+    this.graphService.getMemoryHistory(this.nodeName, '20180615', '20180630').subscribe(res => {
+      this.memoryHistory = res.body;
+    });
+
+    this.graphService.getDriveHistory(this.nodeName, '20180615', '20180630').subscribe(res => {
+      this.driveHistory = res.body;
+    });
+  }
 }

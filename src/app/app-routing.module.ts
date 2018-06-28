@@ -29,7 +29,7 @@ const routes: Routes = [
   { path: 'notifications', component: NotificationComponent, canActivate: [AuthGuard]},
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   { path: 'map', component: MapComponent, canActivate: [AuthGuard]},
-  { path: 'dashboard/node-detail/:name', component: NodeDetailsComponent, canActivate: [AuthGuard]},
+  { path: 'dashboard/node-detail/:name/:distro/:address/:public/:cpu/:ram', component: NodeDetailsComponent, canActivate: [AuthGuard]},
   { path: 'socket', component: LogRealTimeComponent, canActivate: [AuthGuard]},
   { path: 'agent', component: AgentComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },

@@ -1,9 +1,88 @@
-<h1>Informacion del nodo</h1>
 <div class="row">
-<div class="col-md-6 col-lg-4">
-  <app-memory [nodeName]="nodeName"></app-memory>
+    <div class="col-4 p-1">
+        <div class="card">
+            <div class="card-header">
+                {{node.name}}
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Sistema Operativo: {{ node.distro }}</li>
+                <li class="list-group-item">IP interna: {{ node.ipAddress }}</li>
+                <li class="list-group-item">IP publica: {{ node.ipPublica }}</li>
+                <li class="list-group-item">Procesadores: {{ node.cantCpus }}</li>
+                <li class="list-group-item">Ram: {{ node.totalRAM }}</li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-4 p-1">
+      <div class="card">
+        <div class="card-body">
+          <app-memory [nodeName]="nodeName"></app-memory>
+        </div>
+      </div>
+    </div>
+    <div class="col-4 p-1">
+      <div class="card">
+        <div class="card-body">
+          <app-hard-disk [nodeName]="nodeName"></app-hard-disk>
+        </div>
+      </div>
+    </div>
 </div>
-<div class="col-md-6 col-lg-4">
-  <app-hard-disk [nodeName]="nodeName"></app-hard-disk>
-</div>
+<div class="row">
+
+  <!-- Hisotico de ram -->
+  <div class="col-6 p-1">
+    <div class="card">
+      <div class="card-header">
+        Historial de moemorya (ultimos 15 dias)
+      </div>
+      <div class="card-body">
+        <table class="table table-hover table-sm">
+          <thead>
+            <tr>
+              <th scope="col">Memoria usada</th>
+              <th scope="col">Memoria libre</th>
+              <th scope="col">Memoria total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let memory of memoryHistory">
+              <td scope="row">{{memory.memoriaEnUso}}</td>
+              <td scope="row">{{memory.memoriaLibre}}</td>
+              <td scope="row">{{memory.memoriaTotal}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hisotico de disco -->
+  <div class="col-6 p-1">
+    <div class="card">
+      <div class="card-header">
+        Historial de disco (ultimos 15 dias)
+      </div>
+      <div class="card-body">
+        <table class="table table-hover table-sm">
+          <thead>
+            <tr>
+              <th scope="col">Nombre disco</th>
+              <th scope="col">Disco usado</th>
+              <th scope="col">Disco libre</th>
+              <th scope="col">Disco total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let drive of driveHistory">
+              <td scope="row">{{drive.mount}}</td>
+              <td scope="row">{{(drive.espacioTotal - drive.espacioDisponible)}}</td>
+              <td scope="row">{{drive.espacioDisponible}}</td>
+              <td scope="row">{{drive.espacioTotal}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>

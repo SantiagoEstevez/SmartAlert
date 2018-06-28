@@ -163,4 +163,13 @@ export class DashboardComponent implements OnInit {
       return result;
     }
   }
+
+  saveNode(node: NodeDetails) {
+    console.log("se guerda");
+    console.log(node);
+    localStorage.setItem('@easyaler::node', JSON.stringify(node));
+    //this.router.navigate(['node-detail'], { queryParams: { name: node.name } });
+    this.router.navigate(['/node-detail', node.name]);
+    //this.router.navigate(['node-detail', { outlets: { 'list-outlet': [node.name]} }]);
+  }
 }
