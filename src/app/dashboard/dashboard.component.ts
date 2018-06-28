@@ -46,6 +46,36 @@ export class DashboardComponent implements OnInit {
       }
     });
 
+
+    /*this.DoughnutChart = new Chart('doughnutChart', {
+      type: 'doughnut',
+      data: {
+          datasets: [{
+              backgroundColor: ['rgb(255, 99, 132)', 'rgb(255, 99, 0)', 'rgb(255, 0, 132)'],
+              data: [(data["espacioTotal"] - data["espacioDisponible"]), data["espacioDisponible"]]
+          }],
+
+          // These labels appear in the legend and in the tooltips when hovering different arcs
+          labels: [
+              'Ocupado',
+              'Disponible',
+          ]
+      },
+      options: {
+        legend: {
+            display: true,
+            position: 'bottom',
+            labels: {
+                fontColor: 'rgb(0, 0, 0)',
+                usePointStyle: true
+            }
+        },
+        elements: {
+          pointStyle: 'circle'
+        }
+      }
+  });*/
+
     //console.log('dash 1 ' + JSON.stringify(nodos));
     //console.log('nodesnames ' + this.nodesNames);
 

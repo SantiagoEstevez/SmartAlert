@@ -10,8 +10,8 @@
         <td scope="row">{{event.idEvento}}</td>
 
         <!-- Activo o desactivo -->
-        <td *ngIf="!event.activo"><button type="button" class="btn btn-success" disabled></button></td>
-        <td *ngIf="event.activo"><button type="button" class="btn btn-danger" disabled></button></td>
+        <td *ngIf="event.activo"><button type="button" class="btn btn-success" disabled></button></td>
+        <td *ngIf="!event.activo"><button type="button" class="btn btn-danger" disabled></button></td>
   
         <td>{{event.nombreEvento}}</td>
         

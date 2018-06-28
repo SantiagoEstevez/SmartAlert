@@ -3,6 +3,7 @@ import { AuthService } from '../_services/auth.service'
 import { ToastrService } from 'ngx-toastr';
 import { WebSocketService } from '../_services/web-socket.service';
 import { environment } from '../../environments/environment';
+import { User } from '../_models/user';
 
 @Component({
   selector: 'app-navbar',
@@ -12,6 +13,7 @@ import { environment } from '../../environments/environment';
 })
 export class NavbarComponent{
 
+  user: User = new User();
   messageFromServer: string;
   ws: WebSocket;
 
@@ -20,9 +22,10 @@ export class NavbarComponent{
     private toastr: ToastrService,
     private wsService: WebSocketService
   ) {
-    this.wsService.createObservableSocket(`${environment.ws_urlbase}alert`)
-      .subscribe(data => {
+      this.wsService.createObservableSocket(`${environment.ws_urlbase}alert`).subscribe(data => {
         this.toastr.info(data, 'Notification');
       })
+
+      this.user = this.authService.getUserCookie();
     };
 }

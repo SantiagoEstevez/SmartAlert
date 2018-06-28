@@ -45,14 +45,15 @@ export class EventService {
   addConfigs(nombre: String, listConfig: EventConfiguration[]) {
     for(let i in listConfig){
       const urlConfig = `${environment.api_urlbase}rest/eventos/confEventoG/${nombre}/${listConfig[i].tipo}/${listConfig[i].nivel}/${listConfig[i].alerta}`;
-      this.http.put(urlConfig, "");
+      console.log(urlConfig);
+      this.http.post(urlConfig, "").subscribe();
     }
   }
 
   editConfigs(idEvent: number, listConfig: EventConfiguration[]) {
     for(let i in listConfig){
       const urlConfig = `${environment.api_urlbase}rest/eventos/modificarConfEG/${idEvent}/${listConfig[i].tipo}/${listConfig[i].nivel}/${listConfig[i].alerta}`;
-      this.http.put(urlConfig, "");
+      this.http.put(urlConfig, "").subscribe();
     }
   }
 
@@ -77,6 +78,7 @@ export class EventService {
   }
 
   setEventCookie(event: Event) {
+    this.cookieService.delete('@easyaler::event');
     this.cookieService.set('@easyaler::event', JSON.stringify(event));
   }
 
