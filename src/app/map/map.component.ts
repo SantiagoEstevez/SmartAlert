@@ -39,8 +39,8 @@ export class MapComponent implements OnInit {
     day1.setDate(today.getDate() -1);
 
     //Formateo fechas
-    let hoy =  today.getFullYear().toString() + this.format(today.getMonth() + 1) + this.format(today.getDate());
-    let hace1 =  day1.getFullYear().toString() + this.format(day1.getMonth() + 1) + this.format(day1.getDate());
+    let hoy =  this.format(today.getDate()) + "-" + this.format(today.getMonth() + 1) + "-" + today.getFullYear().toString();
+    let hace1 = this.format(day1.getDate()) + "-" + this.format(day1.getMonth() + 1) + "-" + day1.getFullYear().toString();
 
     this.listNodes.getNodesNames().subscribe(data => {
       for(let node in data){
