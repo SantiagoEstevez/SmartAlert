@@ -8,8 +8,8 @@ export class AgentService {
 
   constructor( private http: HttpClient ) { }
 
-  getAgentLogs(node:String, date:String){
-    const url = `${environment.api_urlbase}rest/info/infoAgente/` + node + '/' + date;
+  getAgentLogs(node:String, dateBegin:String, dateEnd:String){
+    const url = `${environment.api_urlbase}rest/info/infoAgente/` + node + '/' + dateBegin + '/' + dateEnd;
 
     return this.http.get<Agent[]>(url, {observe: 'response'}).pipe(res => res);
   }

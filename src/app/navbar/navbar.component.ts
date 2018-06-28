@@ -20,8 +20,9 @@ export class NavbarComponent{
   constructor(
     public authService: AuthService,
     private toastr: ToastrService,
-    private wsService: WebSocketService
+    //private wsService: WebSocketService
   ) {
+    /*
     this.wsService.createObservableSocket('ws://localhost:8080/Proyecto2018/alert')
       .subscribe(data => {
         if(data != ""){
@@ -34,4 +35,5 @@ export class NavbarComponent{
 
       this.user = this.authService.getUserCookie();
     };
+*/
 }

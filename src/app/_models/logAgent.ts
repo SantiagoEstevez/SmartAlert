@@ -3,5 +3,6 @@ export class Agent {
 	fromHost:string;
 	fromHostIp:string;
 	programName:string;
-	sysLogSeverityText:string;  
+	sysLogSeverityText:string;
+  rawMessage:string;
 }
