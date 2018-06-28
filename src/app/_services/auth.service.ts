@@ -62,7 +62,11 @@ export class AuthService {
   }
 
   getUserCookie() : User {
-    return <User>JSON.parse(this.cookieService.get('@easyaler::user'));
+    if (this.cookieService.check("@easyaler::user")) {
+      return <User>JSON.parse(this.cookieService.get('@easyaler::user'));
+    }{
+      return new User();
+    }
   }
 
   async logout() {

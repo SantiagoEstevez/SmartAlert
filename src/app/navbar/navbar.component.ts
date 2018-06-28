@@ -32,6 +32,6 @@ export class NavbarComponent{
 
       })
 
-      //this.user = this.authService.getUserCookie();
+      this.user = this.authService.getUserCookie();
     };
 }
