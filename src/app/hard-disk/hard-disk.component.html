@@ -3,6 +3,7 @@
 <div>
   <p>Mount: {{ hardDiskInfo?.mount }} </p>
   <p>Espacio Disponible {{ hardDiskInfo?.espacioDisponible }} </p>
+  <p>Espacio Ocupado {{ hardDiskInfo?.espacioTotal - hardDiskInfo?.espacioDisponible }}
   <p>Espacio total: {{ hardDiskInfo?.espacioTotal }} </p>
 </div>
 <div class="card text-center">
