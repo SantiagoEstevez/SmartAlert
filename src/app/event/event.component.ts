@@ -2,7 +2,7 @@ import { Component, OnInit, ElementRef, ViewChild, Renderer2, TemplateRef } from
 import { Event } from '../_models/event';
 import { EventService } from '../_services/event.service';
 import { EventConfiguration } from '../_models/eventConf';
-import { EventType } from '../_models/EventType';
+import { EventType } from '../_models/eventType';
 import { AlertType } from '../_models/alert-type';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
@@ -83,7 +83,7 @@ export class EventComponent implements OnInit {
       } else {
         item.alerta = item.operador + item.alerta;
       }
-    }); 
+    });
 
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
   }
@@ -96,11 +96,11 @@ export class EventComponent implements OnInit {
       this.mostrarAdd();
     });
   }
- 
+
   decline(): void {
     this.modalRef.hide();
   }
-  
+
   swichStatus(swich: boolean, idEvent: number): void {
     if (swich) {
       this.eventService.activeEvent(idEvent).subscribe(res => {

@@ -15,6 +15,7 @@ export class LogRealTimeComponent {
     this.wsService.createObservableSocket('ws://localhost:8080/Proyecto2018/alert')
       .subscribe(data => {
         this.messageFromServer = data;
-      });
+      }
+    );
   }
 }

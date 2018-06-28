@@ -21,7 +21,12 @@ export class NavbarComponent{
   ) {
     this.wsService.createObservableSocket('ws://localhost:8080/Proyecto2018/alert')
       .subscribe(data => {
-        this.toastr.info(data, 'Notification');
+        if(data != ""){
+          this.toastr.info(data, 'Notification');
+        }
+
+        this.wsService.sendMessage("GiveMeMoreMessagesPls<3");  
+
       })
     };
 }
