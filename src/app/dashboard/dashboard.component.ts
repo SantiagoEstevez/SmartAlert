@@ -7,6 +7,7 @@ import { NodeDetailsComponent } from '../node-details/node-details.component'
 import { ListNodes } from '../_services/listNodes.service';
 import { NodeDetails } from '../_models/node-details';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { Memory } from '../_models/memory';
 
 @Component({
   selector: 'app-dashboard',
@@ -29,8 +30,10 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 })
 export class DashboardComponent implements OnInit {
 
+  private data: any[] = [];
   private nodeList:NodeDetails[] = [];
-  private nodesNames:Array<any> = [];
+  private nodesNames: string[] = [];
+  private colors: string[] = ["#34AF90", "#349AAF", "#345DAF", "#7B34AF", "#AF349C", "#AF3441", "#A8AF34", "#3B34AF"];
   chart = [];
   LineChart: any;
   PieChart: any;
@@ -39,12 +42,19 @@ export class DashboardComponent implements OnInit {
     private authService: AuthService,
     private graphService: GraphService,
     private router: Router,
-    private _listNodesService:ListNodes
+    private _listNodesService: ListNodes
   ) { }
 
   ngOnInit() {
 
     let nodos = this._listNodesService.getNodesNames().subscribe( data => {
+      for(let node in data){
+        if(data[node] != undefined && data[node] != "syslog") {
+          this.nodesNames.push(data[node]);
+        }
+      }
+      this.getInfoRamByDate();
+      
       for(let node in data){
         if(data[node] != undefined && data[node] != "syslog"){
           this._listNodesService.getNodesDetails(data[node]).subscribe( res => {
@@ -67,36 +77,90 @@ export class DashboardComponent implements OnInit {
       type: 'line',
       data: {
         labels: [today -4, today- 3 , today -2, today -1, today],
-        datasets: [
-          { 
-            data: [100, 50, 40, 80, 10],
-            borderColor: "#3cba9f",
-            fill: false
-          },
-          { 
-            data: [44, 66, 40, 80, 100],
-            borderColor: "#ffcc00",
-            fill: false
-          },
-        ]
-      }
-  });
-
-    //console.log('dash 1 ' + JSON.stringify(nodos));
-    //console.log('nodesnames ' + this.nodesNames);
-
-/*
-    this.http.get(url).subscribe( data => {
-      for(let node in data){
-        this.nodesNames.push(data[node]);
+        datasets: []
       }
     });
-*/
-    //console.log(this.nodesNames);
+  }
 
+  async getInfoRamByDate() {
+    let today = new Date();
 
-    //this.nodesNames.forEach((x) => {
-      //this.nodeList.push(this._listNodesService.getNodesDetails(x));
-    //});
+    let day1 = new Date();
+    day1.setDate(today.getDate() -1);
+
+    let day2 = new Date();
+    day2.setDate(today.getDate() -2);
+
+    let day3 = new Date();
+    day3.setDate(today.getDate() -3);
+
+    let day4 = new Date();
+    day4.setDate(today.getDate() -4);
+
+    let day5 = new Date();
+    day5.setDate(today.getDate() -5);
+
+    let hoy =  today.getFullYear().toString() + this.format(today.getMonth() + 1) + this.format(today.getDate());
+    let hace1 =  day1.getFullYear().toString() + this.format(day1.getMonth() + 1) + this.format(day1.getDate());
+    let hace2 =  day2.getFullYear().toString() + this.format(day2.getMonth() + 1) + this.format(day2.getDate());
+    let hace3 =  day3.getFullYear().toString() + this.format(day3.getMonth() + 1) + this.format(day3.getDate());
+    let hace4 =  day4.getFullYear().toString() + this.format(day4.getMonth() + 1) + this.format(day4.getDate());
+    let hace5 =  day4.getFullYear().toString() + this.format(day4.getMonth() + 1) + this.format(day4.getDate());
+
+    for (let i in this.nodesNames) {
+      let data = [];
+
+      console.log(hace1, hoy);
+      data.push(await this.getMayorUso(this.nodesNames[i], hace1, hoy));
+      data.push(await this.getMayorUso(this.nodesNames[i], hace2, hace1));
+      data.push(await this.getMayorUso(this.nodesNames[i], hace3, hace2));
+      data.push(await this.getMayorUso(this.nodesNames[i], hace4, hace3));
+      data.push(await this.getMayorUso(this.nodesNames[i], hace5, hace4));
+
+      let newdata = { 
+        data: data,
+        borderColor: this.colors[i],
+        fill: false,
+        label: this.nodesNames[i]
+      }
+
+      this.LineChart.data.datasets.push(newdata);
+      this.LineChart.update();
+      console.log("Grafica actualizada");
+    }
+  }
+
+  getMayorUso(node: string, from: string, to: string) {
+    return new Promise(resolve => {
+      console.log("se carga: " + node + " de " + from + " a " + to);
+
+      this.graphService.getMemoryHistory(node, from, to).subscribe(res => {
+        let dataM: Memory[] = res.body;
+        console.log(dataM);
+
+        let usoMayor: number = 0;
+
+        for (let d in dataM) {
+          console.log("entre a datos");
+
+          let uso = (dataM[d].memoriaEnUso * 100) / dataM[d].memoriaTotal
+          if (uso > usoMayor) {
+            usoMayor = uso;
+          }
+        }
+        
+        console.log(usoMayor);
+        resolve(usoMayor);
+      });
+    });
+  }
+
+  format(numero: number): string {
+    let result = numero.toString();
+    if (result.length < 2) {
+      return "0" + result;
+    } else {
+      return result;
+    }
   }
 }
