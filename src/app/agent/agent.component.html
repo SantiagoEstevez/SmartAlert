@@ -5,10 +5,11 @@ Nodo: <select id="Id" #Id="ngModel" [(ngModel)]="node" name="Id">
          {{k}}
   </option>
 </select>
+<button (click)="searchLogs()"> Search </button>
+<hr>
 <nav class="navbar">
   <input class="form-control" type="text" name="search" [(ngModel)]="filter">
 </nav>
-<button (click)="searchLogs()"> Search </button>
 <hr>
 <table class="table table-dark">
   <thead>
