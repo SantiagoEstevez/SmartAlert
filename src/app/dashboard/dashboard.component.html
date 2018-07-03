@@ -1,27 +1,61 @@
 <div class="row">
     <div class="col-6">
-        <div [@flyInOut]="active" *ngFor="let node of nodeList" class="float-left p-1" style="width: 50%;">
-            <div class="card" [routerLink]="['node-detail', node.name, node.distro, node.ipAddress, node.ipPublica, node.cantCpus, node.totalRAM]" style="cursor: pointer">
-                <div class="card-header">
-                    {{ node.name }}
+        <div class="my-2">
+            <div [@flyInOut]="active" *ngFor="let node of nodeList" class="float-left mb-2 px-1" style="width: 50%;">
+                <div class="card" [routerLink]="['node-detail', node.name, node.distro, node.ipAddress, node.ipPublica, node.cantCpus, node.totalRAM]" style="cursor: pointer">
+                    <div class="card-header">
+                        {{ node.name }}
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Sistema Operativo: {{ node.distro }}</li>
+                        <li class="list-group-item">IP interna: {{ node.ipAddress }}</li>
+                        <li class="list-group-item">IP publica: {{ node.ipPublica }}</li>
+                        <li class="list-group-item">Procesadores: {{ node.cantCpus }}</li>
+                        <li class="list-group-item">Ram: {{ node.totalRAM }}</li>
+                    </ul>
                 </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Sistema Operativo: {{ node.distro }}</li>
-                    <li class="list-group-item">IP interna: {{ node.ipAddress }}</li>
-                    <li class="list-group-item">IP publica: {{ node.ipPublica }}</li>
-                    <li class="list-group-item">Procesadores: {{ node.cantCpus }}</li>
-                    <li class="list-group-item">Ram: {{ node.totalRAM }}</li>
-                </ul>
+            </div>
+        </div>
+
+        <!-- Grafica cpu  -->
+        <div class="card my-2 w-100">
+            <div class="card-header">
+                Estado de cpu
+            </div>
+            <div class="card-body p-2">
+                <canvas id="lineChartCpu"> LineChart </canvas>
+            </div>
+            <div class="card-footer text-muted">
+                Ultimos 5 dias
             </div>
         </div>
     </div>
+    
     <div class="col-6">
-        <div class="card">
+
+        <!-- Grafica ram -->
+        <div class="card my-2">
+            <div class="card-header">
+                Estado de ram
+            </div>
             <div class="card-body p-2">
-                <canvas id="lineChart"> LineChart </canvas>
+                <canvas id="lineChartRam"> LineChart </canvas>
             </div>
             <div class="card-footer text-muted">
-                Estado ram ultimos 5 dias
+                Ultimos 5 dias
+            </div>
+        </div>
+
+        <!-- Grafica drive  -->
+        <div class="card my-2">
+            <div class="card-header">
+                Estado de disco
+            </div>
+            <div class="card-body p-2">
+                <canvas id="lineChartDrive"> LineChart </canvas>
+            </div>
+            <div class="card-footer text-muted">
+                Ultimos 5 dias
             </div>
         </div>
     </div>

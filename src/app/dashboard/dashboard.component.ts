@@ -8,6 +8,8 @@ import { ListNodes } from '../_services/listNodes.service';
 import { NodeDetails } from '../_models/node-details';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { Memory } from '../_models/memory';
+import { HardDiskInfo } from '../_models/hardDisk';
+import { Cpu } from '../_models/cpu';
 
 @Component({
   selector: 'app-dashboard',
@@ -35,7 +37,9 @@ export class DashboardComponent implements OnInit {
   private nodesNames: string[] = [];
   private colors: string[] = ["#34AF90", "#349AAF", "#345DAF", "#7B34AF", "#AF349C", "#AF3441", "#A8AF34", "#3B34AF"];
   chart = [];
-  LineChart: any;
+  LineChartRam: any;
+  LineChartDrive: any;
+  LineChartCpu: any;
   PieChart: any;
 
   constructor(
@@ -54,6 +58,8 @@ export class DashboardComponent implements OnInit {
         }
       }
       this.getInfoRamByDate();
+      this.getInfoDriveByDate();
+      this.getInfoCpuByDate();
       
       for(let node in data){
         if(data[node] != undefined && data[node] != "syslog"){
@@ -73,10 +79,38 @@ export class DashboardComponent implements OnInit {
 
     let today = new Date().getDate();
 
-    this.LineChart = new Chart('lineChart', {
+    let day1 = new Date();
+    day1.setDate(today -1);
+
+    let day2 = new Date();
+    day2.setDate(today -2);
+
+    let day3 = new Date()
+    day3.setDate(today -3);
+
+    let day4 = new Date()
+    day4.setDate(today -4);
+
+    this.LineChartRam = new Chart('lineChartRam', {
       type: 'line',
       data: {
-        labels: [today -4, today- 3 , today -2, today -1, today],
+        labels: [day4.getDate(), day3.getDate() , day2.getDate(), day1.getDate(), today],
+        datasets: []
+      }
+    });
+
+    this.LineChartDrive = new Chart('lineChartDrive', {
+      type: 'line',
+      data: {
+        labels: [day4.getDate(), day3.getDate() , day2.getDate(), day1.getDate(), today],
+        datasets: []
+      }
+    });
+
+    this.LineChartCpu = new Chart('lineChartCpu', {
+      type: 'line',
+      data: {
+        labels: [day4.getDate(), day3.getDate() , day2.getDate(), day1.getDate(), today],
         datasets: []
       }
     });
@@ -84,6 +118,9 @@ export class DashboardComponent implements OnInit {
 
   async getInfoRamByDate() {
     let today = new Date();
+
+    let tommorrow = new Date();
+    tommorrow.setDate(today.getDate() +1);
 
     let day1 = new Date();
     day1.setDate(today.getDate() -1);
@@ -100,6 +137,79 @@ export class DashboardComponent implements OnInit {
     let day5 = new Date();
     day5.setDate(today.getDate() -5);
 
+    let Maniana =  tommorrow.getFullYear().toString() + this.format(tommorrow.getMonth() + 1) + this.format(tommorrow.getDate());
+    let hoy =  today.getFullYear().toString() + this.format(today.getMonth() + 1) + this.format(today.getDate());
+    let hace1 =  day1.getFullYear().toString() + this.format(day1.getMonth() + 1) + this.format(day1.getDate());
+    let hace2 =  day2.getFullYear().toString() + this.format(day2.getMonth() + 1) + this.format(day2.getDate());
+    let hace3 =  day3.getFullYear().toString() + this.format(day3.getMonth() + 1) + this.format(day3.getDate());
+    let hace4 =  day4.getFullYear().toString() + this.format(day4.getMonth() + 1) + this.format(day4.getDate());
+    let hace5 =  day4.getFullYear().toString() + this.format(day4.getMonth() + 1) + this.format(day4.getDate());
+
+    for (let i in this.nodesNames) {
+      let data = [];
+
+      data.push(await this.getTopRam(this.nodesNames[i], hoy, Maniana));
+      data.push(await this.getTopRam(this.nodesNames[i], hace1, hoy));
+      data.push(await this.getTopRam(this.nodesNames[i], hace2, hace1));
+      data.push(await this.getTopRam(this.nodesNames[i], hace3, hace2));
+      data.push(await this.getTopRam(this.nodesNames[i], hace4, hace3));
+
+      let newdata = { 
+        data: data,
+        borderColor: this.colors[i],
+        fill: false,
+        label: this.nodesNames[i]
+      }
+
+      this.LineChartRam.data.datasets.push(newdata);
+      this.LineChartRam.update();
+      console.log("Grafica actualizada");
+    }
+  }
+
+  getTopRam(node: string, from: string, to: string) {
+    return new Promise(resolve => {
+
+      this.graphService.getMemoryHistory(node, from, to).subscribe(res => {
+        let dataM: Memory[] = res.body;
+
+        let usoMayor: number = 0;
+
+        for (let d in dataM) {
+
+          let uso = (dataM[d].memoriaEnUso * 100) / dataM[d].memoriaTotal
+          if (uso > usoMayor) {
+            usoMayor = uso;
+          }
+        }
+
+        resolve(usoMayor);
+      });
+    });
+  }
+
+  async getInfoDriveByDate() {
+    let today = new Date();
+
+    let tommorrow = new Date();
+    tommorrow.setDate(today.getDate() +1);
+
+    let day1 = new Date();
+    day1.setDate(today.getDate() -1);
+
+    let day2 = new Date();
+    day2.setDate(today.getDate() -2);
+
+    let day3 = new Date();
+    day3.setDate(today.getDate() -3);
+
+    let day4 = new Date();
+    day4.setDate(today.getDate() -4);
+
+    let day5 = new Date();
+    day5.setDate(today.getDate() -5);
+
+    let Maniana =  tommorrow.getFullYear().toString() + this.format(tommorrow.getMonth() + 1) + this.format(tommorrow.getDate());
     let hoy =  today.getFullYear().toString() + this.format(today.getMonth() + 1) + this.format(today.getDate());
     let hace1 =  day1.getFullYear().toString() + this.format(day1.getMonth() + 1) + this.format(day1.getDate());
     let hace2 =  day2.getFullYear().toString() + this.format(day2.getMonth() + 1) + this.format(day2.getDate());
@@ -111,11 +221,11 @@ export class DashboardComponent implements OnInit {
       let data = [];
 
       console.log(hace1, hoy);
-      data.push(await this.getMayorUso(this.nodesNames[i], hace1, hoy));
-      data.push(await this.getMayorUso(this.nodesNames[i], hace2, hace1));
-      data.push(await this.getMayorUso(this.nodesNames[i], hace3, hace2));
-      data.push(await this.getMayorUso(this.nodesNames[i], hace4, hace3));
-      data.push(await this.getMayorUso(this.nodesNames[i], hace5, hace4));
+      data.push(await this.getTopDrive(this.nodesNames[i], hoy, Maniana));
+      data.push(await this.getTopDrive(this.nodesNames[i], hace1, hoy));
+      data.push(await this.getTopDrive(this.nodesNames[i], hace2, hace1));
+      data.push(await this.getTopDrive(this.nodesNames[i], hace3, hace2));
+      data.push(await this.getTopDrive(this.nodesNames[i], hace4, hace3));
 
       let newdata = { 
         data: data,
@@ -124,32 +234,102 @@ export class DashboardComponent implements OnInit {
         label: this.nodesNames[i]
       }
 
-      this.LineChart.data.datasets.push(newdata);
-      this.LineChart.update();
-      console.log("Grafica actualizada");
+      this.LineChartDrive.data.datasets.push(newdata);
+      this.LineChartDrive.update();
+      console.log("Grafica drive actualizada");
     }
   }
 
-  getMayorUso(node: string, from: string, to: string) {
+  getTopDrive(node: string, from: string, to: string) {
     return new Promise(resolve => {
-      console.log("se carga: " + node + " de " + from + " a " + to);
 
-      this.graphService.getMemoryHistory(node, from, to).subscribe(res => {
-        let dataM: Memory[] = res.body;
-        console.log(dataM);
+      this.graphService.getDriveHistory(node, from, to).subscribe(res => {
+        let dataDrive: HardDiskInfo[] = res.body;
 
         let usoMayor: number = 0;
 
-        for (let d in dataM) {
-          console.log("entre a datos");
+        for (let d in dataDrive) {
+          let usado = dataDrive[d].espacioTotal - dataDrive[d].espacioDisponible;
 
-          let uso = (dataM[d].memoriaEnUso * 100) / dataM[d].memoriaTotal
+          let uso = (usado * 100) / dataDrive[d].espacioTotal
           if (uso > usoMayor) {
             usoMayor = uso;
           }
         }
-        
-        console.log(usoMayor);
+
+        resolve(usoMayor);
+      });
+    });
+  }
+
+  async getInfoCpuByDate() {
+    let today = new Date();
+
+    let tommorrow = new Date();
+    tommorrow.setDate(today.getDate() +1);
+
+    let day1 = new Date();
+    day1.setDate(today.getDate() -1);
+
+    let day2 = new Date();
+    day2.setDate(today.getDate() -2);
+
+    let day3 = new Date();
+    day3.setDate(today.getDate() -3);
+
+    let day4 = new Date();
+    day4.setDate(today.getDate() -4);
+
+    let day5 = new Date();
+    day5.setDate(today.getDate() -5);
+
+    let Maniana =  tommorrow.getFullYear().toString() + this.format(tommorrow.getMonth() + 1) + this.format(tommorrow.getDate());
+    let hoy =  today.getFullYear().toString() + this.format(today.getMonth() + 1) + this.format(today.getDate());
+    let hace1 =  day1.getFullYear().toString() + this.format(day1.getMonth() + 1) + this.format(day1.getDate());
+    let hace2 =  day2.getFullYear().toString() + this.format(day2.getMonth() + 1) + this.format(day2.getDate());
+    let hace3 =  day3.getFullYear().toString() + this.format(day3.getMonth() + 1) + this.format(day3.getDate());
+    let hace4 =  day4.getFullYear().toString() + this.format(day4.getMonth() + 1) + this.format(day4.getDate());
+    let hace5 =  day4.getFullYear().toString() + this.format(day4.getMonth() + 1) + this.format(day4.getDate());
+
+    for (let i in this.nodesNames) {
+      let data = [];
+
+      console.log(hace1, hoy);
+      data.push(await this.getTopCpu(this.nodesNames[i], hoy, Maniana));
+      data.push(await this.getTopCpu(this.nodesNames[i], hace1, hoy));
+      data.push(await this.getTopCpu(this.nodesNames[i], hace2, hace1));
+      data.push(await this.getTopCpu(this.nodesNames[i], hace3, hace2));
+      data.push(await this.getTopCpu(this.nodesNames[i], hace4, hace3));
+
+      let newdata = { 
+        data: data,
+        borderColor: this.colors[i],
+        fill: false,
+        label: this.nodesNames[i]
+      }
+
+      this.LineChartCpu.data.datasets.push(newdata);
+      this.LineChartCpu.update();
+      console.log("Grafica drive actualizada");
+    }
+  }
+
+  getTopCpu(node: string, from: string, to: string) {
+    return new Promise(resolve => {
+
+      this.graphService.getCpuHistory(node, from, to).subscribe(res => {
+        let dataCpu: Cpu[] = res.body;
+
+        let usoMayor: number = 0;
+
+        for (let d in dataCpu) {
+          let uso = dataCpu[d].cpuLoad;
+
+          if (uso > usoMayor) {
+            usoMayor = uso;
+          }
+        }
+
         resolve(usoMayor);
       });
     });
@@ -162,14 +342,5 @@ export class DashboardComponent implements OnInit {
     } else {
       return result;
     }
-  }
-
-  saveNode(node: NodeDetails) {
-    console.log("se guerda");
-    console.log(node);
-    localStorage.setItem('@easyaler::node', JSON.stringify(node));
-    //this.router.navigate(['node-detail'], { queryParams: { name: node.name } });
-    this.router.navigate(['/node-detail', node.name]);
-    //this.router.navigate(['node-detail', { outlets: { 'list-outlet': [node.name]} }]);
   }
 }

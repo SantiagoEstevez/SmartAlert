@@ -1,9 +1,11 @@
-<div class="row text-right">
+<div class="row text-left mb-2">
   <div class="col-12">
-      <a (click)="mostrarAdd()" class="nav-link btn-block" [routerLink]="">
+      <button *ngIf="!verAdd" (click)="mostrarAdd()" type="button" class="btn btn-outline-info">Nuevo</button>
+      <button *ngIf="verAdd" (click)="mostrarAdd()" type="button" class="btn btn-info">Nuevo</button>
+      <!--<a (click)="mostrarAdd()" class="nav-link btn-block" [routerLink]="">
           new
           <i class="fas fa-plus"></i>
-      </a>
+      </a>-->
   </div>
 </div>
 <div *ngIf="verAdd" class="row">
@@ -93,12 +95,12 @@
 
       <td >
         <!-- Activar o desactivar -->
-        <button *ngIf="!event.activo && event.soyCreador" (click)="swichStatus(true, event.idEvento)" type="button" class="btn btn-outline-success">Activar</button>
-        <button *ngIf="event.activo && event.soyCreador" (click)="swichStatus(false, event.idEvento)" type="button" class="btn btn-outline-danger">Desactivar</button>
+        <button *ngIf="!event.activo && event.soyCreador" (click)="swichStatus(true, event.idEvento)" type="button" class="btn btn-outline-success mr-1">Activar</button>
+        <button *ngIf="event.activo && event.soyCreador" (click)="swichStatus(false, event.idEvento)" type="button" class="btn btn-outline-danger mr-1">Desactivar</button>
 
         <!-- Suscribirme o desuscribirme -->
-        <button *ngIf="!event.estoySuscripto" (click)="swichSuscribe(true, event.idEvento)" type="button" class="btn btn-outline-success ml-1">Suscribirme</button>
-        <button *ngIf="event.estoySuscripto" (click)="swichSuscribe(false, event.idEvento)" type="button" class="btn btn-outline-warning ml-1">Desuscribirme</button>
+        <button *ngIf="!event.estoySuscripto" (click)="swichSuscribe(true, event.idEvento)" type="button" class="btn btn-outline-success mr-1">Suscribirme</button>
+        <button *ngIf="event.estoySuscripto" (click)="swichSuscribe(false, event.idEvento)" type="button" class="btn btn-outline-warning mr-1">Desuscribirme</button>
       </td>
     </tr>
   </tbody>

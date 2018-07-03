@@ -10,31 +10,31 @@
   <div [collapse]=!isCollapsed class="collapse navbar-collapse" id="navbarSupportedContent" aria-expanded="false">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active menuitem">
-        <a class="nav-link white" [routerLink]="['dashboard']">
+        <a class="nav-link" [routerLink]="['dashboard']">
           <i class="far fa-chart-bar"></i>
           Dashboard
         </a>
       </li>
       <li class="nav-item menuitem">
-        <a class="nav-link white" [routerLink]="['events']">
+        <a class="nav-link" [routerLink]="['events']">
           <i class="far fa-calendar-alt"></i>
           Events
         </a>
       </li>
       <li class="nav-item menuitem">
-          <a class="nav-link white" [routerLink]="['map']">
+          <a class="nav-link" [routerLink]="['map']">
             <i class="far fa-map"></i>
             Mapa logs
           </a>
         </li>
       <li class="nav-item menuitem">
-        <a class="nav-link white" [routerLink]="['notifications']">
+        <a class="nav-link" [routerLink]="['notifications']">
           <i class="far fa-bell"></i>
           Notificaciones
         </a>
       </li>
       <li class="nav-item menuitem">
-        <a class="nav-link white" [routerLink]="['agent']">
+        <a class="nav-link" [routerLink]="['agent']">
           <i class="far fa-paper-plane"></i>
           Logs App
         </a>
@@ -46,9 +46,9 @@
             <i class="fas fa-user-circle" style="font-size: 1.5em"></i>
           </a>
           <div *dropdownMenu class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item white">{{user.username}} | {{user.nivel_acceso}}</a>
+            <a class="dropdown-item">{{user.username}} | {{user.nivel_acceso}}</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item white">{{user.mail}}</a>
+            <a class="dropdown-item">{{user.mail}}</a>
             <div class="dropdown-divider"></div>
             <a (click)="authService.logout()" class="dropdown-item" [routerLink]="">Logout</a>
           </div>

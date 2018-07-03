@@ -36,7 +36,7 @@ export class MapComponent implements OnInit {
     //Preparo fechas
     let today = new Date();
     let day1 = new Date();
-    day1.setDate(today.getDate() -1);
+    day1.setDate(today.getDate() -60);
 
     //Formateo fechas
     let hoy =  this.format(today.getDate()) + "-" + this.format(today.getMonth() + 1) + "-" + today.getFullYear().toString();
@@ -48,8 +48,12 @@ export class MapComponent implements OnInit {
           let name = data[node];
           this.nodesNames.push(name);
 
+          console.log("viendo el nodo " + name);
+
           this.agentService.getAgentLogs(name, hace1, hoy).subscribe(res => {
             this.logs = res.body;
+            console.log("estos son los logs");
+            console.log(this.logs);
 
             for(let i in this.logs){
               this.agentService.getDataIp(this.logs[i].fromHostIp).subscribe(resip => {
