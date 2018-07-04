@@ -5,7 +5,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 //Para bootstrap
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -13,6 +12,8 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 //Components
 import { AppComponent } from './app.component';
@@ -74,6 +75,7 @@ import { NotificationComponent } from './notification/notification.component';
     CollapseModule.forRoot(),
     TabsModule.forRoot(),
     BsDatepickerModule.forRoot(),
+    PaginationModule.forRoot(),
     AppRoutingModule,
     FormsModule,
     NgxPaginationModule,

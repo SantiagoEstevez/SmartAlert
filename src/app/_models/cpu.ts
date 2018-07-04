@@ -1,4 +1,5 @@
 export class Cpu {
     cpuLoad: number;
-	numeroCpus: number;
+    numeroCpus: number;
+    fecha: string
 }

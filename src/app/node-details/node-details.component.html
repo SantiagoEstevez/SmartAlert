@@ -34,24 +34,61 @@
   <div class="col-6 p-1">
     <div class="card">
       <div class="card-header">
-        Historial de moemorya (ultimos 15 dias)
+        <form class="form-inline">
+          <span class="mb-2 mr-2" style="font-weight: bold">RAM</span>
+
+          <div class="input-group mb-2 mr-2" style="max-width: 200px;">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="userid">
+                <i class="far fa-calendar-alt"></i>
+              </span>
+            </div>
+            <input type = "text" 
+              class = "form-control"
+              bsDatepicker  
+              name="dateRamFrom"
+              [(ngModel)]="dateRamFrom"
+              [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }">
+          </div>
+
+          <div class="input-group mb-2 mr-2" style="max-width: 200px;">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="userid">
+                <i class="far fa-calendar-alt"></i>
+              </span>
+            </div>
+            <input type = "text" 
+              class = "form-control"
+              bsDatepicker  
+              name="dateRamTo"
+              [(ngModel)]="dateRamTo"
+              [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }">
+          </div>  
+
+          <button (click)="findRamHistory()" type="button" class="btn btn-outline-info mb-2">
+            <i class="fas fa-sync-alt"></i>
+          </button>
+        </form>
       </div>
       <div class="card-body">
         <table class="table table-hover table-sm">
           <thead>
             <tr>
-              <th scope="col">Memoria usada</th>
-              <th scope="col">Memoria libre</th>
-              <th scope="col">Memoria total</th>
+              <th scope="col">Usada</th>
+              <th scope="col">Libre</th>
+              <th scope="col">Total</th>
+              <th scope="col">Fecha</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let memory of memoryHistory">
+            <tr *ngFor="let memory of memoryHistoryByPage">
               <td scope="row">{{memory.memoriaEnUso}}</td>
               <td scope="row">{{memory.memoriaLibre}}</td>
               <td scope="row">{{memory.memoriaTotal}}</td>
+              <td scope="row">{{memory.fecha}}</td>
             </tr>
           </tbody>
+          <pagination class="mt-2" [itemsPerPage]="20" [totalItems]="memoryHistory.length" (pageChanged)="pageChangedRam($event)"></pagination>
         </table>
       </div>
     </div>
@@ -61,51 +98,62 @@
   <div class="col-6 p-1">
     <div class="card">
       <div class="card-header">
-        <div class="input-group mb-2" style="max-width: 200px;">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="userid">
-              <i class="far fa-calendar-alt"></i>
-            </span>
-          </div>
-          <input type = "text" 
-            class = "form-control"
-            bsDatepicker  
-            [(ngModel)]="dateDriveInput"
-            [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }">
-        </div>
+        <form class="form-inline">
+          <span class="mb-2 mr-2" style="font-weight: bold">DISCO</span>
 
-        <div class="input-group mb-2" style="max-width: 200px;">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="userid">
-              <i class="far fa-calendar-alt"></i>
-            </span>
+          <div class="input-group mb-2 mr-2" style="max-width: 200px;">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="userid">
+                <i class="far fa-calendar-alt"></i>
+              </span>
+            </div>
+            <input type = "text" 
+              class = "form-control"
+              bsDatepicker  
+              name="dateDriveFrom"
+              [(ngModel)]="dateDriveFrom"
+              [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }">
           </div>
-          <input type = "text" 
-            class = "form-control"
-            bsDatepicker  
-            [(ngModel)]="dateDriveOutput"
-            [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }">
-        </div>
 
-        <button (click)="buscar()" type="button" class="btn btn-outline-success">Find</button>
+          <div class="input-group mb-2 mr-2" style="max-width: 200px;">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="userid">
+                <i class="far fa-calendar-alt"></i>
+              </span>
+            </div>
+            <input type = "text" 
+              class = "form-control"
+              bsDatepicker  
+              name="dateDriveTo"
+              [(ngModel)]="dateDriveTo"
+              [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }">
+          </div>  
+
+          <button (click)="findDriveHistory()" type="button" class="btn btn-outline-info mb-2">
+            <i class="fas fa-sync-alt"></i>
+          </button>
+        </form>
       </div>
       <div class="card-body">
         <table class="table table-hover table-sm">
           <thead>
             <tr>
               <th scope="col">Nombre disco</th>
-              <th scope="col">Disco usado</th>
-              <th scope="col">Disco libre</th>
-              <th scope="col">Disco total</th>
+              <th scope="col">Usado</th>
+              <th scope="col">Libre</th>
+              <th scope="col">Total</th>
+              <th scope="col">Fecha</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let drive of driveHistory">
+            <tr *ngFor="let drive of driveHistoryByPage">
               <td scope="row">{{drive.mount}}</td>
               <td scope="row">{{(drive.espacioTotal - drive.espacioDisponible)}}</td>
               <td scope="row">{{drive.espacioDisponible}}</td>
               <td scope="row">{{drive.espacioTotal}}</td>
+              <td scope="row">{{drive.fecha}}</td>
             </tr>
+            <pagination class="mt-2" [itemsPerPage]="20" [totalItems]="driveHistory.length" (pageChanged)="pageChangedDrive($event)"></pagination>
           </tbody>
         </table>
       </div>
