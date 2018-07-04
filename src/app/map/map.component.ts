@@ -60,6 +60,9 @@ export class MapComponent implements OnInit {
   }
 
   getLogs(name: String, from: string, to: string) {
+    this.clearMarkers();
+    this.logs = [];
+    
     if (name == "" || name == "todos") {
       for (let i in this.nodesNames) {
         if (this.nodesNames[i] != "todos") {
@@ -75,19 +78,19 @@ export class MapComponent implements OnInit {
     this.agentService.getAgentLogs(name, from, to).subscribe(res => {
       this.logs = res.body;
 
-      for(let i in this.logs){
-        this.agentService.getDataIp(this.logs[i].fromHostIp).subscribe(resip => {
+      for(let n in this.logs){
+        this.agentService.getDataIp(this.logs[n].fromHostIp).subscribe(resip => {
           let ipdata: IpData = resip.body;
 
           if (ipdata.loc) {
             console.log("esto es lo que me devuelve: ");
-            console.log(this.logs[i]);
+            console.log(this.logs[n]);
             console.log(ipdata);
 
             let marker = new google.maps.Marker({
               position: new google.maps.LatLng(Number(ipdata.loc.split(',')[0]), Number(ipdata.loc.split(',')[1])),
               map: this.map,
-              title: name + " | " + this.logs[i].sysLogSeverityText + " | " + ipdata.city + " | " + ipdata.region
+              title: name + " | " + this.logs[n].sysLogSeverityText + " | " + ipdata.city + " | " + ipdata.region
             });
 
             this.markers.push(marker);
@@ -136,8 +139,6 @@ export class MapComponent implements OnInit {
   }
 
   findHistory() {
-    this.clearMarkers();
-
     let from =  this.dateFrom.getFullYear().toString() + "-" + this.format(this.dateFrom.getMonth() + 1) + "-" + this.format(this.dateFrom.getDate());
     let to = this.dateTo.getFullYear().toString() + "-" + this.format(this.dateTo.getMonth() + 1) + "-" + this.format(this.dateTo.getDate());
 
