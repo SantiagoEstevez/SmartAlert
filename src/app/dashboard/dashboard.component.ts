@@ -31,7 +31,6 @@ import { Cpu } from '../_models/cpu';
   ]
 })
 export class DashboardComponent implements OnInit {
-
   private data: any[] = [];
   private nodeList:NodeDetails[] = [];
   private nodesNames: string[] = [];

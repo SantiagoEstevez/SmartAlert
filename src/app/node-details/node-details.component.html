@@ -61,7 +61,33 @@
   <div class="col-6 p-1">
     <div class="card">
       <div class="card-header">
-        Historial de disco (ultimos 15 dias)
+        <div class="input-group mb-2" style="max-width: 200px;">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="userid">
+              <i class="far fa-calendar-alt"></i>
+            </span>
+          </div>
+          <input type = "text" 
+            class = "form-control"
+            bsDatepicker  
+            [(ngModel)]="dateDriveInput"
+            [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }">
+        </div>
+
+        <div class="input-group mb-2" style="max-width: 200px;">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="userid">
+              <i class="far fa-calendar-alt"></i>
+            </span>
+          </div>
+          <input type = "text" 
+            class = "form-control"
+            bsDatepicker  
+            [(ngModel)]="dateDriveOutput"
+            [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }">
+        </div>
+
+        <button (click)="buscar()" type="button" class="btn btn-outline-success">Find</button>
       </div>
       <div class="card-body">
         <table class="table table-hover table-sm">

@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 //Para bootstrap
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -72,14 +73,14 @@ import { NotificationComponent } from './notification/notification.component';
     ModalModule.forRoot(),
     CollapseModule.forRoot(),
     TabsModule.forRoot(),
+    BsDatepickerModule.forRoot(),
     AppRoutingModule,
     FormsModule,
     NgxPaginationModule,
     CommonModule,
-  BrowserAnimationsModule, // required animations module
-  ToastrModule.forRoot(), // ToastrModule added
-  Ng2SearchPipeModule //including into imports
-
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(), // ToastrModule added
+    Ng2SearchPipeModule //including into imports
   ],
   providers: [
     ListNodes,

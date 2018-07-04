@@ -15,7 +15,8 @@ import { HardDiskInfo } from '../_models/hardDisk';
   styleUrls: ['./node-details.component.css']
 })
 export class NodeDetailsComponent implements OnInit {
-
+  dateDriveInput: Date = new Date();
+  dateDriveOutput: Date = new Date();
   nodeName:string;
   node: NodeDetails = new NodeDetails();
   memoryHistory: Memory[] = [];
@@ -44,5 +45,9 @@ export class NodeDetailsComponent implements OnInit {
     this.graphService.getDriveHistory(this.nodeName, '20180615', '20180630').subscribe(res => {
       this.driveHistory = res.body;
     });
+  }
+
+  buscar() {
+    alert("fecha desde: " + this.dateDriveInput.getDate() + " fecha hasta: " + this.dateDriveOutput.getDate());
   }
 }
