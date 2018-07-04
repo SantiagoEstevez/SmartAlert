@@ -82,10 +82,10 @@
           </thead>
           <tbody>
             <tr *ngFor="let memory of memoryHistoryByPage">
-              <td scope="row">{{memory.memoriaEnUso}}</td>
-              <td scope="row">{{memory.memoriaLibre}}</td>
-              <td scope="row">{{memory.memoriaTotal}}</td>
-              <td scope="row">{{memory.fecha}}</td>
+              <td>{{memory.memoriaEnUso | number:'.1-2'}} ({{memory.pEnUso | number:'.1-2'}}%)</td>
+              <td>{{memory.memoriaLibre | number:'.1-2'}} ({{memory.pLibre | number:'.1-2'}}%)</td>
+              <td>{{memory.memoriaTotal | number:'.1-2'}}</td>
+              <td>{{memory.fecha}}</td>
             </tr>
           </tbody>
           <pagination class="mt-2" [itemsPerPage]="20" [totalItems]="memoryHistory.length" (pageChanged)="pageChangedRam($event)"></pagination>
@@ -147,11 +147,11 @@
           </thead>
           <tbody>
             <tr *ngFor="let drive of driveHistoryByPage">
-              <td scope="row">{{drive.mount}}</td>
-              <td scope="row">{{(drive.espacioTotal - drive.espacioDisponible)}}</td>
-              <td scope="row">{{drive.espacioDisponible}}</td>
-              <td scope="row">{{drive.espacioTotal}}</td>
-              <td scope="row">{{drive.fecha}}</td>
+              <td>{{drive.mount}}</td>
+              <td>{{(drive.espacioTotal - drive.espacioDisponible) | number:'.1-2'}} ({{drive.pUso | number:'.1-2'}}%)</td>
+              <td>{{drive.espacioDisponible | number:'.1-2'}} ({{drive.pDisponible | number:'.1-2'}}%)</td>
+              <td>{{drive.espacioTotal | number:'.1-2'}}</td>
+              <td>{{drive.fecha}}</td>
             </tr>
             <pagination class="mt-2" [itemsPerPage]="20" [totalItems]="driveHistory.length" (pageChanged)="pageChangedDrive($event)"></pagination>
           </tbody>

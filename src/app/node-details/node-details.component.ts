@@ -61,6 +61,16 @@ export class NodeDetailsComponent implements OnInit {
   getRam(from: string, to: string) {
     this.graphService.getMemoryHistory(this.nodeName, from, to).subscribe(res => {
       this.memoryHistory = res.body;
+
+      for (let i in this.memoryHistory) {
+        let libre = this.memoryHistory[i].memoriaLibre;
+        let total = this.memoryHistory[i].memoriaTotal;
+        let usado = this.memoryHistory[i].memoriaEnUso;
+
+        this.memoryHistory[i].pEnUso = (usado * 100) / total;
+        this.memoryHistory[i].pLibre = (libre * 100) / total;
+      }
+
       this.memoryHistoryByPage = this.memoryHistory.slice(0, 20);
     });
   }
@@ -68,13 +78,23 @@ export class NodeDetailsComponent implements OnInit {
   getDrive(from: string, to: string) {
     this.graphService.getDriveHistory(this.nodeName, from, to).subscribe(res => {
       this.driveHistory = res.body;
+
+      for (let i in this.driveHistory) {
+        let libre = this.driveHistory[i].espacioDisponible;
+        let total = this.driveHistory[i].espacioTotal;
+        let usado = total - libre;
+
+        this.driveHistory[i].pDisponible = (libre * 100) / total;
+        this.driveHistory[i].pUso = (usado * 100) / total;
+      }
+
       this.driveHistoryByPage = this.driveHistory.slice(0, 20);
     });
   }
 
   findRamHistory() {
     let from = this.dateRamFrom.getFullYear().toString() + this.format((this.dateRamFrom.getMonth() + 1)) + this.format(this.dateRamFrom.getDate());
-    let to = this.dateRamFrom.getFullYear().toString() + this.format((this.dateRamFrom.getMonth() + 1)) + this.format(this.dateRamFrom.getDate());
+    let to = this.dateRamTo.getFullYear().toString() + this.format((this.dateRamTo.getMonth() + 1)) + this.format(this.dateRamTo.getDate());
     this.getRam(from, to);
   }
 

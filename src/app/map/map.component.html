@@ -1,6 +1,50 @@
-<div class="row text-right">
+<div class="row">
   <div class="col-12">
-    <a (click)="findMe()" class="btn btn-primary">Donde estoy?</a>
+    <form class="form-inline">
+      <div class="input-group mb-2 mr-2" style="max-width: 200px;">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="userid">
+            <i class="far fa-calendar-alt"></i>
+          </span>
+        </div>
+        <input type = "text" 
+          class = "form-control"
+          bsDatepicker  
+          name="dateFrom"
+          [(ngModel)]="dateFrom"
+          [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }">
+      </div>
+
+      <div class="input-group mb-2 mr-2" style="max-width: 200px;">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="userid">
+            <i class="far fa-calendar-alt"></i>
+          </span>
+        </div>
+        <input type = "text" 
+          class = "form-control"
+          bsDatepicker  
+          name="dateTo"
+          [(ngModel)]="dateTo"
+          [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }">
+      </div>
+
+      <div class="form-group mb-2 mr-2">
+        <select [(ngModel)]="nodeName" class="form-control" name="nodeName">
+            <option *ngFor="let node of nodesNames" value="{{node}}">{{node}}</option>
+          </select>
+      </div>
+
+      <button (click)="findHistory()" type="button" class="btn btn-outline-info mb-2 mr-2">
+        <i class="fas fa-sync-alt"></i>
+      </button>
+
+      <button (click)="findMe()" type="button" class="btn btn-outline-info mb-2 mr-2">
+        <i class="fas fa-map-marker-alt"></i>
+        Donde estoy?
+      </button>
+    </form>
+
     <div #gmap id="gmap" style="width:100%; height:80vh;"></div>
   </div>
 </div>
