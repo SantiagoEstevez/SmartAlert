@@ -1,8 +1,8 @@
 <h4>Memoria del nodo</h4>
 <hr>
 <div>
-  <p>Memoria en uso:  {{ memoryNode.memoriaEnUso }}</p>
-  <p>Memoria Libre: {{ memoryNode.memoriaLibre }}</p>
+  <p>Memoria en uso:  {{ memoryNode.memoriaEnUso }} ({{ memoryNode.pEnUso | number:'.1-2' }}%)</p>
+  <p>Memoria Libre: {{ memoryNode.memoriaLibre }} ({{ memoryNode.pLibre | number:'.1-2' }}%)</p>
   <p>Memoria Total:  {{ memoryNode.memoriaTotal }}</p>
 </div>
 <div class="card text-center">

@@ -32,6 +32,8 @@ export class MemoryComponent implements OnInit {
         this.memoryNode.memoriaLibre = +data.split(';')[1];
         this.memoryNode.memoriaTotal = +data.split(';')[2];
 
+        this.memoryNode.pEnUso = (this.memoryNode.memoriaEnUso * 100) / this.memoryNode.memoriaTotal;
+        this.memoryNode.pLibre = (this.memoryNode.memoriaLibre * 100) / this.memoryNode.memoriaTotal;
 
         this.PieChart.data.datasets[0].data[0] = +data.split(';')[0];
         this.PieChart.data.datasets[0].data[1] = +data.split(';')[1];
