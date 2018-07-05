@@ -2,9 +2,9 @@
 <hr>
 <div>
   <p>Mount: {{ hardDiskInfo?.mount }} </p>
-  <p>Espacio Disponible {{ hardDiskInfo?.espacioDisponible }} </p>
-  <p>Espacio Ocupado {{ hardDiskInfo?.espacioTotal - hardDiskInfo?.espacioDisponible }}
-  <p>Espacio total: {{ hardDiskInfo?.espacioTotal }} </p>
+  <p>Espacio Disponible {{ hardDiskInfo?.espacioDisponible | number:'.1-2' }} ({{ hardDiskInfo?.pDisponible | number:'.1-2' }}%)</p>
+  <p>Espacio Ocupado {{ (hardDiskInfo?.espacioTotal - hardDiskInfo?.espacioDisponible) | number:'.1-2' }} ({{ hardDiskInfo?.pUso | number:'.1-2' }}%)</p>
+  <p>Espacio total: {{ hardDiskInfo?.espacioTotal | number:'.1-2' }} </p>
 </div>
 <div class="card text-center">
     <div class="card-body">

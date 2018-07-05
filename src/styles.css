@@ -15,15 +15,20 @@ body{
 }
 
 nav {
-   background-color: #3949ab;
+    background-color: #3949ab;
 }
 
-li > .nav-link {
+.white {
     color: white !important;
- }
+}
 
- .white {
-    color: white !important;
- }
+tabset > ul > li > a {
+    color: #3949ab !important;
+}
+
+tabset > ul > li > a.active {
+    color: black !important;
+    background-color: rgba(0,0,0,.03) !important;
+}
 
 

@@ -1,162 +1,266 @@
 <div class="row">
-    <div class="col-4 p-1">
-        <div class="card">
-            <div class="card-header">
-                {{node.name}}
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">Sistema Operativo: {{ node.distro }}</li>
-                <li class="list-group-item">IP interna: {{ node.ipAddress }}</li>
-                <li class="list-group-item">IP publica: {{ node.ipPublica }}</li>
-                <li class="list-group-item">Procesadores: {{ node.cantCpus }}</li>
-                <li class="list-group-item">Ram: {{ node.totalRAM }}</li>
-            </ul>
-        </div>
-    </div>
-    <div class="col-4 p-1">
-      <div class="card">
-        <div class="card-body">
-          <app-memory [nodeName]="nodeName"></app-memory>
-        </div>
-      </div>
-    </div>
-    <div class="col-4 p-1">
-      <div class="card">
-        <div class="card-body">
-          <app-hard-disk [nodeName]="nodeName"></app-hard-disk>
-        </div>
-      </div>
-    </div>
+    
 </div>
 <div class="row">
+  <div class="col-12">
+    <tabset [justified]="true">
 
-  <!-- Hisotico de ram -->
-  <div class="col-6 p-1">
-    <div class="card">
-      <div class="card-header">
-        <form class="form-inline">
-          <span class="mb-2 mr-2" style="font-weight: bold">RAM</span>
-
-          <div class="input-group mb-2 mr-2" style="max-width: 200px;">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="userid">
-                <i class="far fa-calendar-alt"></i>
-              </span>
+      <!-- General -->
+      <tab heading="General">
+        <div class="row">
+          <div class="col-4">
+            <div class="card p-1">
+                <div class="card-header">
+                    {{node.name}}
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Sistema Operativo: {{ node.distro }}</li>
+                    <li class="list-group-item">IP interna: {{ node.ipAddress }}</li>
+                    <li class="list-group-item">IP publica: {{ node.ipPublica }}</li>
+                    <li class="list-group-item">Procesadores: {{ node.cantCpus }}</li>
+                    <li class="list-group-item">Ram: {{ node.totalRAM }}</li>
+                </ul>
             </div>
-            <input type = "text" 
-              class = "form-control"
-              bsDatepicker  
-              name="dateRamFrom"
-              [(ngModel)]="dateRamFrom"
-              [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }">
           </div>
-
-          <div class="input-group mb-2 mr-2" style="max-width: 200px;">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="userid">
-                <i class="far fa-calendar-alt"></i>
-              </span>
+          <div class="col-4">
+            <div class="card p-1">
+              <div class="card-body">
+                <app-memory [nodeName]="nodeName"></app-memory>
+              </div>
             </div>
-            <input type = "text" 
-              class = "form-control"
-              bsDatepicker  
-              name="dateRamTo"
-              [(ngModel)]="dateRamTo"
-              [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }">
-          </div>  
-
-          <button (click)="findRamHistory()" type="button" class="btn btn-outline-info mb-2">
-            <i class="fas fa-sync-alt"></i>
-          </button>
-        </form>
-      </div>
-      <div class="card-body">
-        <table class="table table-hover table-sm">
-          <thead>
-            <tr>
-              <th scope="col">Usada</th>
-              <th scope="col">Libre</th>
-              <th scope="col">Total</th>
-              <th scope="col">Fecha</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let memory of memoryHistoryByPage">
-              <td>{{memory.memoriaEnUso | number:'.1-2'}} ({{memory.pEnUso | number:'.1-2'}}%)</td>
-              <td>{{memory.memoriaLibre | number:'.1-2'}} ({{memory.pLibre | number:'.1-2'}}%)</td>
-              <td>{{memory.memoriaTotal | number:'.1-2'}}</td>
-              <td>{{memory.fecha}}</td>
-            </tr>
-          </tbody>
-          <pagination class="mt-2" [itemsPerPage]="20" [totalItems]="memoryHistory.length" (pageChanged)="pageChangedRam($event)"></pagination>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <!-- Hisotico de disco -->
-  <div class="col-6 p-1">
-    <div class="card">
-      <div class="card-header">
-        <form class="form-inline">
-          <span class="mb-2 mr-2" style="font-weight: bold">DISCO</span>
-
-          <div class="input-group mb-2 mr-2" style="max-width: 200px;">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="userid">
-                <i class="far fa-calendar-alt"></i>
-              </span>
-            </div>
-            <input type = "text" 
-              class = "form-control"
-              bsDatepicker  
-              name="dateDriveFrom"
-              [(ngModel)]="dateDriveFrom"
-              [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }">
           </div>
-
-          <div class="input-group mb-2 mr-2" style="max-width: 200px;">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="userid">
-                <i class="far fa-calendar-alt"></i>
-              </span>
+          <div class="col-4">
+            <div class="card p-1">
+              <div class="card-body">
+                <app-hard-disk [nodeName]="nodeName"></app-hard-disk>
+              </div>
             </div>
-            <input type = "text" 
-              class = "form-control"
-              bsDatepicker  
-              name="dateDriveTo"
-              [(ngModel)]="dateDriveTo"
-              [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }">
-          </div>  
+          </div>
+        </div>
+      </tab>
 
-          <button (click)="findDriveHistory()" type="button" class="btn btn-outline-info mb-2">
-            <i class="fas fa-sync-alt"></i>
-          </button>
-        </form>
-      </div>
-      <div class="card-body">
-        <table class="table table-hover table-sm">
-          <thead>
-            <tr>
-              <th scope="col">Nombre disco</th>
-              <th scope="col">Usado</th>
-              <th scope="col">Libre</th>
-              <th scope="col">Total</th>
-              <th scope="col">Fecha</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let drive of driveHistoryByPage">
-              <td>{{drive.mount}}</td>
-              <td>{{(drive.espacioTotal - drive.espacioDisponible) | number:'.1-2'}} ({{drive.pUso | number:'.1-2'}}%)</td>
-              <td>{{drive.espacioDisponible | number:'.1-2'}} ({{drive.pDisponible | number:'.1-2'}}%)</td>
-              <td>{{drive.espacioTotal | number:'.1-2'}}</td>
-              <td>{{drive.fecha}}</td>
-            </tr>
-            <pagination class="mt-2" [itemsPerPage]="20" [totalItems]="driveHistory.length" (pageChanged)="pageChangedDrive($event)"></pagination>
-          </tbody>
-        </table>
-      </div>
-    </div>
+      <!-- Hisotico de ram -->
+      <tab heading="Historico RAM">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <form class="form-inline">        
+                  <div class="input-group mb-2 mr-2" style="max-width: 200px;">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="userid">
+                        <i class="far fa-calendar-alt"></i>
+                      </span>
+                    </div>
+                    <input type = "text" 
+                      class = "form-control"
+                      bsDatepicker  
+                      name="dateRamFrom"
+                      [(ngModel)]="dateRamFrom"
+                      [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }">
+                  </div>
+        
+                  <div class="input-group mb-2 mr-2" style="max-width: 200px;">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="userid">
+                        <i class="far fa-calendar-alt"></i>
+                      </span>
+                    </div>
+                    <input type = "text" 
+                      class = "form-control"
+                      bsDatepicker  
+                      name="dateRamTo"
+                      [(ngModel)]="dateRamTo"
+                      [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }">
+                  </div>  
+        
+                  <button (click)="findRamHistory()" type="button" class="btn btn-outline-info mb-2">
+                    <i class="fas fa-sync-alt"></i>
+                  </button>
+                </form>
+              </div>
+              <div class="card-body">
+                <tabset [justified]="true">
+                  <tab heading="Tabla">
+                    <table class="table table-hover table-sm">
+                      <thead>
+                        <tr>
+                          <th scope="col">Usada</th>
+                          <th scope="col">Libre</th>
+                          <th scope="col">Total</th>
+                          <th scope="col">Fecha</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let memory of memoryHistoryByPage">
+                          <td>{{memory.memoriaEnUso | number:'.1-2'}} ({{memory.pEnUso | number:'.1-2'}}%)</td>
+                          <td>{{memory.memoriaLibre | number:'.1-2'}} ({{memory.pLibre | number:'.1-2'}}%)</td>
+                          <td>{{memory.memoriaTotal | number:'.1-2'}}</td>
+                          <td>{{memory.fecha}}</td>
+                        </tr>
+                      </tbody>
+                      <pagination class="mt-2" [itemsPerPage]="15" [totalItems]="memoryHistory.length" (pageChanged)="pageChangedRam($event)"></pagination>
+                    </table>
+                  </tab>
+
+                  <tab heading="Grafica">
+                    <canvas id="lineChartRam" style="height:10vh;"> LineChart </canvas>
+                  </tab>
+                </tabset>
+              </div>
+            </div>
+          </div>
+        </div>
+      </tab>
+
+      <!-- Hisotico de disco -->
+      <tab heading="Historico DSICO">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <form class="form-inline">
+                  <div class="input-group mb-2 mr-2" style="max-width: 200px;">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="userid">
+                        <i class="far fa-calendar-alt"></i>
+                      </span>
+                    </div>
+                    <input type = "text" 
+                      class = "form-control"
+                      bsDatepicker  
+                      name="dateDriveFrom"
+                      [(ngModel)]="dateDriveFrom"
+                      [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }">
+                  </div>
+        
+                  <div class="input-group mb-2 mr-2" style="max-width: 200px;">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="userid">
+                        <i class="far fa-calendar-alt"></i>
+                      </span>
+                    </div>
+                    <input type = "text" 
+                      class = "form-control"
+                      bsDatepicker  
+                      name="dateDriveTo"
+                      [(ngModel)]="dateDriveTo"
+                      [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }">
+                  </div>  
+        
+                  <button (click)="findDriveHistory()" type="button" class="btn btn-outline-info mb-2">
+                    <i class="fas fa-sync-alt"></i>
+                  </button>
+                </form>
+              </div>
+              <div class="card-body">
+
+                <tabset [justified]="true">
+                  <tab heading="Tabla">
+                    <table class="table table-hover table-sm">
+                      <thead>
+                        <tr>
+                          <th scope="col">Nombre disco</th>
+                          <th scope="col">Usado</th>
+                          <th scope="col">Libre</th>
+                          <th scope="col">Total</th>
+                          <th scope="col">Fecha</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let drive of driveHistoryByPage">
+                          <td>{{drive.mount}}</td>
+                          <td>{{(drive.espacioTotal - drive.espacioDisponible) | number:'.1-2'}} ({{drive.pUso | number:'.1-2'}}%)</td>
+                          <td>{{drive.espacioDisponible | number:'.1-2'}} ({{drive.pDisponible | number:'.1-2'}}%)</td>
+                          <td>{{drive.espacioTotal | number:'.1-2'}}</td>
+                          <td>{{drive.fecha}}</td>
+                        </tr>
+                        <pagination class="mt-2" [itemsPerPage]="20" [totalItems]="driveHistory.length" (pageChanged)="pageChangedDrive($event)"></pagination>
+                      </tbody>
+                    </table>
+                  </tab>
+
+                  <tab heading="Grafica">
+                    <canvas id="lineChartDrive"> LineChart </canvas>
+                  </tab>
+                </tabset>
+              </div>
+            </div>
+          </div>
+        </div>
+      </tab>
+
+      <!-- Hisotico de cpu -->
+      <tab heading="Historico CPU">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <form class="form-inline">        
+                  <div class="input-group mb-2 mr-2" style="max-width: 200px;">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="userid">
+                        <i class="far fa-calendar-alt"></i>
+                      </span>
+                    </div>
+                    <input type = "text" 
+                      class = "form-control"
+                      bsDatepicker  
+                      name="dateCpuFrom"
+                      [(ngModel)]="dateCpuFrom"
+                      [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }">
+                  </div>
+        
+                  <div class="input-group mb-2 mr-2" style="max-width: 200px;">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="userid">
+                        <i class="far fa-calendar-alt"></i>
+                      </span>
+                    </div>
+                    <input type = "text" 
+                      class = "form-control"
+                      bsDatepicker  
+                      name="dateCpuTo"
+                      [(ngModel)]="dateCpuTo"
+                      [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }">
+                  </div>  
+        
+                  <button (click)="findCpuHistory()" type="button" class="btn btn-outline-info mb-2">
+                    <i class="fas fa-sync-alt"></i>
+                  </button>
+                </form>
+              </div>
+              <div class="card-body">
+
+                <tabset [justified]="true">
+                  <tab heading="Tabla">
+                    <table class="table table-hover table-sm">
+                      <thead>
+                        <tr>
+                          <th scope="col">Uso</th>
+                          <th scope="col">Fecha</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let cpu of cpuHistoryByPage">
+                          <td>{{cpu.cpuLoad}}</td>
+                          <td>{{cpu.fecha}}</td>
+                        </tr>
+                        <pagination class="mt-2" [itemsPerPage]="20" [totalItems]="cpuHistory.length" (pageChanged)="pageChangedCpu($event)"></pagination>
+                      </tbody>
+                    </table>
+                  </tab>
+
+                  <tab heading="Grafica">
+                    <canvas id="lineChartCpu"> LineChart </canvas>
+                  </tab>
+                </tabset>
+              </div>
+            </div>
+          </div>
+        </div>  
+      </tab>
+    </tabset>
   </div>
 </div>
+
