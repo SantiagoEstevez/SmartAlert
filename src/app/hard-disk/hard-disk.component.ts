@@ -36,7 +36,7 @@ export class HardDiskComponent implements OnInit {
           this.hardDiskInfo.pDisponible = (this.hardDiskInfo.espacioDisponible * 100) / this.hardDiskInfo.espacioTotal;
           this.hardDiskInfo.pUso = (uso * 100) / this.hardDiskInfo.espacioTotal;
 
-          this.DoughnutChart.data.datasets[0].data[0] = (+data.split(';')[1]) - (+data.split(',')[0]);
+          this.DoughnutChart.data.datasets[0].data[0] = (this.hardDiskInfo.espacioTotal - this.hardDiskInfo.espacioDisponible);
           this.DoughnutChart.data.datasets[0].data[1] = +data.split(';')[1];
           this.DoughnutChart.update(2000);
 
