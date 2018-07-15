@@ -14,7 +14,9 @@ export class AgentComponent implements OnInit {
   listLogs:Agent[] = [];
   current_page = 1;
   records_per_page = 3;
-  node:string;
+  nodeName: string;
+  dateFrom: Date = new Date();
+  dateTo: Date = new Date();
 
   constructor( private _agentService:AgentService,
                 private _listNodes:ListNodes) { }
@@ -30,13 +32,21 @@ export class AgentComponent implements OnInit {
   }
 
   searchLogs() {
-    var dateIni = ((document.getElementById("date1") as HTMLInputElement).value);
-    var dateFin = ((document.getElementById("date2") as HTMLInputElement).value);
-    dateIni = new Date(dateIni).toISOString().split('T')[0];
-    dateFin = new Date(dateFin).toISOString().split('T')[0];
+    //Formateo fechas
+    let from =  this.dateFrom.getFullYear().toString() + "-" + this.format(this.dateFrom.getMonth() + 1) + "-" + this.format(this.dateFrom.getDate());
+    let to = this.dateTo.getFullYear().toString() + "-" + this.format(this.dateTo.getMonth() + 1) + "-" + this.format(this.dateTo.getDate());
 
-    this._agentService.getAgentLogs(this.node, dateIni, dateFin).subscribe(ret => {
+    this._agentService.getAgentLogs(this.nodeName, from, to).subscribe(ret => {
       this.listLogs = ret.body;
     });
+  }
+
+  format(numero: number): string {
+    let result = numero.toString();
+    if (result.length < 2) {
+      return "0" + result;
+    } else {
+      return result;
+    }
   }
 }

@@ -90,7 +90,7 @@ export class MapComponent implements OnInit {
             let marker = new google.maps.Marker({
               position: new google.maps.LatLng(Number(ipdata.loc.split(',')[0]), Number(ipdata.loc.split(',')[1])),
               map: this.map,
-              title: name + " | " + this.logs[n].sysLogSeverityText + " | " + ipdata.city + " | " + ipdata.region
+              title: name + " | " + this.logs[n].sysLogSeverityText + " | " + ipdata.city + " | " + ipdata.region + " | " + ipdata.ip
             });
 
             this.markers.push(marker);

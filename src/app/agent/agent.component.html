@@ -1,38 +1,76 @@
-Fecha Desde: <input id="date1" type="date" [(ngModel)]='a'>
-Fecha Hasta: <input id="date2" type="date" [(ngModel)]='c'>
-Nodo: <select id="Id" #Id="ngModel" [(ngModel)]="node" name="Id">
-     <option [ngValue]="k" *ngFor="let k of nodesNames">
-         {{k}}
-  </option>
-</select>
-<button (click)="searchLogs()"> Search </button>
-<hr>
-<nav class="navbar">
-  <input class="form-control" type="text" name="search" [(ngModel)]="filter">
-</nav>
-<hr>
-<table class="table table-dark">
-  <thead>
-    <tr class="header">
-      <th scope="col">#</th>
-      <th scope="col">Nombre Host</th>
-      <th scope="col">IP Host</th>
-      <th scope="col">Fecha</th>
-      <th scope="col">Programa</th>
-      <th scope="col">Severidad</th>
-      <th scope="col">Crudo</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let agent of listLogs | filter:filter | paginate: { itemsPerPage:10, currentPage: p}">
-      <th scope="row">{{ index }}</th>
-      <td>{{ agent.fromHost }}</td>
-      <td> {{ agent.fromHostIp }}</td>
-      <td> {{ agent.timeReported.split('T')[0] }}</td>
-      <td> {{ agent.programName }}</td>
-      <td> {{ agent.sysLogSeverityText }}</td>
-      <td> {{ agent.rawMessage }}</td>
-    </tr>
-  </tbody>
-</table>
-<pagination-controls (pageChange)="p =$event"></pagination-controls>
+<div class="row">
+  <div class="col-12">
+
+    <!-- Filtors -->
+    <form class="form-inline">
+      <div class="input-group mb-2 mr-2" style="max-width: 200px;">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="userid">
+            <i class="far fa-calendar-alt"></i>
+          </span>
+        </div>
+        <input type = "text" 
+          class = "form-control"
+          bsDatepicker  
+          name="dateFrom"
+          [(ngModel)]="dateFrom"
+          [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }">
+      </div>
+
+      <div class="input-group mb-2 mr-2" style="max-width: 200px;">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="userid">
+            <i class="far fa-calendar-alt"></i>
+          </span>
+        </div>
+        <input type = "text" 
+          class = "form-control"
+          bsDatepicker  
+          name="dateTo"
+          [(ngModel)]="dateTo"
+          [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }">
+      </div>
+
+      <div class="form-group mb-2 mr-2">
+        <select [(ngModel)]="nodeName" class="form-control" name="nodeName">
+            <option *ngFor="let node of nodesNames" value="{{node}}">{{node}}</option>
+          </select>
+      </div>
+
+      <button (click)="searchLogs()" type="button" class="btn btn-outline-info mb-2 mr-2">
+        <i class="fas fa-sync-alt"></i>
+      </button>
+
+      <div class="input-group mb-2 mr-2">
+        <input class="form-control float-right" placeholder="buscar" type="text" name="search" [(ngModel)]="filter">
+      </div>
+    </form>
+
+    <!-- Tabla de logs -->
+    <table class="table table-hover table-sm">
+      <thead>
+        <tr class="header">
+          <th scope="col">#</th>
+          <th scope="col">Nombre Host</th>
+          <th scope="col">IP Host</th>
+          <th scope="col">Fecha</th>
+          <th scope="col">Programa</th>
+          <th scope="col">Severidad</th>
+          <th scope="col">Crudo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let agent of listLogs | filter:filter | paginate: { itemsPerPage:10, currentPage: p}">
+          <th scope="row">{{ index }}</th>
+          <td>{{ agent.fromHost }}</td>
+          <td> {{ agent.fromHostIp }}</td>
+          <td> {{ agent.timeReported.split('T')[0] }}</td>
+          <td> {{ agent.programName }}</td>
+          <td> {{ agent.sysLogSeverityText }}</td>
+          <td> {{ agent.rawMessage }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <pagination-controls (pageChange)="p =$event"></pagination-controls>
+  </div>
+</div>
