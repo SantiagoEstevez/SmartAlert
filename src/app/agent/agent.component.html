@@ -50,7 +50,6 @@
     <table class="table table-hover table-sm">
       <thead>
         <tr class="header">
-          <th scope="col">#</th>
           <th scope="col">Nombre Host</th>
           <th scope="col">IP Host</th>
           <th scope="col">Fecha</th>
@@ -61,13 +60,12 @@
       </thead>
       <tbody>
         <tr *ngFor="let agent of listLogs | filter:filter | paginate: { itemsPerPage:10, currentPage: p}">
-          <th scope="row">{{ index }}</th>
           <td>{{ agent.fromHost }}</td>
-          <td> {{ agent.fromHostIp }}</td>
-          <td> {{ agent.timeReported.split('T')[0] }}</td>
-          <td> {{ agent.programName }}</td>
-          <td> {{ agent.sysLogSeverityText }}</td>
-          <td> {{ agent.rawMessage }}</td>
+          <td>{{ agent.fromHostIp }}</td>
+          <td>{{ agent.timeReported.split('T')[0] }}</td>
+          <td>{{ agent.programName }}</td>
+          <td>{{ agent.sysLogSeverityText }}</td>
+          <td>{{ agent.rawMessage }}</td>
         </tr>
       </tbody>
     </table>

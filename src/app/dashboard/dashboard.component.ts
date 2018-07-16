@@ -40,6 +40,18 @@ export class DashboardComponent implements OnInit {
   LineChartDrive: any;
   LineChartCpu: any;
   PieChart: any;
+  expand: boolean = false;
+
+  footDrive: string = "Ultimos 5 dias";
+  footRam: string = "Ultimos 5 dias";
+  footCpu: string = "Ultimos 5 dias";
+  
+  dateDriveFrom: Date = new Date();
+  dateDriveTo: Date = new Date();
+  dateRamFrom: Date = new Date();
+  dateRamTo: Date = new Date();
+  dateCpuFrom: Date = new Date();
+  dateCpuTo: Date = new Date();
 
   constructor(
     private authService: AuthService,
@@ -341,5 +353,182 @@ export class DashboardComponent implements OnInit {
     } else {
       return result;
     }
+  }
+
+  async findRamHistory() {
+    this.removeDataChart(this.LineChartRam);
+    let titulo: boolean = true;
+
+    for (let i in this.nodesNames) {
+      let data = [];
+      let termine: boolean = false
+      let d = 0;
+
+      while(!termine) {
+        let from = new Date(this.dateRamFrom);
+        let to = new Date(this.dateRamFrom);
+  
+        from.setDate(this.dateRamFrom.getDate() + d);
+        to.setDate(this.dateRamFrom.getDate() + (d +1));
+
+        let desde =  from.getFullYear().toString() + this.format(from.getMonth() + 1) + this.format(from.getDate());
+        let hasta =  to.getFullYear().toString() + this.format(to.getMonth() + 1) + this.format(to.getDate());
+
+        if (titulo) {
+          let lbl_desde =  this.format(from.getDate()) + "/" + this.format(from.getMonth() + 1) + "/" + from.getFullYear().toString()
+          this.addLabelChart(this.LineChartRam, lbl_desde);
+        }
+
+        data.push(await this.getTopRam(this.nodesNames[i], desde, hasta));
+
+        if (this.dateRamTo.getFullYear() == from.getFullYear() && this.dateRamTo.getMonth() == from.getMonth() && this.dateRamTo.getDate() == from.getDate()) {
+          termine = true;
+        }
+
+        d ++;
+      }
+
+      titulo = false;
+
+      let newdata = { 
+        data: data,
+        borderColor: this.colors[i],
+        fill: false,
+        label: this.nodesNames[i]
+      }
+
+      this.addDataChart(this.LineChartRam, newdata);
+      console.log("Grafica Ram actualizada");
+    }
+
+    let _desde =  this.dateRamFrom.getFullYear().toString() + this.format(this.dateRamFrom.getMonth() + 1) + this.format(this.dateRamFrom.getDate());
+    let _hasta =  this.dateRamTo.getFullYear().toString() + this.format(this.dateRamTo.getMonth() + 1) + this.format(this.dateRamTo.getDate());
+
+    this.footRam = "Desde " + _desde + " hasta " + _hasta;
+  }
+
+  async findDriveHistory() {
+    this.removeDataChart(this.LineChartDrive);
+    let titulo: boolean = true;
+
+    for (let i in this.nodesNames) {
+      let data = [];
+      let termine: boolean = false
+      let d = 0;
+
+      while(!termine) {
+        let from = new Date(this.dateDriveFrom);
+        let to = new Date(this.dateDriveFrom);
+  
+        from.setDate(this.dateDriveFrom.getDate() + d);
+        to.setDate(this.dateDriveFrom.getDate() + (d +1));
+
+        let desde =  from.getFullYear().toString() + this.format(from.getMonth() + 1) + this.format(from.getDate());
+        let hasta =  to.getFullYear().toString() + this.format(to.getMonth() + 1) + this.format(to.getDate());
+
+        if (titulo) {
+          let lbl_desde =  this.format(from.getDate()) + "/" + this.format(from.getMonth() + 1) + "/" + from.getFullYear().toString()
+          this.addLabelChart(this.LineChartDrive, lbl_desde);
+        }
+
+        data.push(await this.getTopDrive(this.nodesNames[i], desde, hasta));
+
+        if (this.dateDriveTo.getFullYear() == from.getFullYear() && this.dateDriveTo.getMonth() == from.getMonth() && this.dateDriveTo.getDate() == from.getDate()) {
+          termine = true;
+        }
+
+        d ++;
+      }
+
+      titulo = false;
+
+      let newdata = { 
+        data: data,
+        borderColor: this.colors[i],
+        fill: false,
+        label: this.nodesNames[i]
+      }
+
+      this.addDataChart(this.LineChartDrive, newdata);
+      console.log("Grafica drive actualizada");
+    }
+
+    let _desde =  this.dateDriveFrom.getFullYear().toString() + this.format(this.dateDriveFrom.getMonth() + 1) + this.format(this.dateDriveFrom.getDate());
+    let _hasta =  this.dateDriveTo.getFullYear().toString() + this.format(this.dateDriveTo.getMonth() + 1) + this.format(this.dateDriveTo.getDate());
+
+    this.footDrive = "Desde " + _desde + " hasta " + _hasta;
+  }
+
+  async findCpuHistory() {
+    this.removeDataChart(this.LineChartCpu);
+    let titulo: boolean = true;
+
+    for (let i in this.nodesNames) {
+      let data = [];
+      let termine: boolean = false
+      let d = 0;
+
+      while(!termine) {
+        let from = new Date(this.dateCpuFrom);
+        let to = new Date(this.dateCpuFrom);
+  
+        from.setDate(this.dateCpuFrom.getDate() + d);
+        to.setDate(this.dateCpuFrom.getDate() + (d +1));
+
+        let desde =  from.getFullYear().toString() + this.format(from.getMonth() + 1) + this.format(from.getDate());
+        let hasta =  to.getFullYear().toString() + this.format(to.getMonth() + 1) + this.format(to.getDate());
+
+        if (titulo) {
+          let lbl_desde =  this.format(from.getDate()) + "/" + this.format(from.getMonth() + 1) + "/" + from.getFullYear().toString()
+          this.addLabelChart(this.LineChartCpu, lbl_desde);
+        }
+
+        data.push(await this.getTopCpu(this.nodesNames[i], desde, hasta));
+
+        if (this.dateCpuTo.getFullYear() == from.getFullYear() && this.dateCpuTo.getMonth() == from.getMonth() && this.dateCpuTo.getDate() == from.getDate()) {
+          termine = true;
+        }
+
+        d ++;
+      }
+
+      titulo = false;
+
+      let newdata = { 
+        data: data,
+        borderColor: this.colors[i],
+        fill: false,
+        label: this.nodesNames[i]
+      }
+
+      this.addDataChart(this.LineChartCpu, newdata);
+      console.log("Grafica Cpu actualizada");
+    }
+
+    let _desde =  this.dateCpuFrom.getFullYear().toString() + this.format(this.dateCpuFrom.getMonth() + 1) + this.format(this.dateCpuFrom.getDate());
+    let _hasta =  this.dateCpuTo.getFullYear().toString() + this.format(this.dateCpuTo.getMonth() + 1) + this.format(this.dateCpuTo.getDate());
+
+    this.footCpu = "Desde " + _desde + " hasta " + _hasta;
+  }
+
+  addLabelChart(chart, label) {
+    chart.data.labels.push(label);
+    chart.update();
+  }
+
+  addDataChart(chart, data) {
+    chart.data.datasets.push(data);
+    chart.update();
+  }
+
+  removeDataChart(chart) {
+    chart.data.labels = [];
+    chart.data.datasets = [];
+
+    chart.update();
+  }
+
+  bigbang() {
+    this.expand = !this.expand;
   }
 }

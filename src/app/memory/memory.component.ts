@@ -49,14 +49,15 @@ export class MemoryComponent implements OnInit {
           type: 'bar',
           data: {
               datasets: [{
+                  label: 'RAM',
                   backgroundColor: ['rgb(255, 99, 132)', 'rgb(255, 99, 0)', 'rgb(55, 199, 40)'],
                   data: [0, 0, 0]
               }],
               // These labels appear in the legend and in the tooltips when hovering different arcs
               labels: [
-                  'Memoria en uso',
-                  'Memoria libre',
-                  'Memoria total'
+                  'En uso',
+                  'Libre',
+                  'Total'
               ]
           },
           options: {

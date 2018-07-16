@@ -1,14 +1,13 @@
-<h4> Disco duro </h4>
+<h4>Disco duro <small>(Gb)</small></h4>
 <hr>
 <div>
   <p>Mount: {{ hardDiskInfo?.mount }} </p>
-  <p>Espacio Disponible {{ hardDiskInfo?.espacioDisponible | number:'.1-2' }} ({{ hardDiskInfo?.pDisponible | number:'.1-2' }}%)</p>
-  <p>Espacio Ocupado {{ (hardDiskInfo?.espacioTotal - hardDiskInfo?.espacioDisponible) | number:'.1-2' }} ({{ hardDiskInfo?.pUso | number:'.1-2' }}%)</p>
-  <p>Espacio total: {{ hardDiskInfo?.espacioTotal | number:'.1-2' }} </p>
+  <p>En uso: {{ (hardDiskInfo?.espacioTotal - hardDiskInfo?.espacioDisponible) | number:'.1-2' }} ({{ hardDiskInfo?.pUso | number:'.1-2' }}%)</p>
+  <p>Libre: {{ hardDiskInfo?.espacioDisponible | number:'.1-2' }} ({{ hardDiskInfo?.pDisponible | number:'.1-2' }}%)</p>
+  <p>Total: {{ hardDiskInfo?.espacioTotal | number:'.1-2' }} </p>
 </div>
 <div class="card text-center">
     <div class="card-body">
-        <h5 class="card-title">Uso de almacenamiento</h5>
         <canvas id="doughnutChart"> DoughnutChart </canvas>
     </div>
 </div>

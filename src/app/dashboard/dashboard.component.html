@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-6">
+    <div [ngClass]="{ 'col-6': !expand, 'col-12': expand}">
         <div class="my-2">
             <div [@flyInOut]="active" *ngFor="let node of nodeList" class="float-left mb-2 px-1" style="width: 50%;">
                 <div class="card" [routerLink]="['node-detail', node.name, node.distro, node.ipAddress, node.ipPublica, node.cantCpus, node.totalRAM]" style="cursor: pointer">
@@ -11,7 +11,7 @@
                         <li class="list-group-item">IP interna: {{ node.ipAddress }}</li>
                         <li class="list-group-item">IP publica: {{ node.ipPublica }}</li>
                         <li class="list-group-item">Procesadores: {{ node.cantCpus }}</li>
-                        <li class="list-group-item">Ram: {{ node.totalRAM }}</li>
+                        <li class="list-group-item">Ram: {{ node.totalRAM }} (Mb)</li>
                     </ul>
                 </div>
             </div>
@@ -20,42 +20,154 @@
         <!-- Grafica cpu  -->
         <div class="card my-2 w-100">
             <div class="card-header">
-                Estado de cpu
+                Estado de cpu (% uso)
+                <form class="form-inline float-right">
+                    <div class="input-group mr-2" style="max-width: 200px;">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="userid">
+                          <i class="far fa-calendar-alt"></i>
+                        </span>
+                      </div>
+                      <input type = "text" 
+                        class = "form-control"
+                        bsDatepicker  
+                        name="dateCpuFrom"
+                        [(ngModel)]="dateCpuFrom"
+                        [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }">
+                    </div>
+              
+                    <div class="input-group mr-2" style="max-width: 200px;">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="userid">
+                          <i class="far fa-calendar-alt"></i>
+                        </span>
+                      </div>
+                      <input type = "text" 
+                        class = "form-control"
+                        bsDatepicker  
+                        name="dateCpuTo"
+                        [(ngModel)]="dateCpuTo"
+                        [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }">
+                    </div>
+              
+                    <button (click)="findCpuHistory()" type="button" class="btn btn-outline-info mr-2">
+                      <i class="fas fa-sync-alt"></i>
+                    </button>
+
+                    <button (click)="bigbang()" type="button" class="btn btn-outline-info">
+                        <i [ngClass]="{ 'fa-expand': !expand, 'fa-compress': expand}" class="fas"></i>
+                    </button>
+                </form>
             </div>
             <div class="card-body p-2">
                 <canvas id="lineChartCpu"> LineChart </canvas>
             </div>
             <div class="card-footer text-muted">
-                Ultimos 5 dias
+                {{footCpu}}
             </div>
         </div>
     </div>
     
-    <div class="col-6">
+    <div [ngClass]="{ 'col-6': !expand, 'col-12': expand}">
 
         <!-- Grafica ram -->
         <div class="card my-2">
             <div class="card-header">
-                Estado de ram
+                Estado de ram (% uso)
+
+                <form class="form-inline float-right">
+                    <div class="input-group mr-2" style="max-width: 200px;">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="userid">
+                          <i class="far fa-calendar-alt"></i>
+                        </span>
+                      </div>
+                      <input type = "text" 
+                        class = "form-control"
+                        bsDatepicker  
+                        name="dateRamFrom"
+                        [(ngModel)]="dateRamFrom"
+                        [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }">
+                    </div>
+              
+                    <div class="input-group mr-2" style="max-width: 200px;">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="userid">
+                          <i class="far fa-calendar-alt"></i>
+                        </span>
+                      </div>
+                      <input type = "text" 
+                        class = "form-control"
+                        bsDatepicker  
+                        name="dateRamTo"
+                        [(ngModel)]="dateRamTo"
+                        [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }">
+                    </div>
+              
+                    <button (click)="findRamHistory()" type="button" class="btn btn-outline-info mr-2">
+                      <i class="fas fa-sync-alt"></i>
+                    </button>
+
+                    <button (click)="bigbang()" type="button" class="btn btn-outline-info">
+                        <i [ngClass]="{ 'fa-expand': !expand, 'fa-compress': expand}" class="fas"></i>
+                    </button>
+                </form>
             </div>
             <div class="card-body p-2">
                 <canvas id="lineChartRam"> LineChart </canvas>
             </div>
             <div class="card-footer text-muted">
-                Ultimos 5 dias
+                {{footRam}}
             </div>
         </div>
 
         <!-- Grafica drive  -->
         <div class="card my-2">
             <div class="card-header">
-                Estado de disco
+                Estado de disco (% uso)
+                <form class="form-inline float-right">
+                    <div class="input-group mr-2" style="max-width: 200px;">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="userid">
+                          <i class="far fa-calendar-alt"></i>
+                        </span>
+                      </div>
+                      <input type = "text" 
+                        class = "form-control"
+                        bsDatepicker  
+                        name="dateDriveFrom"
+                        [(ngModel)]="dateDriveFrom"
+                        [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }">
+                    </div>
+              
+                    <div class="input-group mr-2" style="max-width: 200px;">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="userid">
+                          <i class="far fa-calendar-alt"></i>
+                        </span>
+                      </div>
+                      <input type = "text" 
+                        class = "form-control"
+                        bsDatepicker  
+                        name="dateDriveTo"
+                        [(ngModel)]="dateDriveTo"
+                        [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }">
+                    </div>
+              
+                    <button (click)="findDriveHistory()" type="button" class="btn btn-outline-info mr-2">
+                      <i class="fas fa-sync-alt"></i>
+                    </button>
+
+                    <button (click)="bigbang()" type="button" class="btn btn-outline-info">
+                        <i [ngClass]="{ 'fa-expand': !expand, 'fa-compress': expand}" class="fas"></i>
+                    </button>
+                </form>
             </div>
             <div class="card-body p-2">
                 <canvas id="lineChartDrive"> LineChart </canvas>
             </div>
             <div class="card-footer text-muted">
-                Ultimos 5 dias
+                {{footDrive}}
             </div>
         </div>
     </div>
