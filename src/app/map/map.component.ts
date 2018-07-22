@@ -39,6 +39,7 @@ export class MapComponent implements OnInit {
 
     //Preparo fechas
     this.dateFrom.setDate(this.dateFrom.getDate() -60);
+    this.dateTo.setDate(this.dateFrom.getDate() +1);
 
     //Formateo fechas
     let from =  this.dateFrom.getFullYear().toString() + "-" + this.format(this.dateFrom.getMonth() + 1) + "-" + this.format(this.dateFrom.getDate());
