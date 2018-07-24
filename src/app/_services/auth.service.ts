@@ -21,13 +21,10 @@ export class AuthService {
   ) { }
 
   async login(oUser: User) {
-    console.log("Me voy a loguear con: " + oUser.username);
-
     let userData64: string = `${oUser.username}:${oUser.password}`;
     this.headers = this.headers.set("Authorization", "Basic " + btoa(userData64));
 
     const url = `${environment.api_urlbase}rest/seguridad/token`;
-    //const url = `${environment.api_urlbase}values/token`;
 
     this.http.get(url, {observe: 'response', headers : this.headers})
       .subscribe(
@@ -38,9 +35,9 @@ export class AuthService {
           this.getUser().subscribe(res => {
             user = res.body;
             this.setUserCookie(user);
+            this.router.navigate(['dashboard']);
           });
 
-          this.router.navigate(['dashboard']);
           return true;
         },
         err => {
@@ -66,6 +63,16 @@ export class AuthService {
       return <User>JSON.parse(this.cookieService.get('@easyaler::user'));
     }{
       return new User();
+    }
+  }
+
+  isAdmin(): boolean {
+    let user = <User>JSON.parse(this.cookieService.get('@easyaler::user'));
+    console.log(user)
+    if (user.nivel_acceso == 'AD' || user.nivel_acceso == 'SA') {
+      return true;
+    } else {
+      return false;
     }
   }
 

@@ -9,7 +9,7 @@
                 <i class="fas fa-address-card"></i>
               </span>
             </div>
-            <input [(ngModel)]="oUser.username" type="text" class="form-control" placeholder="User" aria-label="userid" aria-describedby="userid">
+            <input [(ngModel)]="oUser.username" type="text" class="form-control" placeholder="Usuario" aria-label="userid" aria-describedby="userid">
           </div>
 
           <div class="input-group mb-3">
@@ -18,7 +18,7 @@
                 <i class="fas fa-key"></i>
               </span>
             </div>
-            <input [(ngModel)]="oUser.password" type="Password" class="form-control" placeholder="Password" aria-label="passwordid" aria-describedby="passwordid">
+            <input [(ngModel)]="oUser.password" type="Password" class="form-control" placeholder="Contraseña" aria-label="passwordid" aria-describedby="passwordid">
           </div>
           <a (click)="this.authService.login(oUser)" class="btn btn-primary">Login</a>
         </div>

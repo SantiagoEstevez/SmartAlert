@@ -16,6 +16,7 @@ import { NodeDetailsComponent } from './node-details/node-details.component';
 import { AgentComponent } from './agent/agent.component';
 import { LogRealTimeComponent } from './log-real-time/log-real-time.component';
 import { NotificationComponent } from './notification/notification.component';
+import { UserComponent } from './user/user.component';
 
 //Guerdian
 import { AuthGuard } from './auth.guard';
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: 'alerts', component: AlertComponent, canActivate: [AuthGuard]},
   { path: 'notifications', component: NotificationComponent, canActivate: [AuthGuard]},
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
+  { path: 'users', component: UserComponent, canActivate: [AuthGuard]},
   { path: 'map', component: MapComponent, canActivate: [AuthGuard]},
   { path: 'dashboard/node-detail/:name/:distro/:address/:public/:cpu/:ram', component: NodeDetailsComponent, canActivate: [AuthGuard]},
   { path: 'socket', component: LogRealTimeComponent, canActivate: [AuthGuard]},

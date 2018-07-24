@@ -39,6 +39,12 @@
           Logs App
         </a>
       </li>
+      <li *ngIf="authService.isAdmin()" class="nav-item menuitem">
+        <a class="nav-link white" [routerLink]="['users']">
+          <i class="far fa-user"></i>
+          Usuarios
+        </a>
+      </li>
     </ul>
     <ul class="navbar-nav mr-right">
       <li dropdown class="nav-item dropdown">

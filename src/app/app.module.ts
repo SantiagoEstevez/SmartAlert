@@ -45,6 +45,7 @@ import { HardDiskService } from './_services/hardDisc.service';
 import { EventDetailComponent } from './event-detail/event-detail.component';
 import { AgentService } from './_services/agent.service';
 import { NotificationComponent } from './notification/notification.component';
+import { UserComponent } from './user/user.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { NotificationComponent } from './notification/notification.component';
     LogRealTimeComponent,
     AgentComponent,
     EventDetailComponent,
-    NotificationComponent
+    NotificationComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
