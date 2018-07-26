@@ -5,6 +5,7 @@ import { GraphService } from '../_services/graph.service';
 import { Memory } from '../_models/memory';
 import { WebSocketService } from '../_services/web-socket.service';
 import { ActivatedRoute } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-memory',
@@ -25,7 +26,7 @@ export class MemoryComponent implements OnInit {
                 private wsService:WebSocketService,
                 private route:ActivatedRoute) {
 
-    this.wsService.createObservableSocket('ws://localhost:8080/Proyecto2018/realtime/ram')
+    this.wsService.createObservableSocket(`${environment.ws_urlbase}realtime/ram`)
       .subscribe(data => {
 
         this.memoryNode.memoriaEnUso = +data.split(';')[0];
