@@ -5,6 +5,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { Ng2SearchPipeModule } from 'ng2-search-filter'; //importing the module
+import { CommonModule } from '@angular/common';
 
 //Para bootstrap
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -31,10 +35,9 @@ import { MemoryComponent } from './memory/memory.component';
 import { HardDiskComponent } from './hard-disk/hard-disk.component';
 import { LogRealTimeComponent } from './log-real-time/log-real-time.component';
 import { AgentComponent } from './agent/agent.component';
-import { CommonModule } from '@angular/common';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastrModule } from 'ngx-toastr';
-import { Ng2SearchPipeModule } from 'ng2-search-filter'; //importing the module
+import { NotificationComponent } from './notification/notification.component';
+import { UserComponent } from './user/user.component';
+import { EventDetailComponent } from './event-detail/event-detail.component';
 
 //Servicios
 import { CookieService } from 'ngx-cookie-service';
@@ -42,10 +45,8 @@ import { AuthInterceptor } from './_interceptors/auth-interceptor';
 import { ListNodes } from './_services/listNodes.service';
 import { MemoryService } from './_services/memory.service'
 import { HardDiskService } from './_services/hardDisc.service';
-import { EventDetailComponent } from './event-detail/event-detail.component';
 import { AgentService } from './_services/agent.service';
-import { NotificationComponent } from './notification/notification.component';
-import { UserComponent } from './user/user.component';
+
 
 @NgModule({
   declarations: [

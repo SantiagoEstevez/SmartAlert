@@ -61,7 +61,6 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
     let nodos = this._listNodesService.getNodesNames().subscribe( data => {
       for(let node in data){
         if(data[node] != undefined && data[node] != "syslog") {

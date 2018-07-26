@@ -25,9 +25,6 @@ export class NavbarComponent implements OnInit{
 
     this.wsService.createObservableSocket(`${environment.ws_urlbase}alert`)
       .subscribe(data => {
-        console.log("------------------------------");
-        console.log(data);
-
         if(data != ""){
           this.toastr.info(data, 'Notification');
         }
@@ -35,12 +32,14 @@ export class NavbarComponent implements OnInit{
         this.wsService.sendMessage("GiveMeMoreMessagesPls<3");
 
       })
-
-      
     };
 
     ngOnInit() {
-      console.log("obtengo usuario");
+      this.init();
+    }
+
+    init() {
       this.user = this.authService.getUserCookie();
+      return true;
     }
 }
