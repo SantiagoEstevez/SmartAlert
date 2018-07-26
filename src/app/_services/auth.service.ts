@@ -67,9 +67,9 @@ export class AuthService {
   }
 
   isAdmin(): boolean {
-    let user = <User>JSON.parse(this.cookieService.get('@easyaler::user'));
-    console.log(user)
-    if (user.nivel_acceso == 'AD' || user.nivel_acceso == 'SA') {
+
+    let user = this.getUserCookie();
+    if (user && user.nivel_acceso == 'AD' || user.nivel_acceso == 'SA') {
       return true;
     } else {
       return false;

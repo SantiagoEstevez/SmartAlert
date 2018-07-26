@@ -1,4 +1,4 @@
-<div class="row text-left mb-2">
+<div *ngIf="authService.isAdmin()" class="row text-left mb-2">
   <div class="col-12">
       <button *ngIf="!verAdd" (click)="mostrarAdd()" type="button" class="btn btn-outline-info"><i class="fas fa-plus mr-1"></i> Nuevo</button>
       <button *ngIf="verAdd" (click)="mostrarAdd()" type="button" class="btn btn-info"><i class="fas fa-plus  mr-1"></i> Nuevo</button>
@@ -8,12 +8,18 @@
       </a>-->
   </div>
 </div>
-<div *ngIf="verAdd" class="row">
-  <div #event class="mx-auto col-10 shadow p-5 mb-5 bg-white rounded">
-    <form>
+<div *ngIf="verAdd && authService.isAdmin()" class="row">
+  <div #event class="mx-auto col-10 shadow p-5 mb-5 bg-white rounded"  [ngClass]="{ 'was-validated': validate }">
+    <form class="needs-validation" novalidate>
       <div class="form-group">
         <label for="eventName">Nombre evento</label>
-        <input [(ngModel)]="nombreEvento" name="nombre" type="text" class="form-control" id="eventName" aria-describedby="emailHelp" placeholder="nombre">
+        <input [(ngModel)]="nombreEvento" name="nombre" type="text" class="form-control" id="eventName" aria-describedby="emailHelp" placeholder="nombre" required>
+        <div class="valid-feedback">
+          Bien!
+        </div>
+        <div class="invalid-feedback">
+          Ingrese nombre del evento
+        </div>
       </div>
 
       <div class="form-row">
@@ -95,8 +101,8 @@
 
       <td >
         <!-- Activar o desactivar -->
-        <button *ngIf="!event.activo && event.soyCreador" (click)="swichStatus(true, event.idEvento)" type="button" class="btn btn-outline-success mr-1">Activar</button>
-        <button *ngIf="event.activo && event.soyCreador" (click)="swichStatus(false, event.idEvento)" type="button" class="btn btn-outline-danger mr-1">Desactivar</button>
+        <button *ngIf="!event.activo && event.soyCreador && authService.isAdmin()" (click)="swichStatus(true, event.idEvento)" type="button" class="btn btn-outline-success mr-1">Activar</button>
+        <button *ngIf="event.activo && event.soyCreador && authService.isAdmin()" (click)="swichStatus(false, event.idEvento)" type="button" class="btn btn-outline-danger mr-1">Desactivar</button>
 
         <!-- Suscribirme o desuscribirme -->
         <button *ngIf="!event.estoySuscripto" (click)="swichSuscribe(true, event.idEvento)" type="button" class="btn btn-outline-success mr-1">Suscribirme</button>

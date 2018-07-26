@@ -46,7 +46,7 @@
         </a>
       </li>
     </ul>
-    <ul class="navbar-nav mr-right">
+    <ul *ngIf="user" class="navbar-nav mr-right">
       <li dropdown class="nav-item dropdown">
           <a dropdownToggle class="nav-link dropdown-toggle white" [routerLink]="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-user-circle" style="font-size: 1.5em"></i>

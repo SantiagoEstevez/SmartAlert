@@ -154,16 +154,16 @@ export class DashboardComponent implements OnInit {
     let hace2 =  day2.getFullYear().toString() + this.format(day2.getMonth() + 1) + this.format(day2.getDate());
     let hace3 =  day3.getFullYear().toString() + this.format(day3.getMonth() + 1) + this.format(day3.getDate());
     let hace4 =  day4.getFullYear().toString() + this.format(day4.getMonth() + 1) + this.format(day4.getDate());
-    let hace5 =  day4.getFullYear().toString() + this.format(day4.getMonth() + 1) + this.format(day4.getDate());
+    let hace5 =  day5.getFullYear().toString() + this.format(day5.getMonth() + 1) + this.format(day5.getDate());
 
     for (let i in this.nodesNames) {
       let data = [];
 
-      data.push(await this.getTopRam(this.nodesNames[i], hoy, Maniana));
-      data.push(await this.getTopRam(this.nodesNames[i], hace1, hoy));
-      data.push(await this.getTopRam(this.nodesNames[i], hace2, hace1));
-      data.push(await this.getTopRam(this.nodesNames[i], hace3, hace2));
       data.push(await this.getTopRam(this.nodesNames[i], hace4, hace3));
+      data.push(await this.getTopRam(this.nodesNames[i], hace3, hace2));
+      data.push(await this.getTopRam(this.nodesNames[i], hace2, hace1));
+      data.push(await this.getTopRam(this.nodesNames[i], hace1, hoy));
+      data.push(await this.getTopRam(this.nodesNames[i], hoy, Maniana));    
 
       let newdata = { 
         data: data,
@@ -226,17 +226,16 @@ export class DashboardComponent implements OnInit {
     let hace2 =  day2.getFullYear().toString() + this.format(day2.getMonth() + 1) + this.format(day2.getDate());
     let hace3 =  day3.getFullYear().toString() + this.format(day3.getMonth() + 1) + this.format(day3.getDate());
     let hace4 =  day4.getFullYear().toString() + this.format(day4.getMonth() + 1) + this.format(day4.getDate());
-    let hace5 =  day4.getFullYear().toString() + this.format(day4.getMonth() + 1) + this.format(day4.getDate());
+    //let hace5 =  day4.getFullYear().toString() + this.format(day4.getMonth() + 1) + this.format(day4.getDate());
 
     for (let i in this.nodesNames) {
       let data = [];
 
-      console.log(hace1, hoy);
-      data.push(await this.getTopDrive(this.nodesNames[i], hoy, Maniana));
-      data.push(await this.getTopDrive(this.nodesNames[i], hace1, hoy));
-      data.push(await this.getTopDrive(this.nodesNames[i], hace2, hace1));
-      data.push(await this.getTopDrive(this.nodesNames[i], hace3, hace2));
       data.push(await this.getTopDrive(this.nodesNames[i], hace4, hace3));
+      data.push(await this.getTopDrive(this.nodesNames[i], hace3, hace2));
+      data.push(await this.getTopDrive(this.nodesNames[i], hace2, hace1));
+      data.push(await this.getTopDrive(this.nodesNames[i], hace1, hoy));
+      data.push(await this.getTopDrive(this.nodesNames[i], hoy, Maniana));
 
       let newdata = { 
         data: data,
@@ -300,17 +299,17 @@ export class DashboardComponent implements OnInit {
     let hace2 =  day2.getFullYear().toString() + this.format(day2.getMonth() + 1) + this.format(day2.getDate());
     let hace3 =  day3.getFullYear().toString() + this.format(day3.getMonth() + 1) + this.format(day3.getDate());
     let hace4 =  day4.getFullYear().toString() + this.format(day4.getMonth() + 1) + this.format(day4.getDate());
-    let hace5 =  day4.getFullYear().toString() + this.format(day4.getMonth() + 1) + this.format(day4.getDate());
+    //let hace5 =  day4.getFullYear().toString() + this.format(day4.getMonth() + 1) + this.format(day4.getDate());
 
     for (let i in this.nodesNames) {
       let data = [];
 
       console.log(hace1, hoy);
-      data.push(await this.getTopCpu(this.nodesNames[i], hoy, Maniana));
-      data.push(await this.getTopCpu(this.nodesNames[i], hace1, hoy));
-      data.push(await this.getTopCpu(this.nodesNames[i], hace2, hace1));
-      data.push(await this.getTopCpu(this.nodesNames[i], hace3, hace2));
       data.push(await this.getTopCpu(this.nodesNames[i], hace4, hace3));
+      data.push(await this.getTopCpu(this.nodesNames[i], hace3, hace2));
+      data.push(await this.getTopCpu(this.nodesNames[i], hace2, hace1));
+      data.push(await this.getTopCpu(this.nodesNames[i], hace1, hoy));
+      data.push(await this.getTopCpu(this.nodesNames[i], hoy, Maniana));
 
       let newdata = { 
         data: data,

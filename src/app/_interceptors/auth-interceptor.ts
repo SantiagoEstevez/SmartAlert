@@ -23,7 +23,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
        return next.handle(authReq).pipe(tap((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
-            console.log("Autorizado");
+            //console.log("Autorizado");
         }
         }, (err: any) => {
         if (err instanceof HttpErrorResponse) {

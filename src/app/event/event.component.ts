@@ -6,6 +6,7 @@ import { EventType } from '../_models/eventType';
 import { AlertType } from '../_models/alert-type';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Router } from '@angular/router';
+import { AuthService } from '../_services/auth.service';
 
 @Component({
   selector: 'app-event',
@@ -15,6 +16,7 @@ import { Router } from '@angular/router';
 export class EventComponent implements OnInit {
   modalRef: BsModalRef;
   verAdd: boolean = false;
+  validate: boolean = false;
 
   eventTypes: EventType[] = [];
   alertsTypes: AlertType[] = [];
@@ -25,6 +27,7 @@ export class EventComponent implements OnInit {
   id: number = 0;
 
   constructor(
+    private authService: AuthService,
     private eventService: EventService,
     private modalService: BsModalService,
     private router: Router
@@ -79,15 +82,23 @@ export class EventComponent implements OnInit {
   }
 
   addEvent(template: TemplateRef<any>) {
-    this.eventConfigs.forEach((item, index) => {
-      if(item.alerta == "") {
-        this.eventConfigs.splice(index,1);
+    if (!this.nombreEvento) {
+      this.validate = true;
+    } else {
+      if (this.nombreEvento.trim() == "") {
+        this.validate = true;
       } else {
-        item.alerta = item.operador + item.alerta;
-      }
-    });
+        this.eventConfigs.forEach((item, index) => {
+          if(item.alerta == "") {
+            this.eventConfigs.splice(index,1);
+          } else {
+            item.alerta = item.operador + item.alerta;
+          }
+        });
 
-    this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
+        this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
+      }
+    }
   }
 
   confirm(): void {

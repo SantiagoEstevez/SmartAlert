@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AuthService } from '../_services/auth.service'
 import { ToastrService } from 'ngx-toastr';
 import { WebSocketService } from '../_services/web-socket.service';
@@ -11,9 +11,9 @@ import { User } from '../_models/user';
   providers: [ WebSocketService ],
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent{
+export class NavbarComponent implements OnInit{
 
-  user: User = new User();
+  @Input() user: User = new User();
   messageFromServer: string;
   ws: WebSocket;
 
@@ -23,8 +23,11 @@ export class NavbarComponent{
     private wsService: WebSocketService
   ) {
 
-    this.wsService.createObservableSocket('ws://localhost:8080/Proyecto2018/alert')
+    this.wsService.createObservableSocket(`${environment.ws_urlbase}alert`)
       .subscribe(data => {
+        console.log("------------------------------");
+        console.log(data);
+
         if(data != ""){
           this.toastr.info(data, 'Notification');
         }
@@ -33,7 +36,11 @@ export class NavbarComponent{
 
       })
 
-      this.user = this.authService.getUserCookie();
+      
     };
 
+    ngOnInit() {
+      console.log("obtengo usuario");
+      this.user = this.authService.getUserCookie();
+    }
 }

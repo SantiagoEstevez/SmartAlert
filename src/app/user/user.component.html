@@ -1,32 +1,68 @@
-<div class="row">
-  <div #event class="mx-auto col-10 shadow p-5 mb-5 bg-white rounded">
-    <form>
+<div class="row text-left mb-2">
+  <div class="col-12">
+      <button *ngIf="!verAdd" (click)="mostrarAdd()" type="button" class="btn btn-outline-info"><i class="fas fa-plus mr-1"></i> Nuevo</button>
+      <button *ngIf="verAdd" (click)="mostrarAdd()" type="button" class="btn btn-info"><i class="fas fa-plus  mr-1"></i> Nuevo</button>
+  </div>
+</div>
+<div *ngIf="verAdd" class="row">
+  <div class="mx-auto col-10 shadow p-5 mb-5 bg-white rounded" [ngClass]="{ 'was-validated': validate }">
+    <form class="needs-validation" novalidate>
       <div class="form-row">
         <div class="col">
           <label for="usuario">Usuario</label>
-          <input [(ngModel)]="nombreUsuario" name="nombre" type="text" class="form-control" id="usuario" aria-describedby="emailHelp" placeholder="Usuario"> 
+          <input [(ngModel)]="user.username" name="usuario" type="text" class="form-control" id="usuario" aria-describedby="emailHelp" placeholder="Usuario" required>
+          <div class="valid-feedback">
+            Bien!
+          </div>
+          <div class="invalid-feedback">
+            Ingrese nombre de usuario
+          </div>
         </div>
 
         <div class="col">
           <label for="password">Contraseña</label>
-          <input [(ngModel)]="password" name="nombre" type="text" class="form-control" id="password" aria-describedby="emailHelp" placeholder="Contraseña"> 
+          <input [(ngModel)]="user.password" name="password" type="text" class="form-control" id="password" aria-describedby="emailHelp" placeholder="Contraseña" required>
+          <div class="valid-feedback">
+            Bien!
+          </div>
+          <div class="invalid-feedback">
+            Ingrese password
+          </div> 
         </div>
 
         <div class="col">
           <label for="password2">Repetir contraseña</label>
-          <input [(ngModel)]="password2" name="nombre" type="text" class="form-control" id="password2" aria-describedby="emailHelp" placeholder="Contraseña"> 
+          <input [(ngModel)]="password2" name="password2" type="text" class="form-control" id="password2" aria-describedby="emailHelp" placeholder="Contraseña" required>
+          <div class="valid-feedback">
+            Bien!
+          </div>
+          <div class="invalid-feedback">
+            Repita password
+          </div> 
         </div>
       </div>
 
       <div class="form-row mt-2">
         <div class="col">
           <label for="email">EMail</label>
-          <input [(ngModel)]="email" name="nombre" type="text" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Email"> 
+          <input [(ngModel)]="user.mail" name="email" type="text" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Email" required>
+          <div class="valid-feedback">
+            Bien!
+          </div>
+          <div class="invalid-feedback">
+            Ingrese email
+          </div> 
         </div>
 
         <div class="col">
           <label for="cel">Celular</label>
-          <input [(ngModel)]="cel" name="nombre" type="text" class="form-control" id="cel" aria-describedby="emailHelp" placeholder="Celular"> 
+          <input [(ngModel)]="user.numero_cel" name="celular" type="text" class="form-control" id="cel" aria-describedby="emailHelp" placeholder="Celular" required>
+          <div class="valid-feedback">
+            Bien!
+          </div>
+          <div class="invalid-feedback">
+            Ingrese celular
+          </div> 
         </div>
       </div>
 
@@ -34,6 +70,26 @@
     </form>
   </div>
 </div>
+
+<!-- Lista de usuarios -->
+<table class="table table-hover table-sm">
+  <thead>
+    <tr>
+      <th scope="col">Usuario</th>
+      <th scope="col">Email</th>
+      <th scope="col">Celular</th>
+      <th scope="col" style="width: 10%;">Rol</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let u of users2">
+      <th scope="row">{{u.username}}</th>
+      <td>{{u.mail}}</td>
+      <td>{{u.numero_cel}}</td>
+      <td>{{u.nivel_acceso}}</td>
+    </tr>
+  </tbody>
+</table>
 
 <!-- Modal -->
 <ng-template #template>
