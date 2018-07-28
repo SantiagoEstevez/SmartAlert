@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { } from '@types/googlemaps';
-import { Agent } from '../_models/logAgent';
+import { LogMap } from '../_models/log-map';
 import { AgentService } from '../_services/agent.service';
 import { ListNodes } from '../_services/listNodes.service';
 import { IpData } from '../_models/ip-data';
@@ -21,7 +21,7 @@ export class MapComponent implements OnInit {
   currentLat: any;
   currentLong: any;
   nodesNames: string[] = [];
-  logs: Agent[] = [];
+  logs: LogMap[] = [];
   nodeName: string;
 
   constructor(
@@ -38,7 +38,7 @@ export class MapComponent implements OnInit {
     this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);
 
     //Preparo fechas
-    this.dateFrom.setDate(this.dateFrom.getDate() -60);
+    this.dateFrom.setDate(this.dateFrom.getDate() -5);
     this.dateTo.setDate(this.dateFrom.getDate() +1);
 
     //Formateo fechas
@@ -76,27 +76,31 @@ export class MapComponent implements OnInit {
   }
 
   getLogsByNode(name: String, from: string, to: string) {
-    this.agentService.getAgentLogs(name, from, to).subscribe(res => {
+    this.agentService.getMapLogs(name, from, to).subscribe(res => {
       this.logs = res.body;
 
       for(let n in this.logs){
-        this.agentService.getDataIp(this.logs[n].fromHostIp).subscribe(resip => {
-          let ipdata: IpData = resip.body;
-
-          if (ipdata.loc) {
-            console.log("esto es lo que me devuelve: ");
-            console.log(this.logs[n]);
-            console.log(ipdata);
-
-            let marker = new google.maps.Marker({
-              position: new google.maps.LatLng(Number(ipdata.loc.split(',')[0]), Number(ipdata.loc.split(',')[1])),
-              map: this.map,
-              title: name + " | " + this.logs[n].sysLogSeverityText + " | " + ipdata.city + " | " + ipdata.region + " | " + ipdata.ip
-            });
-
-            this.markers.push(marker);
-          }
-        });
+        let ip = this.logs[n].fromHostIp;
+        
+        if (ip && ip.split('.')[0] != "10") {
+          this.agentService.getDataIp(ip).subscribe(resip => {
+            let ipdata: IpData = resip.body;
+  
+            if (ipdata.loc) {
+              console.log("esto es lo que me devuelve: ");
+              console.log(this.logs[n]);
+              console.log(ipdata);
+  
+              let marker = new google.maps.Marker({
+                position: new google.maps.LatLng(Number(ipdata.loc.split(',')[0]), Number(ipdata.loc.split(',')[1])),
+                map: this.map,
+                title: name + " | " + ipdata.city + " | " + ipdata.region + " | " + ipdata.ip
+              });
+  
+              this.markers.push(marker);
+            }
+          });
+        }
       }
     });
   }

@@ -4,14 +4,14 @@
 
 export const environment = {
   production: false,
-  api_urlbase: "http://localhost:8080/Proyecto2018/",
-  ws_urlbase: "ws://localhost:8080/Proyecto2018/"
+  //api_urlbase: "http://localhost:8080/Proyecto2018/",
+  //ws_urlbase: "ws://localhost:8080/Proyecto2018/"
   
   //api_urlbase: "http://172.20.10.3:8080/Proyecto2018/",
   //ws_urlbase: "ws://172.20.10.3:8080/Proyecto2018/"
 
-  //api_urlbase: "http://192.168.43.125:8080/Proyecto2018/",
-  //ws_urlbase: "ws://192.168.43.125:8080/Proyecto2018/"
+  api_urlbase: "http://192.168.43.125:8080/Proyecto2018/",
+  ws_urlbase: "ws://192.168.43.125:8080/Proyecto2018/"
 };
 
 /*

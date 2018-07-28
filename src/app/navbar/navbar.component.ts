@@ -25,8 +25,11 @@ export class NavbarComponent implements OnInit{
 
     this.wsService.createObservableSocket(`${environment.ws_urlbase}alert`)
       .subscribe(data => {
-        if(data != ""){
-          this.toastr.info(data, 'Notification');
+        if(data != "" && data != "Disfruta de SmartAlert!"){
+          this.toastr.info(data, 'Notification', {
+            timeOut: 0,
+            extendedTimeOut: 0
+          });
         }
 
         this.wsService.sendMessage("GiveMeMoreMessagesPls<3");
