@@ -71,6 +71,7 @@ export class EventComponent implements OnInit {
     config.alerta = "";
     config.nivel = 0;
     config.tipo = 1;
+    config.medida = "(Mb)";
     this.eventConfigs.push(config);
   }
 
@@ -142,5 +143,15 @@ export class EventComponent implements OnInit {
     console.log(event);
     this.eventService.setEventCookie(event);
     this.router.navigate(['events/detail']);
+  }
+
+  changeTypeEvent(config: EventConfiguration) {
+    if (config.tipo == 1) {
+      config.medida = "(Mb)";
+    } else if (config.tipo == 2) {
+      config.medida = "(L.A.)";
+    } else if (config.tipo == 3) {
+      config.medida = "(Gb)";
+    }
   }
 }

@@ -41,5 +41,29 @@ export class EventDetailComponent implements OnInit {
     location.reload();
   }
 
+  swichStatus(swich: boolean, idEvent: number): void {
+    if (swich) {
+      this.eventService.activeEvent(idEvent).subscribe(res => {
+        this.event.activo = true;
+      });
+    } else {
+      this.eventService.disableEvent(idEvent).subscribe(res => {
+        this.event.activo = false;
+      });
+    }
+  }
+
+  swichSuscribe(swich: boolean, idEvent: number): void {
+    if (swich) {
+      this.eventService.suscribeEvent(idEvent).subscribe(res => {
+        this.event.estoySuscripto = true;
+      });
+    } else {
+      this.eventService.unsuscribeEvent(idEvent).subscribe(res => {
+        this.event.estoySuscripto = false;
+      });
+    }
+  }
+
 
 }

@@ -21,8 +21,8 @@
           <button *ngIf="event.activo" (click)="swichStatus(false, event.idEvento)" type="button" class="btn btn-outline-danger">Desactivar</button>
   
           <!-- Suscribirme o desuscribirme -->
-          <button *ngIf="!event.activo" (click)="swichSuscribe(true, event.idEvento)" type="button" class="btn btn-outline-success ml-1">Suscribirme</button>
-          <button *ngIf="event.activo" (click)="swichSuscribe(false, event.idEvento)" type="button" class="btn btn-outline-warning ml-1">Desuscribirme</button>
+          <button *ngIf="!event.estoySuscripto" (click)="swichSuscribe(true, event.idEvento)" type="button" class="btn btn-outline-success ml-1">Suscribirme</button>
+          <button *ngIf="event.estoySuscripto" (click)="swichSuscribe(false, event.idEvento)" type="button" class="btn btn-outline-warning ml-1">Desuscribirme</button>
 
           <!-- Guardar -->
           <button (click)="saveDetails()" type="button" class="btn btn-outline-success ml-1">Guardar</button>

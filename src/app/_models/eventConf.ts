@@ -5,4 +5,5 @@ export class EventConfiguration {
   alerta: string;
   fechaMod: string;
   operador: string;
+  medida: string;
 }

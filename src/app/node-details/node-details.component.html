@@ -99,7 +99,7 @@
                           <td>{{memory.fecha}}</td>
                         </tr>
                       </tbody>
-                      <pagination class="mt-2" [itemsPerPage]="15" [totalItems]="memoryHistory.length" (pageChanged)="pageChangedRam($event)"></pagination>
+                      <pagination class="mt-2" [itemsPerPage]="15" [totalItems]="memoryHistory.length" (pageChanged)="pageChangedRam($event)" [maxSize]="maxSize"></pagination>
                     </table>
                   </tab>
 
@@ -114,7 +114,7 @@
       </tab>
 
       <!-- Hisotico de disco -->
-      <tab heading="Historico DSICO">
+      <tab heading="Historico DISCO">
         <div class="row">
           <div class="col-12">
             <div class="card">
@@ -175,7 +175,7 @@
                           <td>{{drive.espacioTotal | number:'.1-2'}}</td>
                           <td>{{drive.fecha}}</td>
                         </tr>
-                        <pagination class="mt-2" [itemsPerPage]="20" [totalItems]="driveHistory.length" (pageChanged)="pageChangedDrive($event)"></pagination>
+                        <pagination class="mt-2" [itemsPerPage]="20" [totalItems]="driveHistory.length" (pageChanged)="pageChangedDrive($event)" [maxSize]="maxSize"></pagination>
                       </tbody>
                     </table>
                   </tab>
@@ -246,7 +246,7 @@
                           <td>{{cpu.cpuLoad}}</td>
                           <td>{{cpu.fecha}}</td>
                         </tr>
-                        <pagination class="mt-2" [itemsPerPage]="20" [totalItems]="cpuHistory.length" (pageChanged)="pageChangedCpu($event)"></pagination>
+                        <pagination class="mt-2" [itemsPerPage]="20" [totalItems]="cpuHistory.length" (pageChanged)="pageChangedCpu($event)" [maxSize]="maxSize"></pagination>
                       </tbody>
                     </table>
                   </tab>

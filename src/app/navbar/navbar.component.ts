@@ -26,10 +26,14 @@ export class NavbarComponent implements OnInit{
     this.wsService.createObservableSocket(`${environment.ws_urlbase}alert`)
       .subscribe(data => {
         if(data != "" && data != "Disfruta de SmartAlert!"){
-          this.toastr.info(data, 'Notification', {
-            timeOut: 0,
-            extendedTimeOut: 0
-          });
+          if (data.split("?")[1] == this.user.username) {
+            console.log(this.user.username)
+            data = data.replace("?" + this.user.username, "")
+            this.toastr.info(data, 'NOTIFICACIÓN', {
+              timeOut: 0,
+              extendedTimeOut: 0
+            });
+          }
         }
 
         this.wsService.sendMessage("GiveMeMoreMessagesPls<3");
@@ -44,5 +48,10 @@ export class NavbarComponent implements OnInit{
     init() {
       this.user = this.authService.getUserCookie();
       return true;
+    }
+
+    logout() {
+      this.user.username = "";
+      this.authService.logout()
     }
 }

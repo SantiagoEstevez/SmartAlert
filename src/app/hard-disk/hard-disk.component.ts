@@ -37,8 +37,8 @@ export class HardDiskComponent implements OnInit {
           this.hardDiskInfo.pDisponible = (this.hardDiskInfo.espacioDisponible * 100) / this.hardDiskInfo.espacioTotal;
           this.hardDiskInfo.pUso = (uso * 100) / this.hardDiskInfo.espacioTotal;
 
-          this.DoughnutChart.data.datasets[0].data[0] = (this.hardDiskInfo.espacioTotal - this.hardDiskInfo.espacioDisponible);
-          this.DoughnutChart.data.datasets[0].data[1] = +data.split(';')[1];
+          this.DoughnutChart.data.datasets[0].data[0] = this.hardDiskInfo.espacioDisponible;
+          this.DoughnutChart.data.datasets[0].data[1] = uso;
           this.DoughnutChart.update(2000);
 
           this.wsService.sendMessage(this.nodeName);
@@ -57,8 +57,8 @@ export class HardDiskComponent implements OnInit {
 
             // These labels appear in the legend and in the tooltips when hovering different arcs
             labels: [
-                'Ocupado',
-                'Disponible',
+              'Libre',
+              'En uso',
             ]
         },
         options: {

@@ -23,6 +23,8 @@ export class NodeDetailsComponent implements OnInit {
   dateCpuFrom: Date = new Date();
   dateCpuTo: Date = new Date();
 
+  maxSize: number = 20;
+
   LineChartRam: any;
   LineChartDrive: any;
   LineChartCpu: any;
@@ -52,9 +54,9 @@ export class NodeDetailsComponent implements OnInit {
     this.node.cantCpus = this.route.snapshot.params['cpu'];
     this.node.totalRAM = this.route.snapshot.params['ram'];
 
-    this.dateDriveFrom.setDate(this.dateDriveFrom.getDate() - 15);
-    this.dateRamFrom.setDate(this.dateRamFrom.getDate() - 15);
-    this.dateCpuFrom.setDate(this.dateCpuFrom.getDate() - 15);
+    this.dateDriveFrom.setDate(this.dateDriveFrom.getDate() - 5);
+    this.dateRamFrom.setDate(this.dateRamFrom.getDate() - 5);
+    this.dateCpuFrom.setDate(this.dateCpuFrom.getDate() - 5);
 
     let from = this.dateDriveFrom.getFullYear().toString() + this.format((this.dateDriveFrom.getMonth() + 1)) + this.format(this.dateDriveFrom.getDate());
     let to = this.dateDriveTo.getFullYear().toString() + this.format((this.dateDriveTo.getMonth() + 1)) + this.format(this.dateDriveTo.getDate());
